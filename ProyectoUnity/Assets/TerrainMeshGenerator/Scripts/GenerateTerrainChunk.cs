@@ -86,6 +86,11 @@ public class GenerateTerrainChunk : MonoBehaviour {
 
 	}
 
+	public void getTileIndexesFromPosition(Vector3 position, out int tile_index_x, out int tile_index_z) {
+		tile_index_x = (int) Mathf.Abs(position.x / tile_size);
+		tile_index_z = (int) Mathf.Abs(position.z / tile_size);
+	}
+
 	// get center position of chunk
 	public Vector3 GetCenter() {
 		return center;
@@ -94,6 +99,10 @@ public class GenerateTerrainChunk : MonoBehaviour {
 
 	public SceneryType[,] getSceneryMap() {
 		return tc.getSceneryMap ();
+	}
+
+	public PathType[,] getPathMap() {
+		return tc.getPathMap ();
 	}
 
 	// generate water surface mesh
@@ -145,6 +154,16 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		tc.unloadScenery (ref scenery_obj_pool);
 	}
 
+	// load chunk path objects
+	public void loadPaths(ref Stack<GameObject> path_obj_pool) {
+		tc.renderPaths (index_x, index_y, ref path_obj_pool);
+	}
+	
+	// unload chunk path objects
+	public void unloadPaths(ref Stack<GameObject> path_obj_pool) {
+		tc.unloadPaths (ref path_obj_pool);
+	}
+
 	// destroy a scenery object on this chunk
 	public void destroySceneryObject(GameObject obj, ref Stack<GameObject> scenery_obj_pool) {
 		tc.unloadSceneryObject (obj, ref scenery_obj_pool);
@@ -160,6 +179,12 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	// displace material texture
 	private void displaceMat(ref MeshRenderer renderer, int mat_index, Vector2 uv_offset) {
 		renderer.materials[mat_index].SetTextureOffset("_MainTex", uv_offset);
+	}
+
+	public bool tileIsSuitableForScenery(int lmap_index_x, int lmap_index_y) {
+		bool freeSpace = tc.getSceneryMap () [lmap_index_x, lmap_index_y] == SceneryType.empty;
+		freeSpace = freeSpace && tc.getPathMap () [lmap_index_x, lmap_index_y] == PathType.empty;
+		return freeSpace && tc.isSuitableForScenery (lmap_index_y, lmap_index_x);
 	}
 
 	void LateUpdate() {

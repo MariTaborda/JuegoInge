@@ -8,6 +8,9 @@ public class ActionsMenu : MonoBehaviour {
 	public static ShowMenu activator;
 	public static bool MouseOver;
 
+	public GameObject action_button_prefab;
+	public GameObject close_button_prefab;
+
 	public void init() {
 		actions_menu = this;
 		panel = gameObject;

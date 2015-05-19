@@ -69,6 +69,27 @@ public class PlayerItems : MonoBehaviour {
 		return canReduce;
 	}
 
+	public bool itemIsInInventory(string item_name) {
+		for (int i = 0; i < items.Count; ++i) {
+			if (items[i].name == item_name) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public bool itemInBackpack(BackpackItem item) {
+		bool result = false;
+		
+		for (int i = 0; i < items.Count; ++i) {
+			if (items[i].name == item.name) {
+				result = true;
+			}
+		}
+		
+		return result;
+	}
+
 	public int count() {
 		return items.Count;
 	}

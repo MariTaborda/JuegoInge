@@ -1,10 +1,16 @@
 fileFormatVersion: 2
 guid: adeb21e5c383a4a8988d0b70f8ab56cb
-timeCreated: 1429315430
+timeCreated: 1431926826
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - TerrainChunk_Prefab: {instanceID: 0}
+  - WaterSurfaceChunk_Prefab: {instanceID: 0}
+  - SceneryObject_Prefab: {instanceID: 0}
+  - PathObject_Prefab: {instanceID: 0}
+  - SceneryHolder: {instanceID: 0}
+  - camera: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

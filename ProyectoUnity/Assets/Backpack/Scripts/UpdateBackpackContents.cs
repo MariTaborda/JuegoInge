@@ -43,8 +43,7 @@ public class UpdateBackpackContents : MonoBehaviour {
 				int amount = items.getAmountByPosition(butt);
 				theButton.SetActive(true);
 
-				Component[] childText;
-				childText = theButton.GetComponentsInChildren<Text>();
+				
 
 				// Se setea la imagen del boton
 				Image image = theButton.GetComponentsInChildren<Image>()[1];

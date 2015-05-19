@@ -4,7 +4,8 @@ using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public float moveSpeed;
+	public float speed;
+	private float moveSpeed;
 
 	private Vector3 destinationPosition;
 	private Vector3 oldDestinationPosition;
@@ -22,12 +23,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	private PlayerController playerController;
 	
-	void Start () {
-		oldDestinationPosition = Vector3.zero;
-		destinationPosition = transform.position;
-		playerController = GameObject.Find("Player Controller").GetComponent<PlayerController>();
-	}
-	
 	void Update () {
 
 		destinationPosition = new Vector3 (destinationPosition.x, transform.position.y, destinationPosition.z);
@@ -37,8 +32,17 @@ public class PlayerMovement : MonoBehaviour {
 
 		Debug.DrawRay (transform.position, (destinationPosition - transform.position), Color.red);
 
-		checkNewDestination ();
+		//checkNewDestination ();
 
+	}
+
+	// initialization
+	public void init() {
+		moveSpeed = speed;
+		oldDestinationPosition = Vector3.zero;
+		destinationPosition = transform.position;
+		playerController = GameController.gameController.playerController;
+		//playerController = GameObject.Find("Player Controller").GetComponent<PlayerController>();
 	}
 
 	private void moveTowardsDestination() {
@@ -93,16 +97,20 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		// Se detiene si entra en contacto con agua
+		// Se detiene si entra en contacto con agua, va mas rapido en camino
 		if (isMoving) {
 			Debug.DrawRay (transform.position, new Vector3(0,-1,0), Color.yellow);
 			RaycastHit hit;
 			if ( Physics.Raycast (transform.position, new Vector3(0,-1,0), out hit, 1f )) {
-				if(hit.transform.gameObject.layer == 4) {
+				if(hit.transform.gameObject.name == "WaterSurfaceChunk(Clone)") {
 					oldDestinationPosition = Vector3.zero;
 					isMoving = false;
 					movementInterrupted = true;
 					destinationPosition = transform.position;
+				} else if(hit.transform.gameObject.name == "PathPrefab(Clone)") {
+					moveSpeed = 4f;
+				} else {
+					moveSpeed = speed;
 				}
 			}
 		}
@@ -151,17 +159,11 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	// Se elige un nuevo destino con click si el objeto es el jugador actual
-	private void checkNewDestination() {
-
+	public void checkNewDestination() {
 		if ( gameObject == playerController.currentCharacter ) {
-			if ( Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject() ) {
-
-				setNewDestinationOnMouseCursor();
-				movementInterrupted = true;
-
-			}
+			setNewDestinationOnMouseCursor();
+			movementInterrupted = true;
 		}
-
 	}
 
 	public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles) {

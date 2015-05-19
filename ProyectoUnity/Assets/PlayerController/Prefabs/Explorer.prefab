@@ -14,6 +14,8 @@ GameObject:
   - 54: {fileID: 5493604}
   - 114: {fileID: 11438914}
   - 114: {fileID: 11425112}
+  - 114: {fileID: 11477444}
+  - 114: {fileID: 11434614}
   m_Layer: 0
   m_Name: Explorer
   m_TagString: Player
@@ -92,6 +94,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quantities: 
   Count: 0
+--- !u!114 &11434614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6483db4e19c734899a6c434de3310a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  identifier: 
 --- !u!114 &11438914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,10 +117,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2c2a9608257fbe4e90defbe3684e94d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 2.5
   isMoving: 0
-  moveSpeed: 3
   reachedDestination: 0
   movementInterrupted: 0
+--- !u!114 &11477444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedb189d286f03f459a7dafe192d9049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &13646466
 CapsuleCollider:
   m_ObjectHideFlags: 1

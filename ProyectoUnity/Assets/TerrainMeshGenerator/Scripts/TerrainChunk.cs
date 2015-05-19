@@ -16,7 +16,9 @@ public enum TileBrightness { normal, dark, light };
 public enum TextureType { grass, dirt };
 
 // Type of scenery object
-public enum SceneryType { empty, tree1, tree2, tree3, tree4, tree5, bush1, bush2, bush3, bush4, bush5, casa1, zonarural, zonaciudad, zonaruralsingranjas, fuente, mercado, police, residencial, stores, vereda};
+public enum SceneryType { empty, tree1, tree2, tree3, tree4, tree5, bush1, bush2, bush3, bush4, bush5, piedra1, piedra2, casa1, granjita, zonarural, zonarural2, zonaruralsingranjas, zonaciudad, zonaciudad2, zonaciudad3, alcatraz, bigHouse1, fuente, mercado, molino, police, residencial, stores, templo, treePink, vereda};
+
+public enum PathType { empty, path1 };
 
 public class TerrainChunk {
 	
@@ -101,11 +103,14 @@ public class TerrainChunk {
 
 	// scenery map: associates a sceneryType value with every cell
 	private SceneryType[,] scenery_map;
-	private float scenery_density = 0.5f;
+	private float scenery_density = 0.4f;
+
+	private PathType[,] path_map;
 
 	// stores scenery objects which are rendered and correspond to this terrain chunk 
 	private Stack<GameObject> reserved_sc_objs;
-	
+
+	private Stack<GameObject> reserved_path_objs;
 	
 	bool isValid = false;
 	
@@ -142,6 +147,7 @@ public class TerrainChunk {
 			} else {				//  default 
 				this.scenery_map = setSceneryMap();
 			}
+			this.path_map = setPathMap();
 			setTextureCoords();
 			isValid = true;
 		} 
@@ -346,6 +352,10 @@ public class TerrainChunk {
 		return scenery_map;
 	}
 
+	public PathType[,] getPathMap() {
+		return path_map;
+	}
+
 	// render all scenery objects on this terrain chunk. Stores rendered scenery objects in sc_obj_pool
 	public void renderScenery(int chunk_index_x, int chunk_index_y, ref Stack<GameObject> sc_obj_pool) {
 		
@@ -384,6 +394,7 @@ public class TerrainChunk {
 		GameObject newObj = sc_obj_pool.Pop();
 		newObj.SetActive(true);
 		newObj.GetComponent<tk2dSprite> ().SetSprite( ((int) scenery_map[scenery_map_ind_y, scenery_map_ind_x]) - 1 );
+		newObj.tag = getTagFromSceneryType (scenery_map[scenery_map_ind_y, scenery_map_ind_x]);
 		positionSceneryObj(ref newObj, scenery_map_ind_x, scenery_map_ind_y);
 		newObj.GetComponent<SceneryObject> ().init (chunk_index_x, chunk_index_y, scenery_map_ind_x, scenery_map_ind_y);
 		
@@ -395,6 +406,7 @@ public class TerrainChunk {
 
 	// unloads/unrenders an individual scenery object on this chunk.
 	public void unloadSceneryObject(GameObject obj, ref Stack<GameObject> sc_obj_pool) {
+		obj.tag = "Untagged";
 		obj.SetActive(false);
 		sc_obj_pool.Push(obj);
 	}
@@ -407,15 +419,76 @@ public class TerrainChunk {
 
 	// positions a scenery object on the terrain
 	private void positionSceneryObj(ref GameObject obj, int sc_map_index_x, int sc_map_index_y) {
-		
+
+		float offset = 0f;
+
 		Vector3 position = new Vector3 (
-			origin.x + sc_map_index_x * tile_size + tile_size/2, 
-			level_map [sc_map_index_y, sc_map_index_x] * slope_height, 
-			origin.z - sc_map_index_y * tile_size - tile_size/2
-			);
+			origin.x + sc_map_index_x * tile_size + tile_size/2 + offset, 
+			level_map [sc_map_index_y, sc_map_index_x] * slope_height + 0.01f, 
+			origin.z - sc_map_index_y * tile_size - tile_size/2 + offset
+		);
+
+		Vector3 collider_position = new Vector3 (
+			position.x-offset,
+			position.y,
+			position.z-offset
+		);
 		
 		obj.transform.position = position;
+		obj.transform.Find ("SceneryCollider").gameObject.transform.position = collider_position;
+
 		
+	}
+
+	// render all path objects on this terrain chunk. Stores rendered scenery objects in path_obj_pool
+	public void renderPaths(int chunk_index_x, int chunk_index_y, ref Stack<GameObject> path_obj_pool) {
+		
+		for (int i = 0; i < side_tile_count; ++i) {
+			for(int j = 0; j < side_tile_count; ++j) {
+				
+				if(path_map[i, j] != PathType.empty) {
+					
+					if(path_obj_pool.Count == 0) {
+						Debug.LogError("Path object pool is empty.");
+						return;
+					}
+					
+					loadPathObject(chunk_index_x, chunk_index_y, j, i, ref path_obj_pool);
+					
+				}
+				
+			}
+		}
+		
+	}
+	
+	// unloads/unrenders all path objects on this chunk.
+	public void unloadPaths(ref Stack<GameObject> path_obj_pool) {
+		
+		while (reserved_path_objs.Count > 0) {
+			GameObject obj = reserved_path_objs.Pop();
+			unloadPathObject(obj, ref path_obj_pool);
+		}
+		
+	}
+
+	// loads/renders an individual path object on this chunk. recieves chunk indexes for positioning. stores rendered object in path_obj_pool
+	public void loadPathObject(int chunk_index_x, int chunk_index_y, int path_map_ind_x, int path_map_ind_y, ref Stack<GameObject> path_obj_pool) {
+		
+		GameObject newObj = path_obj_pool.Pop();
+		newObj.SetActive(true);
+		newObj.GetComponent<tk2dSprite> ().SetSprite( ((int) path_map[path_map_ind_y, path_map_ind_x]) - 1 );
+		positionSceneryObj(ref newObj, path_map_ind_x, path_map_ind_y);
+		newObj.GetComponent<SceneryObject> ().init (chunk_index_x, chunk_index_y, path_map_ind_x, path_map_ind_y);
+
+		reserved_path_objs.Push(newObj);
+		
+	}
+	
+	// unloads/unrenders an individual path object on this chunk.
+	public void unloadPathObject(GameObject obj, ref Stack<GameObject> path_obj_pool) {
+		obj.SetActive(false);
+		path_obj_pool.Push(obj);
 	}
 	
 	// sets all triangles of a submesh. The terrain mesh and the water surface mesh are both submeshes.
@@ -615,6 +688,15 @@ public class TerrainChunk {
 		return result;
 		
 	}
+
+	private PathType[,] setPathMap() {
+
+		reserved_path_objs = new Stack<GameObject> ();
+		PathType[,] result = new PathType[side_tile_count, side_tile_count];
+		return result;
+
+	}
+	
 	
 	// deseable: que se bajen un poco mas de profundidad. 
 	// que no caminen los bichitos sobre ellos. 
@@ -623,18 +705,18 @@ public class TerrainChunk {
 		reserved_sc_objs = new Stack<GameObject> ();
 		SceneryType[,] result = new SceneryType[side_tile_count, side_tile_count];
 		// lugar dentro de todo el chunk (tile especifico para posicionar la zona rural)
-		result[14,11] = SceneryType.zonarural;
+		result[15,10] = SceneryType.zonarural2;
 		result[6,9] = SceneryType.zonaruralsingranjas;
-		result[11,9] = SceneryType.casa1;
-		result[13,12] = SceneryType.casa1;
+		result[3,4] = SceneryType.molino;
+		result[12,9] = SceneryType.casa1;
 		
-		result[2,18] = SceneryType.casa1;
-		result[4,16] = SceneryType.casa1;
-		result[6,15] = SceneryType.casa1;
-		result[8,17] = SceneryType.casa1;
-		result[14,20] = SceneryType.casa1;
-		result[12,23] = SceneryType.casa1;
-		//result[14,14] = SceneryType.casa1;
+		result [6, 14] = SceneryType.granjita; //zonaruralsingranjas;
+		result[15,12] = SceneryType.molino;
+		result[2,15] = SceneryType.molino;
+		result[13,19] = SceneryType.granjita;
+		result[15,22] = SceneryType.casa1;
+		result[10,18] = SceneryType.casa1;
+		result[2,22] = SceneryType.zonaruralsingranjas;
 		return result;
 	}
 	
@@ -643,34 +725,32 @@ public class TerrainChunk {
 		reserved_sc_objs = new Stack<GameObject> ();
 		SceneryType[,] result = new SceneryType[side_tile_count, side_tile_count];
 		// lugar dentro de todo el chunk (tile especifico para posicionar la zona rural)
-		result[11,11] = SceneryType.zonaciudad;
-		result[11,18] = SceneryType.mercado;
-		result [7,9] = SceneryType.police;
-		result[6,13] = SceneryType.stores;
-		result[3,12] = SceneryType.fuente;
-		result[8,18] = SceneryType.vereda;
-		result[16,16] = SceneryType.residencial;
-		result[17,13] = SceneryType.vereda;
-		result[11,13] = SceneryType.residencial;
+		result[11,11] = SceneryType.alcatraz;
+		result[1,11] = SceneryType.zonaciudad;
+		result [3,20] = SceneryType.zonaciudad3;
+		result[18,15] = SceneryType.bigHouse1;
+		result[18,18] = SceneryType.vereda;
+		result[13,15] = SceneryType.treePink;
+		result[15,20] = SceneryType.molino;
+		result[11,22] = SceneryType.molino;
 		return result;
 	}
-	
-	
-	public bool noHouses(int rand_index_y, int rand_index_x){
-		bool result = true; 
-		
-		// rango 3 tiles x 3 tiles por ej
-		// iniciando desde tile 6-12
-		for (int i = 0; i < 10; i++ ) {
-			for (int j = 0; j <= 20; j++) {
-				if (rand_index_y == i && rand_index_x == j) {
-					result = false;
-				}
-			}
-		}
-		return result;
+
+
+	public string getTagFromSceneryType(SceneryType type) {
+		string tag = "Untagged";
+
+		if((int)type >= (int)SceneryType.tree1 && (int)type <= (int)SceneryType.tree5) {
+			tag = "SceneryTree";
+		} else if((int)type >= (int)SceneryType.bush1 && (int)type <= (int)SceneryType.bush5) {
+			tag = "SceneryBush";
+		}  else if((int)type >= (int)SceneryType.piedra1 && (int)type <= (int)SceneryType.piedra2) {
+			tag = "SceneryRock";
+		}  
+
+		return tag;
 	}
-	
+
 	// gets a random vegetation scenery type 
 	private SceneryType getRandomSceneryType() {
 		
@@ -688,6 +768,16 @@ public class TerrainChunk {
 			return (SceneryType) UnityEngine.Random.Range(3, 5);
 			
 		}
+
+		if (UnityEngine.Random.Range (0, 30) == 15) {
+			if (UnityEngine.Random.Range (0, 50) == 45) {
+				return SceneryType.piedra1;
+			} else {
+				return SceneryType.piedra2;
+			}
+			
+		}
+
 		
 		if (UnityEngine.Random.Range (0, 100) == 45) {
 			//return SceneryType.bush5;
@@ -704,7 +794,7 @@ public class TerrainChunk {
 	}
 
 	// checks if a tile is suitable for scenery placement
-	private bool isSuitableForScenery(int lmap_index_x, int lmap_index_y) {
+	public bool isSuitableForScenery(int lmap_index_x, int lmap_index_y) {
 		
 		if(tileIsFlat(lmap_index_x, lmap_index_y) && !tileHeightIsLowerThanMinVert(lmap_index_x, lmap_index_y) && level_map[lmap_index_y, lmap_index_x] >= surface_level) {
 			return true;

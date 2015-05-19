@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActionChopTree : MonoBehaviour {
+public class ActionChopTree : PlayerAction {
 
 	GameObject player;
 	GameObject target;
@@ -12,29 +12,40 @@ public class ActionChopTree : MonoBehaviour {
 	bool destroyed_target;
 	bool action_interrupted;
 
-	public void performAction(GameObject player, GameObject target) {
+	public string name = "Chop Tree";
+	public string target_tag = "SceneryTree";
+	public string inv_item = "Hacha";
+
+	public override string getName() {
+		return name;
+	}
+
+	public override string getTargetTag() {
+		return target_tag;
+	}
+
+	public override string getInvItem() {
+		return inv_item;
+	}
+
+	public override void performAction(GameObject player, GameObject target) {
 	
 		this.player = player;
 		this.target = target;
 		error = false;
 
-		if (checkActors ()) {
-			if(checkInventory ()) {
-			
-				reached_target = false;
-				destroyed_target = false;
-				action_interrupted = false;
+		if(base.checkInventory (inv_item)) {
+		
+			reached_target = false;
+			destroyed_target = false;
+			action_interrupted = false;
 
-				StartCoroutine( ApproachPosition(player, target.transform.position) );
-				StartCoroutine( DestroyTarget(player, target) );
-			
-			}
-			else {
-				Debug.Log("Player missing pickaxe");
-			}
-		} 
+			StartCoroutine( ApproachPosition(player, target.transform.position) );
+			StartCoroutine( DestroyTarget(player, target) );
+		
+		}
 		else {
-			Debug.Log("Invalid actors");
+			Debug.Log("Player is missing item: "+inv_item);
 		}
 
 	}
@@ -68,14 +79,6 @@ public class ActionChopTree : MonoBehaviour {
 			destroyed_target = true;
 		}
 
-	}
-
-	bool checkActors() {
-		return true;
-	}
-
-	bool checkInventory() {
-		return true;
 	}
 
 }

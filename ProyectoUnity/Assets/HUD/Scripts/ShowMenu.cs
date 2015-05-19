@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ShowMenu : MonoBehaviour {
 
@@ -55,28 +56,53 @@ public class ShowMenu : MonoBehaviour {
 		
 		panelRT.SetAsLastSibling ();
 		panel.SetActive (true);
-		
-		clickedObject = gameObject;
 
 		ActionsMenu.activator = this;
 
+	}
+
+	void setActions(List<PlayerAction> actions) {
+		for (int i = 0; i < actions.Count; ++i) {
+			addActionButton(actions[i]);
+		}
+	}
+
+	void addActionButton(PlayerAction action) {
+		GameObject actionButton = GameObject.Instantiate (ActionsMenu.actions_menu.action_button_prefab);
+		actionButton.transform.SetParent (ActionsMenu.panel.transform, false);
+		actionButton.transform.GetChild(0).gameObject.GetComponent<Text> ().text = action.getName();
+		actionButton.GetComponent<Button>().onClick.AddListener(() => { triggerAction(action); });
+	}
+
+	void addCloseActionsMenuButton() {
+		GameObject closeButton = GameObject.Instantiate (ActionsMenu.actions_menu.close_button_prefab);
+		closeButton.transform.SetParent (ActionsMenu.panel.transform, false);
+		closeButton.GetComponent<Button>().onClick.AddListener(() => { deactivatePanel(); });
+	}
+
+	void restoreActionsMenu() {
+		foreach (Transform child in ActionsMenu.panel.transform) {
+			GameObject.Destroy(child.gameObject);
+		}
+		addCloseActionsMenuButton ();
+	}
+
+	void triggerAction(PlayerAction action) {
+		GameController.gameController.playerController.triggerActionFromMenu (action);
 	}
 
 	void OnMouseDown() {
 		
 		if (!EventSystem.current.IsPointerOverGameObject ()) {
 
-			activatePanel ();
+			List<PlayerAction> compatibleActions = GameController.gameController.playerController.getCurrentCharacterActionsOnObject (gameObject.transform.parent.gameObject);
+			if(compatibleActions.Count > 0) {
+				clickedObject = gameObject;
+				restoreActionsMenu();
+				setActions(compatibleActions);
+				activatePanel ();
+			}	
 
-			
-			/*// Builds a ray from camera point of view to the mouse position
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hit;
-			// Casts the ray and get the first game object hit
-			if (Physics.Raycast(ray, out hit, Mathf.Infinity)) {
-				clickedObject = hit.transform.gameObject;
-			}*/
-				
 		} 
 
 	}

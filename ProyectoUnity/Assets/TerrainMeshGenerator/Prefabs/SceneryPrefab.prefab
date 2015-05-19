@@ -73,7 +73,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 156ed3a3c5722104d84bc34fa93a9a7f, type: 2}
+  - {fileID: 2100000, guid: 866c133538a4de647893d2e2ab110a13, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fac570381f34f647b768dc5a5aa1364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collection: {fileID: 11443370, guid: bf511ac7fd22ca546bc33ae9d49c1e79, type: 2}
+  collection: {fileID: 11412946, guid: ac85f016adfe2364c9507a7d54d8ce67, type: 2}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _scale: {x: 1, y: 1, z: 1}
   _spriteId: 8
