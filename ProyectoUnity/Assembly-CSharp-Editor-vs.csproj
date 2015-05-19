@@ -230,7 +230,7 @@
      <None Include="Assets\TK2DROOT\tk2d\Shaders\AdditiveVertexColor.shader" />
      <None Include="Assets\TK2DROOT\tk2d_demo\democameradata\source\democamerafont.fnt" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -239,28 +239,28 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="tk2dExternal">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/TK2DROOT/tk2d/Editor/tk2dExternal.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/TK2DROOT/tk2d/Editor/tk2dExternal.dll</HintPath>
  </Reference>
  <Reference Include="tk2dSkin">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/TK2DROOT/tk2d/Editor/tk2dSkin.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/TK2DROOT/tk2d/Editor/tk2dSkin.dll</HintPath>
  </Reference>
  <Reference Include="NSubstitute">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil.Mdb">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.Mdb.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.Mdb.dll</HintPath>
  </Reference>
  <Reference Include="nunit.core">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.dll</HintPath>
  </Reference>
  <Reference Include="nunit.core.interfaces">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.interfaces.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.interfaces.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>C:/Users/mtabo_000/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.framework.dll</HintPath>
+ <HintPath>C:/Users/MaríadelMar/Desktop/JuegoInge/ProyectoUnity/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>

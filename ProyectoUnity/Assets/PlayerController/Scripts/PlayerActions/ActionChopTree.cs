@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ActionChopTree : PlayerAction {
 
+	private tk2dSpriteAnimator anim;
+
 	GameObject player;
 	GameObject target;
 	bool error;
@@ -15,6 +17,10 @@ public class ActionChopTree : PlayerAction {
 	public string name = "Chop Tree";
 	public string target_tag = "SceneryTree";
 	public string inv_item = "Hacha";
+
+	public void Start() {
+		anim = GetComponent<tk2dSpriteAnimator>();
+	}
 
 	public override string getName() {
 		return name;
@@ -75,10 +81,22 @@ public class ActionChopTree : PlayerAction {
 		}
 
 		if (reached_target) {
-			GenerateTerrain.TerrainGenerator.destroySceneryObject (target);
-			destroyed_target = true;
+		
+			// Aqui se llama a la animacion del arbol.
+			tk2dSpriteAnimator anim = target.GetComponent<tk2dSpriteAnimator>();
+
+			anim.Play("palmera");
+
+			anim.AnimationCompleted = AnimationChopTreeCompletedDelegate;
+
 		}
 
 	}
+
+	void AnimationChopTreeCompletedDelegate(tk2dSpriteAnimator sprite, tk2dSpriteAnimationClip clip) {
+		GenerateTerrain.TerrainGenerator.destroySceneryObject (target);
+		destroyed_target = true;
+	}
+
 
 }
