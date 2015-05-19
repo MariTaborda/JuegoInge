@@ -29,10 +29,6 @@ MonoBehaviour:
     dataGUID: 
     managed: 0
     loadable: 0
-  - assetGUID: e2a568f81da16284ba9682e08fa08e36
-    dataGUID: 
-    managed: 0
-    loadable: 0
   fontIndex:
   - assetGUID: 063b15d80dbb4604d890600a64c79cf8
     dataGUID: e7a6b09a73c6b2b4f8060096ddbd3b5e
@@ -700,109 +696,6 @@ MonoBehaviour:
     loadable: 0
     assetName: 
     version: 3
-  - name: allCollection
-    spriteCollectionGUID: ef21940f61e42e549906dae1e1a1071c
-    spriteCollectionDataGUID: ac85f016adfe2364c9507a7d54d8ce67
-    spriteNames:
-    - tree4
-    - tree5
-    - tree3
-    - tree2_2
-    - tree1_2
-    - bush-a
-    - bush-c
-    - bush1
-    - bush2
-    - bush-z
-    - piedra1
-    - piedra2
-    - casa1
-    - granjita
-    - zonarural
-    - zonarural2
-    - zonaruralsingranjas
-    - zonaciudad
-    - zonaciudad2
-    - zonaciudad3
-    - Alcatraz
-    - bigHouse1
-    - fuente
-    - mercado
-    - molino
-    - police
-    - residencial
-    - stores
-    - templo
-    - treePink
-    - vereda
-    spriteTextureGUIDs:
-    - 4e9fda27906404238b5f613500838784
-    - 4beaa3392e402431892fa96f584596f6
-    - 45631940df70d4a7e91cc4fd6cd69118
-    - fa22eb722baa443e491ad24599e33d17
-    - 848dfc7fdc6bc4ce08827bc45d753abd
-    - 53ec1d78c64604fe4871f6af3e42b291
-    - a7bde730115a84f13bc4e51eddd12ac8
-    - 22aa782cafcf740a2b2a175a23bac684
-    - 274fb00eee6d54929ad46753f4047ed9
-    - 795485173aaa34ce19ec96c5967aff1f
-    - de51c99461752f44abd211ea24d800ff
-    - 102d8aff34304db40b7e8a7e4439d5e8
-    - 56a91013a7bda904598cefd3e31532c7
-    - b1725abc9def46841865c10bf046463e
-    - 78fee984cc1587a43820cfd2a4da416d
-    - dc839eff25057524b8bf8d1e2779abfe
-    - 33c0cb270bef4114bbcc910397551215
-    - 0b14b0363ec13ed4b93235709c69d170
-    - 8b1141aacfef2ec499c82f2e867e62cb
-    - df37a6a7fd4de7d42af99a40e3597d26
-    - b14c41f6b5b60b842914bd06c704df61
-    - 24e461762f709814bba3aaf2bc848c84
-    - eb7ed11229bc81642be543e85040f5b0
-    - aa19df23b1e3f0045a15fe8ea2a259ca
-    - 5c2aaa734d6268148b2be40eee51f6a7
-    - acb4c075c1fc017418d2f54f0ee9f25e
-    - e191ce0a8b632d64b9e821bf32b17392
-    - 02e31bb609ecbcd4386753ad8af9f6b2
-    - c2d6b117d0c46794b9761fde25ae9592
-    - 277f79818f133384194bc576ed91b203
-    - e817607309ba2fb45b68f10dc66b5c7e
-    spriteTextureTimeStamps:
-    - 1432032534.41611
-    - 1432032534.43011
-    - 1432032534.41211
-    - 1432032534.39911
-    - 1432032534.36711
-    - 1432032534.06409
-    - 1432032534.07609
-    - 1432032534.09909
-    - 1432032534.11309
-    - 1432032534.09509
-    - 1432032534.3001
-    - 1432032534.3291
-    - 1432032534.11509
-    - 1432032534.17809
-    - 1432032534.56812
-    - 1432032534.58712
-    - 1432032534.60412
-    - 1432032534.51512
-    - 1432032534.53312
-    - 1432032534.55212
-    - 1432032533.98008
-    - 1432032534.06009
-    - 1432032534.1651
-    - 1432032534.2261
-    - 1432032534.2321
-    - 1432032534.3311
-    - 1432032534.3341
-    - 1432032534.33811
-    - 1432032534.34411
-    - 1432032534.43411
-    - 1432032534.44711
-    managedSpriteCollection: 0
-    loadable: 0
-    assetName: 
-    version: 3
   - name: PathsSprCollection
     spriteCollectionGUID: 73496981369b72041980e5502b4a0301
     spriteCollectionDataGUID: 80c1636424b7dcd4b82109910c0ac33d
@@ -886,7 +779,7 @@ MonoBehaviour:
     loadable: 0
     assetName: 
     version: 3
-  - name: ScenarySprCollection7
+  - name: allCollection
     spriteCollectionGUID: 5d91ebdf13cd36649a5a7546173e69d4
     spriteCollectionDataGUID: 4a7563a0d7805364684316c30c582163
     spriteNames:
@@ -1021,76 +914,6 @@ MonoBehaviour:
     - 1432032534.2491
     - 1432032534.2461
     - 1432032534.2611
-    managedSpriteCollection: 0
-    loadable: 0
-    assetName: 
-    version: 3
-  - name: ScenarySprCollection6
-    spriteCollectionGUID: bf6a4edb6ed05a74c8fafccb85b0021a
-    spriteCollectionDataGUID: 2e7f20f7d69186b479bebc8732e4af5e
-    spriteNames:
-    - tree3
-    - tree4
-    - tree5
-    - tree2_2
-    - tree1_2
-    - bush-a
-    - bush-c
-    - bush1
-    - bush2
-    - bush-z
-    - casa1
-    - zonarural
-    - zonaciudad2
-    - zonaruralsingranjas
-    - fuente
-    - mercado
-    - police
-    - residencial
-    - stores
-    - vereda
-    spriteTextureGUIDs:
-    - 45631940df70d4a7e91cc4fd6cd69118
-    - 4e9fda27906404238b5f613500838784
-    - 4beaa3392e402431892fa96f584596f6
-    - fa22eb722baa443e491ad24599e33d17
-    - 848dfc7fdc6bc4ce08827bc45d753abd
-    - 53ec1d78c64604fe4871f6af3e42b291
-    - a7bde730115a84f13bc4e51eddd12ac8
-    - 22aa782cafcf740a2b2a175a23bac684
-    - 274fb00eee6d54929ad46753f4047ed9
-    - 795485173aaa34ce19ec96c5967aff1f
-    - 56a91013a7bda904598cefd3e31532c7
-    - 78fee984cc1587a43820cfd2a4da416d
-    - 0b14b0363ec13ed4b93235709c69d170
-    - 33c0cb270bef4114bbcc910397551215
-    - eb7ed11229bc81642be543e85040f5b0
-    - aa19df23b1e3f0045a15fe8ea2a259ca
-    - acb4c075c1fc017418d2f54f0ee9f25e
-    - e191ce0a8b632d64b9e821bf32b17392
-    - 02e31bb609ecbcd4386753ad8af9f6b2
-    - e817607309ba2fb45b68f10dc66b5c7e
-    spriteTextureTimeStamps:
-    - 1430059293
-    - 1430059323
-    - 1430059366
-    - 1430053142
-    - 1430052908
-    - 1430058337
-    - 1430058680
-    - 1429642772
-    - 1429642790
-    - 1430059456
-    - 1430952433
-    - 1431283836
-    - 1431285589
-    - 1431283860
-    - 1431284721
-    - 1430952595
-    - 1431284598
-    - 1431284698
-    - 1431284819
-    - 1431284766
     managedSpriteCollection: 0
     loadable: 0
     assetName: 
