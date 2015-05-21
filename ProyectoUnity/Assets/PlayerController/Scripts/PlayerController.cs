@@ -119,6 +119,10 @@ public class PlayerController : MonoBehaviour {
 		UpdateBackpackUI ();
 		setActions.UpdateUI ();
 
+		builder.transform.Find ("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
+		explorer.transform.Find ("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
+		scientist.transform.Find ("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
+
 		builder.GetComponent<PlayerMovement> ().init ();
 		scientist.GetComponent<PlayerMovement> ().init ();
 		explorer.GetComponent<PlayerMovement> ().init ();

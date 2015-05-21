@@ -2189,6 +2189,8 @@ MonoBehaviour:
   terrainObject: {fileID: 991903167}
   playerControllerObject: {fileID: 1790014447}
   playerActionsHolder: {fileID: 788479797}
+  mainCamera: {fileID: 147292497}
+  SceneryObject_Prefab: {fileID: 159322, guid: f89e8f08925c044ebb5c5bbf1d4dc897, type: 2}
   terrainGenerator: {fileID: 0}
   playerController: {fileID: 0}
 --- !u!1001 &769150063

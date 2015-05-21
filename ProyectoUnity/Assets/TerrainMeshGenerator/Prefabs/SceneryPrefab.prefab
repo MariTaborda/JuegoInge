@@ -31,7 +31,8 @@ GameObject:
   - 114: {fileID: 11466222}
   - 114: {fileID: 11413312}
   - 114: {fileID: 11462988}
-  - 114: {fileID: 11499878}
+  - 114: {fileID: 11417882}
+  - 114: {fileID: 11493204}
   m_Layer: 0
   m_Name: SceneryPrefab
   m_TagString: Untagged
@@ -119,6 +120,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 0}
+--- !u!114 &11417882
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e54113e5604435b8ae87c7754f2725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  library: {fileID: 11457830, guid: 06e5cfa22dace9d4f975040e229937b1, type: 2}
+  defaultClipId: 0
+  playAutomatically: 0
 --- !u!114 &11428386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,7 +196,7 @@ MonoBehaviour:
   meshColliderPositions: []
   meshColliderMesh: {fileID: 0}
   renderLayer: 0
---- !u!114 &11499878
+--- !u!114 &11493204
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -192,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e54113e5604435b8ae87c7754f2725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  library: {fileID: 11457830, guid: 72c0703b1a69ff64593dfda1946aa88c, type: 2}
+  library: {fileID: 11457830, guid: 06e5cfa22dace9d4f975040e229937b1, type: 2}
   defaultClipId: 1
   playAutomatically: 0
 --- !u!1001 &100100000

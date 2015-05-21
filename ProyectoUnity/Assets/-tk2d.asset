@@ -25,7 +25,19 @@ MonoBehaviour:
     dataGUID: 
     managed: 0
     loadable: 0
-  - assetGUID: 72c0703b1a69ff64593dfda1946aa88c
+  - assetGUID: 930a866196f8f0e4d80f252e7ff99b07
+    dataGUID: 
+    managed: 0
+    loadable: 0
+  - assetGUID: 3b354fec3a3c26f429bd295771ca8ca7
+    dataGUID: 
+    managed: 0
+    loadable: 0
+  - assetGUID: 1b507bc27fab15b4b9af381bbe9eba51
+    dataGUID: 
+    managed: 0
+    loadable: 0
+  - assetGUID: 06e5cfa22dace9d4f975040e229937b1
     dataGUID: 
     managed: 0
     loadable: 0
@@ -696,26 +708,13 @@ MonoBehaviour:
     loadable: 0
     assetName: 
     version: 3
-  - name: PathsSprCollection
-    spriteCollectionGUID: 73496981369b72041980e5502b4a0301
-    spriteCollectionDataGUID: 80c1636424b7dcd4b82109910c0ac33d
+  - name: allCollection
+    spriteCollectionGUID: ef21940f61e42e549906dae1e1a1071c
+    spriteCollectionDataGUID: ac85f016adfe2364c9507a7d54d8ce67
     spriteNames:
-    - path_texture
-    spriteTextureGUIDs:
-    - 550b77b93a28cb44f9222fb513333ed6
-    spriteTextureTimeStamps:
-    - 1431878002
-    managedSpriteCollection: 0
-    loadable: 0
-    assetName: 
-    version: 3
-  - name: mich
-    spriteCollectionGUID: bf6a4edb6ed05a74c8fafccb85b0021a
-    spriteCollectionDataGUID: bf511ac7fd22ca546bc33ae9d49c1e79
-    spriteNames:
-    - tree3
     - tree4
     - tree5
+    - tree3
     - tree2_2
     - tree1_2
     - bush-a
@@ -723,20 +722,43 @@ MonoBehaviour:
     - bush1
     - bush2
     - bush-z
+    - piedra1
+    - piedra2
     - casa1
+    - granjita
     - zonarural
-    - zonaciudad2
+    - zonarural2
     - zonaruralsingranjas
+    - zonaciudad
+    - zonaciudad2
+    - zonaciudad3
+    - Alcatraz
+    - bigHouse1
     - fuente
     - mercado
+    - molino
     - police
     - residencial
     - stores
+    - templo
+    - treePink
     - vereda
+    - palm6
+    - palm1
+    - palm4
+    - palm3
+    - palm5
+    - palm2
+    - arbol4
+    - arbol6
+    - arbol1
+    - arbol3
+    - arbol5
+    - arbol2
     spriteTextureGUIDs:
-    - 45631940df70d4a7e91cc4fd6cd69118
     - 4e9fda27906404238b5f613500838784
     - 4beaa3392e402431892fa96f584596f6
+    - 45631940df70d4a7e91cc4fd6cd69118
     - fa22eb722baa443e491ad24599e33d17
     - 848dfc7fdc6bc4ce08827bc45d753abd
     - 53ec1d78c64604fe4871f6af3e42b291
@@ -744,37 +766,83 @@ MonoBehaviour:
     - 22aa782cafcf740a2b2a175a23bac684
     - 274fb00eee6d54929ad46753f4047ed9
     - 795485173aaa34ce19ec96c5967aff1f
+    - de51c99461752f44abd211ea24d800ff
+    - 102d8aff34304db40b7e8a7e4439d5e8
     - 56a91013a7bda904598cefd3e31532c7
+    - b1725abc9def46841865c10bf046463e
     - 78fee984cc1587a43820cfd2a4da416d
-    - 0b14b0363ec13ed4b93235709c69d170
+    - dc839eff25057524b8bf8d1e2779abfe
     - 33c0cb270bef4114bbcc910397551215
+    - 0b14b0363ec13ed4b93235709c69d170
+    - 8b1141aacfef2ec499c82f2e867e62cb
+    - df37a6a7fd4de7d42af99a40e3597d26
+    - b14c41f6b5b60b842914bd06c704df61
+    - 24e461762f709814bba3aaf2bc848c84
     - eb7ed11229bc81642be543e85040f5b0
     - aa19df23b1e3f0045a15fe8ea2a259ca
+    - 5c2aaa734d6268148b2be40eee51f6a7
     - acb4c075c1fc017418d2f54f0ee9f25e
     - e191ce0a8b632d64b9e821bf32b17392
     - 02e31bb609ecbcd4386753ad8af9f6b2
+    - c2d6b117d0c46794b9761fde25ae9592
+    - 277f79818f133384194bc576ed91b203
     - e817607309ba2fb45b68f10dc66b5c7e
+    - 656a6e22b582b1f43a14d37dc3d60b89
+    - a77ca913bdc306a41956d5392ab89876
+    - 6f1542675a4214147a6df2e65f619343
+    - cee75f6a5a8fb474c8bd6b58224a4552
+    - 266819eae86e4fa47821f079df56d360
+    - 794d182c390c3b04f8803c11af5a3d82
+    - b32afb00218e04c45b920343aa5d63f4
+    - 54673b016b465b24f8b9c3e11cd29d50
+    - 15411e71edd51a74794b9937a3b632d0
+    - 481e156499b6a4b46a4ad6a09392ee5a
+    - 2d95760527e84514098779670b20684d
+    - f298da9b839e6fd4f803622d4670856c
     spriteTextureTimeStamps:
-    - 1430059293
-    - 1430059323
-    - 1430059366
-    - 1430053142
-    - 1430052908
-    - 1430058337
-    - 1430058680
-    - 1429642772
-    - 1429642790
-    - 1430059456
-    - 1430952433
-    - 1431283836
-    - 1431285589
-    - 1431283860
-    - 1431284721
-    - 1430952595
-    - 1431284598
-    - 1431284698
-    - 1431284819
-    - 1431284766
+    - 1432032534.41611
+    - 1432032534.43011
+    - 1432032534.41211
+    - 1432032534.39911
+    - 1432032534.36711
+    - 1432032534.06409
+    - 1432032534.07609
+    - 1432032534.09909
+    - 1432032534.11309
+    - 1432032534.09509
+    - 1432032534.3001
+    - 1432032534.3291
+    - 1432032534.11509
+    - 1432032534.17809
+    - 1432032534.56812
+    - 1432032534.58712
+    - 1432032534.60412
+    - 1432032534.51512
+    - 1432032534.53312
+    - 1432032534.55212
+    - 1432032533.98008
+    - 1432032534.06009
+    - 1432032534.1651
+    - 1432032534.2261
+    - 1432032534.2321
+    - 1432032534.3311
+    - 1432032534.3341
+    - 1432032534.33811
+    - 1432032534.34411
+    - 1432032534.43411
+    - 1432032534.44711
+    - 1432032534.2831
+    - 1432032534.2461
+    - 1432032534.2641
+    - 1432032534.2611
+    - 1432032534.2671
+    - 1432032534.2491
+    - 1432032534.02809
+    - 1432032534.04709
+    - 1432032533.99609
+    - 1432032534.01509
+    - 1432032534.04309
+    - 1432032534.00909
     managedSpriteCollection: 0
     loadable: 0
     assetName: 
@@ -918,6 +986,364 @@ MonoBehaviour:
     loadable: 0
     assetName: 
     version: 3
+  - name: BuilderCollection1
+    spriteCollectionGUID: 64ea5a54a1fe7d24eaad4ec3e8645cde
+    spriteCollectionDataGUID: 3f1b01c9420fd524cbfda259908554da
+    spriteNames:
+    - builder_idle_left
+    - builder_idle_right
+    - builder_walk_1_left
+    - builder_walk_2_left
+    - builder_walk_1_right
+    - builder_walk_2_right
+    spriteTextureGUIDs:
+    - eddd404dace649a44869dd312669a784
+    - c4dcce3f1fa57e34a85b2363e49ddc87
+    - 3ebd211f968e86c429eaf5b85e3d27d4
+    - 28a05c5cf2834d644afbede86933216b
+    - 5e7d1bbf6103aa746a1ac5905b9a41df
+    - b8b21fc3f7537374a8939a2734eec4fe
+    spriteTextureTimeStamps:
+    - 1432074990
+    - 1432075674
+    - 1432075422
+    - 1432075445
+    - 1432075479
+    - 1432075497
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: ExplorerCollection1
+    spriteCollectionGUID: 08712b5b0df959f44a32012e288d9260
+    spriteCollectionDataGUID: 5f019fa59ef25384085168d04ad9e579
+    spriteNames:
+    - explorer_idle_left
+    - explorer_idle_right
+    - explorer_walk_1_left
+    - explorer_walk_2_left
+    - explorer_walk_1_right
+    - explorer_walk_2_right
+    spriteTextureGUIDs:
+    - 30f91d292e646ad4ab0a3e03bfa07389
+    - 111e5d24401d630459707cc7247305c6
+    - 8f68d69166808184bb2783d53dea7c96
+    - a7c7099f2d3fc864e9b7c67b870c8533
+    - 63038f048140a504ea332a2d11cc174c
+    - e0b72aaaa6cf332428deccc10e5f3ad6
+    spriteTextureTimeStamps:
+    - 1432075332
+    - 1432079245
+    - 1432079094
+    - 1432079107
+    - 1432079157
+    - 1432079176
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: PathsSprCollection
+    spriteCollectionGUID: 73496981369b72041980e5502b4a0301
+    spriteCollectionDataGUID: 80c1636424b7dcd4b82109910c0ac33d
+    spriteNames:
+    - path_texture
+    spriteTextureGUIDs:
+    - 550b77b93a28cb44f9222fb513333ed6
+    spriteTextureTimeStamps:
+    - 1432032534.2961
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: mich
+    spriteCollectionGUID: bf6a4edb6ed05a74c8fafccb85b0021a
+    spriteCollectionDataGUID: bf511ac7fd22ca546bc33ae9d49c1e79
+    spriteNames:
+    - tree3
+    - tree4
+    - tree5
+    - tree2_2
+    - tree1_2
+    - bush-a
+    - bush-c
+    - bush1
+    - bush2
+    - bush-z
+    - casa1
+    - zonarural
+    - zonaciudad2
+    - zonaruralsingranjas
+    - fuente
+    - mercado
+    - police
+    - residencial
+    - stores
+    - vereda
+    spriteTextureGUIDs:
+    - 45631940df70d4a7e91cc4fd6cd69118
+    - 4e9fda27906404238b5f613500838784
+    - 4beaa3392e402431892fa96f584596f6
+    - fa22eb722baa443e491ad24599e33d17
+    - 848dfc7fdc6bc4ce08827bc45d753abd
+    - 53ec1d78c64604fe4871f6af3e42b291
+    - a7bde730115a84f13bc4e51eddd12ac8
+    - 22aa782cafcf740a2b2a175a23bac684
+    - 274fb00eee6d54929ad46753f4047ed9
+    - 795485173aaa34ce19ec96c5967aff1f
+    - 56a91013a7bda904598cefd3e31532c7
+    - 78fee984cc1587a43820cfd2a4da416d
+    - 0b14b0363ec13ed4b93235709c69d170
+    - 33c0cb270bef4114bbcc910397551215
+    - eb7ed11229bc81642be543e85040f5b0
+    - aa19df23b1e3f0045a15fe8ea2a259ca
+    - acb4c075c1fc017418d2f54f0ee9f25e
+    - e191ce0a8b632d64b9e821bf32b17392
+    - 02e31bb609ecbcd4386753ad8af9f6b2
+    - e817607309ba2fb45b68f10dc66b5c7e
+    spriteTextureTimeStamps:
+    - 1432032534.41211
+    - 1432032534.41611
+    - 1432032534.43011
+    - 1432032534.39911
+    - 1432032534.36711
+    - 1432032534.06409
+    - 1432032534.07609
+    - 1432032534.09909
+    - 1432032534.11309
+    - 1432032534.09509
+    - 1432032534.11509
+    - 1432032534.56812
+    - 1432032534.51512
+    - 1432032534.60412
+    - 1432032534.1651
+    - 1432032534.2261
+    - 1432032534.3311
+    - 1432032534.3341
+    - 1432032534.33811
+    - 1432032534.44711
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: ScientistCollection1
+    spriteCollectionGUID: a803509be9eed9243a12334280f45798
+    spriteCollectionDataGUID: cd20baebf88040c4193e6329dc1e055a
+    spriteNames:
+    - scientist_idle_left
+    - scientist_idle_right
+    - scientist_walk_1_left
+    - scientist_walk_2_left
+    - scientist_walk_1_right
+    - scientist_walk_2_right
+    spriteTextureGUIDs:
+    - 527c3a096d4be6c4bb2a3cca5749118a
+    - c7612f734c5e6a248836e97fa67919ee
+    - 1e2089cf42688ed4aac9fd849cf548bf
+    - 7e8c1310f30a3fd40bfa2c0e7fa63983
+    - ca63df387117fad46b1e5dba811e5831
+    - a88e8c661752b4e4781827e53c83b41e
+    spriteTextureTimeStamps:
+    - 1432075313
+    - 1432079232
+    - 1432079042
+    - 1432079065
+    - 1432079200
+    - 1432079827
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: ScenarySprCollection7
+    spriteCollectionGUID: 5d91ebdf13cd36649a5a7546173e69d4
+    spriteCollectionDataGUID: 2c7f53756fc691c45a9978e76164c897
+    spriteNames:
+    - tree4
+    - tree5
+    - tree3
+    - tree2_2
+    - tree1_2
+    - bush-a
+    - bush-c
+    - bush1
+    - bush2
+    - bush-z
+    - piedra1
+    - piedra2
+    - casa1
+    - granjita
+    - zonarural
+    - zonarural2
+    - zonaruralsingranjas
+    - zonaciudad
+    - zonaciudad2
+    - zonaciudad3
+    - Alcatraz
+    - bigHouse1
+    - fuente
+    - mercado
+    - molino
+    - police
+    - residencial
+    - stores
+    - templo
+    - treePink
+    - vereda
+    - arbol1
+    - arbol2
+    - arbol3
+    - arbol4
+    - arbol5
+    - arbol6
+    spriteTextureGUIDs:
+    - 4e9fda27906404238b5f613500838784
+    - 4beaa3392e402431892fa96f584596f6
+    - 45631940df70d4a7e91cc4fd6cd69118
+    - fa22eb722baa443e491ad24599e33d17
+    - 848dfc7fdc6bc4ce08827bc45d753abd
+    - 53ec1d78c64604fe4871f6af3e42b291
+    - a7bde730115a84f13bc4e51eddd12ac8
+    - 22aa782cafcf740a2b2a175a23bac684
+    - 274fb00eee6d54929ad46753f4047ed9
+    - 795485173aaa34ce19ec96c5967aff1f
+    - de51c99461752f44abd211ea24d800ff
+    - 102d8aff34304db40b7e8a7e4439d5e8
+    - 56a91013a7bda904598cefd3e31532c7
+    - b1725abc9def46841865c10bf046463e
+    - 78fee984cc1587a43820cfd2a4da416d
+    - dc839eff25057524b8bf8d1e2779abfe
+    - 33c0cb270bef4114bbcc910397551215
+    - 0b14b0363ec13ed4b93235709c69d170
+    - 8b1141aacfef2ec499c82f2e867e62cb
+    - df37a6a7fd4de7d42af99a40e3597d26
+    - b14c41f6b5b60b842914bd06c704df61
+    - 24e461762f709814bba3aaf2bc848c84
+    - eb7ed11229bc81642be543e85040f5b0
+    - aa19df23b1e3f0045a15fe8ea2a259ca
+    - 5c2aaa734d6268148b2be40eee51f6a7
+    - acb4c075c1fc017418d2f54f0ee9f25e
+    - e191ce0a8b632d64b9e821bf32b17392
+    - 02e31bb609ecbcd4386753ad8af9f6b2
+    - c2d6b117d0c46794b9761fde25ae9592
+    - 277f79818f133384194bc576ed91b203
+    - e817607309ba2fb45b68f10dc66b5c7e
+    - 15411e71edd51a74794b9937a3b632d0
+    - f298da9b839e6fd4f803622d4670856c
+    - 481e156499b6a4b46a4ad6a09392ee5a
+    - b32afb00218e04c45b920343aa5d63f4
+    - 2d95760527e84514098779670b20684d
+    - 54673b016b465b24f8b9c3e11cd29d50
+    spriteTextureTimeStamps:
+    - 1432032534.41611
+    - 1432032534.43011
+    - 1432032534.41211
+    - 1432032534.39911
+    - 1432032534.36711
+    - 1432032534.06409
+    - 1432032534.07609
+    - 1432032534.09909
+    - 1432032534.11309
+    - 1432032534.09509
+    - 1432032534.3001
+    - 1432032534.3291
+    - 1432032534.11509
+    - 1432032534.17809
+    - 1432032534.56812
+    - 1432032534.58712
+    - 1432032534.60412
+    - 1432032534.51512
+    - 1432032534.53312
+    - 1432032534.55212
+    - 1432032533.98008
+    - 1432032534.06009
+    - 1432032534.1651
+    - 1432032534.2261
+    - 1432032534.2321
+    - 1432032534.3311
+    - 1432032534.3341
+    - 1432032534.33811
+    - 1432032534.34411
+    - 1432032534.43411
+    - 1432032534.44711
+    - 1432032533.99609
+    - 1432032534.00909
+    - 1432032534.01509
+    - 1432032534.02809
+    - 1432032534.04309
+    - 1432032534.04709
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
+  - name: ScenarySprCollection6
+    spriteCollectionGUID: bf6a4edb6ed05a74c8fafccb85b0021a
+    spriteCollectionDataGUID: 2e7f20f7d69186b479bebc8732e4af5e
+    spriteNames:
+    - tree3
+    - tree4
+    - tree5
+    - tree2_2
+    - tree1_2
+    - bush-a
+    - bush-c
+    - bush1
+    - bush2
+    - bush-z
+    - casa1
+    - zonarural
+    - zonaciudad2
+    - zonaruralsingranjas
+    - fuente
+    - mercado
+    - police
+    - residencial
+    - stores
+    - vereda
+    spriteTextureGUIDs:
+    - 45631940df70d4a7e91cc4fd6cd69118
+    - 4e9fda27906404238b5f613500838784
+    - 4beaa3392e402431892fa96f584596f6
+    - fa22eb722baa443e491ad24599e33d17
+    - 848dfc7fdc6bc4ce08827bc45d753abd
+    - 53ec1d78c64604fe4871f6af3e42b291
+    - a7bde730115a84f13bc4e51eddd12ac8
+    - 22aa782cafcf740a2b2a175a23bac684
+    - 274fb00eee6d54929ad46753f4047ed9
+    - 795485173aaa34ce19ec96c5967aff1f
+    - 56a91013a7bda904598cefd3e31532c7
+    - 78fee984cc1587a43820cfd2a4da416d
+    - 0b14b0363ec13ed4b93235709c69d170
+    - 33c0cb270bef4114bbcc910397551215
+    - eb7ed11229bc81642be543e85040f5b0
+    - aa19df23b1e3f0045a15fe8ea2a259ca
+    - acb4c075c1fc017418d2f54f0ee9f25e
+    - e191ce0a8b632d64b9e821bf32b17392
+    - 02e31bb609ecbcd4386753ad8af9f6b2
+    - e817607309ba2fb45b68f10dc66b5c7e
+    spriteTextureTimeStamps:
+    - 1432032534.41211
+    - 1432032534.41611
+    - 1432032534.43011
+    - 1432032534.39911
+    - 1432032534.36711
+    - 1432032534.06409
+    - 1432032534.07609
+    - 1432032534.09909
+    - 1432032534.11309
+    - 1432032534.09509
+    - 1432032534.11509
+    - 1432032534.56812
+    - 1432032534.51512
+    - 1432032534.60412
+    - 1432032534.1651
+    - 1432032534.2261
+    - 1432032534.3311
+    - 1432032534.3341
+    - 1432032534.33811
+    - 1432032534.44711
+    managedSpriteCollection: 0
+    loadable: 0
+    assetName: 
+    version: 3
   - name: zonasCollection
     spriteCollectionGUID: 1ebbfb12cb756414b8c52223b4c988e8
     spriteCollectionDataGUID: f7d2d47a1da8b2a42ab4d072035d64f1
@@ -932,10 +1358,10 @@ MonoBehaviour:
     - 0b14b0363ec13ed4b93235709c69d170
     - 33c0cb270bef4114bbcc910397551215
     spriteTextureTimeStamps:
-    - 1430952433
-    - 1431283836
-    - 1431285589
-    - 1431283860
+    - 1432032534.11509
+    - 1432032534.56812
+    - 1432032534.51512
+    - 1432032534.60412
     managedSpriteCollection: 0
     loadable: 0
     assetName: 
@@ -974,20 +1400,20 @@ MonoBehaviour:
     - 0b14b0363ec13ed4b93235709c69d170
     - 33c0cb270bef4114bbcc910397551215
     spriteTextureTimeStamps:
-    - 1430059293
-    - 1430059323
-    - 1430052908
-    - 1430053142
-    - 1430059366
-    - 1430058337
-    - 1430058680
-    - 1429642772
-    - 1429642790
-    - 1430059456
-    - 1430952433
-    - 1431283836
-    - 1431285589
-    - 1431283860
+    - 1432032534.41211
+    - 1432032534.41611
+    - 1432032534.36711
+    - 1432032534.39911
+    - 1432032534.43011
+    - 1432032534.06409
+    - 1432032534.07609
+    - 1432032534.09909
+    - 1432032534.11309
+    - 1432032534.09509
+    - 1432032534.11509
+    - 1432032534.56812
+    - 1432032534.51512
+    - 1432032534.60412
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

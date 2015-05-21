@@ -161,6 +161,7 @@
      <Compile Include="Assets\TerrainMeshGenerator\Scripts\GenerateTerrainChunk.cs" />
      <Compile Include="Assets\TerrainMeshGenerator\Scripts\MapLoader.cs" />
      <Compile Include="Assets\TerrainMeshGenerator\Scripts\SceneryObject.cs" />
+     <Compile Include="Assets\TerrainMeshGenerator\Scripts\SpriteMapper.cs" />
      <Compile Include="Assets\TerrainMeshGenerator\Scripts\TerrainChunk.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\AssertionComponent.cs" />
      <Compile Include="Assets\UnityTestTools\Assertions\AssertionException.cs" />

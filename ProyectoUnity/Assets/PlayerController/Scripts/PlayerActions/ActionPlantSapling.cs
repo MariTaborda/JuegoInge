@@ -118,10 +118,9 @@ public class ActionPlantSapling : PlayerAction {
 		}
 		
 		if (reached_target) {
-			SceneryType[,] sceneryTypes;
-			sceneryTypes = GenerateTerrain.TerrainGenerator.getChunkSceneryMap(chunkIndexX,chunkIndexY);
+			int[,] sceneryTypes = GenerateTerrain.TerrainGenerator.getChunkSceneryMap(chunkIndexX,chunkIndexY);
 
-			sceneryTypes[tileIndexX,tileIndexY] = SceneryType.tree2;
+			sceneryTypes[tileIndexX,tileIndexY] = GameController.gameController.spriteMapper.getRandomTreeId();
 
 			GenerateTerrain.TerrainGenerator.UpdateChunk(chunkIndexX,chunkIndexY);
 

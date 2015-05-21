@@ -3,8 +3,6 @@ using System.Collections;
 
 public class ActionChopTree : PlayerAction {
 
-	private tk2dSpriteAnimator anim;
-
 	GameObject player;
 	GameObject target;
 	bool error;
@@ -19,7 +17,6 @@ public class ActionChopTree : PlayerAction {
 	public string inv_item = "Hacha";
 
 	public void Start() {
-		anim = GetComponent<tk2dSpriteAnimator>();
 	}
 
 	public override string getName() {
@@ -84,8 +81,16 @@ public class ActionChopTree : PlayerAction {
 		
 			// Aqui se llama a la animacion del arbol.
 			tk2dSpriteAnimator anim = target.GetComponent<tk2dSpriteAnimator>();
+			tk2dSprite sprite = target.GetComponent<tk2dSprite>();
 
-			anim.Play("palmera");
+			switch(sprite.spriteId) {
+			case 1:
+				anim.Play("arbol");
+				break;
+			case 3:
+				anim.Play("palmera");
+				break;
+			}
 
 			anim.AnimationCompleted = AnimationChopTreeCompletedDelegate;
 

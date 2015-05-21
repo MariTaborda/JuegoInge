@@ -97,7 +97,7 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	}
 
 
-	public SceneryType[,] getSceneryMap() {
+	public int[,] getSceneryMap() {
 		return tc.getSceneryMap ();
 	}
 
@@ -182,7 +182,7 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	}
 
 	public bool tileIsSuitableForScenery(int lmap_index_x, int lmap_index_y) {
-		bool freeSpace = tc.getSceneryMap () [lmap_index_x, lmap_index_y] == SceneryType.empty;
+		bool freeSpace = tc.getSceneryMap () [lmap_index_x, lmap_index_y] == GameController.gameController.spriteMapper.getEmpty();
 		freeSpace = freeSpace && tc.getPathMap () [lmap_index_x, lmap_index_y] == PathType.empty;
 		return freeSpace && tc.isSuitableForScenery (lmap_index_y, lmap_index_x);
 	}

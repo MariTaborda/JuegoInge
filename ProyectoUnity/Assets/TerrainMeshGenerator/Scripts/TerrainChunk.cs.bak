@@ -16,7 +16,9 @@ public enum TileBrightness { normal, dark, light };
 public enum TextureType { grass, dirt };
 
 // Type of scenery object
-public enum SceneryType { empty, tree1, tree2, tree3, tree4, tree5, bush1, bush2, bush3, bush4, bush5, casa1, zonarural, zonaciudad, zonaruralsingranjas, fuente, mercado, police, residencial, stores, vereda};
+public enum SceneryType { empty, tree1, tree2, tree3, tree4, tree5, bush1, bush2, bush3, bush4, bush5, piedra1, piedra2, casa1, granjita, zonarural, zonarural2, zonaruralsingranjas, zonaciudad, zonaciudad2, zonaciudad3, alcatraz, bigHouse1, fuente, mercado, molino, police, residencial, stores, templo, treePink, vereda};
+
+public enum PathType { empty, path1 };
 
 public class TerrainChunk {
 	
@@ -99,13 +101,16 @@ public class TerrainChunk {
 	private MeshFilter mesh_filter;
 	private MeshRenderer mesh_renderer;
 
-	// scenery map: associates a sceneryType value with every cell
-	private SceneryType[,] scenery_map;
-	private float scenery_density = 0.5f;
+	// scenery map: associates a scenery value with every cell
+	private int[,] scenery_map;
+	private float scenery_density = 0.4f;
+
+	private PathType[,] path_map;
 
 	// stores scenery objects which are rendered and correspond to this terrain chunk 
 	private Stack<GameObject> reserved_sc_objs;
-	
+
+	private Stack<GameObject> reserved_path_objs;
 	
 	bool isValid = false;
 	
@@ -142,6 +147,7 @@ public class TerrainChunk {
 			} else {				//  default 
 				this.scenery_map = setSceneryMap();
 			}
+			this.path_map = setPathMap();
 			setTextureCoords();
 			isValid = true;
 		} 
@@ -342,8 +348,12 @@ public class TerrainChunk {
 		
 	}
 	
-	public SceneryType[,] getSceneryMap() {
+	public int[,] getSceneryMap() {
 		return scenery_map;
+	}
+
+	public PathType[,] getPathMap() {
+		return path_map;
 	}
 
 	// render all scenery objects on this terrain chunk. Stores rendered scenery objects in sc_obj_pool
@@ -352,7 +362,7 @@ public class TerrainChunk {
 		for (int i = 0; i < side_tile_count; ++i) {
 			for(int j = 0; j < side_tile_count; ++j) {
 				
-				if(scenery_map[i, j] != SceneryType.empty) {
+				if(scenery_map[i, j] != GameController.gameController.spriteMapper.getEmpty ()) {
 					
 					if(sc_obj_pool.Count == 0) {
 						Debug.LogError("Scenery object pool is empty.");
@@ -383,8 +393,8 @@ public class TerrainChunk {
 		
 		GameObject newObj = sc_obj_pool.Pop();
 		newObj.SetActive(true);
-		newObj.GetComponent<tk2dSprite> ().SetSprite( ((int) scenery_map[scenery_map_ind_y, scenery_map_ind_x]) - 1 );
-		newObj.tag = getTagFromSceneryType (scenery_map[scenery_map_ind_y, scenery_map_ind_x]);
+		newObj.GetComponent<tk2dSprite> ().SetSprite(scenery_map[scenery_map_ind_y, scenery_map_ind_x]);
+		newObj.tag = GameController.gameController.spriteMapper.getTagFromSpriteId (scenery_map[scenery_map_ind_y, scenery_map_ind_x]);
 		positionSceneryObj(ref newObj, scenery_map_ind_x, scenery_map_ind_y);
 		newObj.GetComponent<SceneryObject> ().init (chunk_index_x, chunk_index_y, scenery_map_ind_x, scenery_map_ind_y);
 		
@@ -404,20 +414,93 @@ public class TerrainChunk {
 	// associates a tiles scenery map value as empty. i.e destroys a scenery object on this chunk
 	public void destroySceneryObject(GameObject obj) {
 		SceneryObject sc_obj = obj.GetComponent<SceneryObject> ();
-		scenery_map [sc_obj.scenery_index_y, sc_obj.scenery_index_x] = SceneryType.empty;
+		scenery_map [sc_obj.scenery_index_y, sc_obj.scenery_index_x] = GameController.gameController.spriteMapper.getEmpty ();
+	}
+
+	private void positionObjectOnChunk(ref GameObject obj, int map_index_x, int map_index_y, out Vector3 position, out Vector3 collider_position) {
+
+		float offset = 0f;
+		
+		position = new Vector3 (
+			origin.x + map_index_x * tile_size + tile_size/2 + offset, 
+			level_map [map_index_y, map_index_x] * slope_height + 0.01f, 
+			origin.z - map_index_y * tile_size - tile_size/2 + offset
+			);
+		
+		collider_position = new Vector3 (
+			position.x-offset,
+			position.y,
+			position.z-offset
+			);
+
 	}
 
 	// positions a scenery object on the terrain
-	private void positionSceneryObj(ref GameObject obj, int sc_map_index_x, int sc_map_index_y) {
-		
-		Vector3 position = new Vector3 (
-			origin.x + sc_map_index_x * tile_size + tile_size/2, 
-			level_map [sc_map_index_y, sc_map_index_x] * slope_height, 
-			origin.z - sc_map_index_y * tile_size - tile_size/2
-			);
-		
+	private void positionSceneryObj(ref GameObject obj, int map_index_x, int map_index_y) {
+		Vector3 position = new Vector3 ();
+		Vector3 collider_position = new Vector3 ();
+		positionObjectOnChunk (ref obj, map_index_x, map_index_y, out position, out collider_position);
 		obj.transform.position = position;
+		obj.transform.Find ("SceneryCollider").gameObject.transform.position = collider_position;
+	}
+
+	// positions a path object on the terrain
+	private void positionPathObj(ref GameObject obj, int map_index_x, int map_index_y) {
+		Vector3 position = new Vector3 ();
+		Vector3 collider_position = new Vector3 ();
+		positionObjectOnChunk (ref obj, map_index_x, map_index_y, out position, out collider_position);
+		obj.transform.position = position;
+	}
+
+	// render all path objects on this terrain chunk. Stores rendered scenery objects in path_obj_pool
+	public void renderPaths(int chunk_index_x, int chunk_index_y, ref Stack<GameObject> path_obj_pool) {
 		
+		for (int i = 0; i < side_tile_count; ++i) {
+			for(int j = 0; j < side_tile_count; ++j) {
+				
+				if(path_map[i, j] != PathType.empty) {
+					
+					if(path_obj_pool.Count == 0) {
+						Debug.LogError("Path object pool is empty.");
+						return;
+					}
+					
+					loadPathObject(chunk_index_x, chunk_index_y, j, i, ref path_obj_pool);
+					
+				}
+				
+			}
+		}
+		
+	}
+	
+	// unloads/unrenders all path objects on this chunk.
+	public void unloadPaths(ref Stack<GameObject> path_obj_pool) {
+		
+		while (reserved_path_objs.Count > 0) {
+			GameObject obj = reserved_path_objs.Pop();
+			unloadPathObject(obj, ref path_obj_pool);
+		}
+		
+	}
+
+	// loads/renders an individual path object on this chunk. recieves chunk indexes for positioning. stores rendered object in path_obj_pool
+	public void loadPathObject(int chunk_index_x, int chunk_index_y, int path_map_ind_x, int path_map_ind_y, ref Stack<GameObject> path_obj_pool) {
+		
+		GameObject newObj = path_obj_pool.Pop();
+		newObj.SetActive(true);
+		newObj.GetComponent<tk2dSprite> ().SetSprite( ((int) path_map[path_map_ind_y, path_map_ind_x]) - 1 );
+		positionPathObj(ref newObj, path_map_ind_x, path_map_ind_y);
+		newObj.GetComponent<SceneryObject> ().init (chunk_index_x, chunk_index_y, path_map_ind_x, path_map_ind_y);
+
+		reserved_path_objs.Push(newObj);
+		
+	}
+	
+	// unloads/unrenders an individual path object on this chunk.
+	public void unloadPathObject(GameObject obj, ref Stack<GameObject> path_obj_pool) {
+		obj.SetActive(false);
+		path_obj_pool.Push(obj);
 	}
 	
 	// sets all triangles of a submesh. The terrain mesh and the water surface mesh are both submeshes.
@@ -584,141 +667,137 @@ public class TerrainChunk {
 
 	// sets flow directions for every tile
 	private WaterFlowDirection[,] setFlowMap() {
-		
+
+		bool hasRiver = false;
 		WaterFlowDirection[,] result = new WaterFlowDirection[side_tile_count, side_tile_count];
-		
+		List<Vector2> flowing_tiles = new List<Vector2> ();
+
+
+		for (int i = 0; i < side_tile_count*side_tile_count; ++i) {
+			if(level_map[(int)i/side_tile_count, i%side_tile_count] < surface_level) {
+				flowing_tiles.Add (new Vector2(i%side_tile_count, (int)i/side_tile_count));
+				break;
+			}
+		}
+
+
+
 		// remove later
-		for (int i = 0; i < side_tile_count; ++i) {
+		/*for (int i = 0; i < side_tile_count; ++i) {
 			for (int j = 0; j < side_tile_count; ++j) {
 				result[i, j] = (WaterFlowDirection) UnityEngine.Random.Range(0, 8);
+				if(i > j) {
+					result[i, j] = WaterFlowDirection.N;
+				}
+				else {
+					result[i, j] = WaterFlowDirection.NE;
+				}
 			}		
-		}
+		}*/
 		return result;
 		
 	}
 
+
+
+	private WaterFlowDirection getFlowDirection(int origin_x, int origin_z, int destination_x, int destination_z) { 
+
+		WaterFlowDirection result = WaterFlowDirection.N;
+
+		if(destination_x > origin_x) {
+			result = WaterFlowDirection.E;
+		}
+
+		if(destination_z > origin_z) {
+			result = WaterFlowDirection.N;
+		}
+
+		if(origin_x == destination_x && origin_z == destination_z) {
+			result = WaterFlowDirection.SW;
+		}
+		return result;
+
+	}
+
+	private int[,] initSceneryMap() {
+		int[,] result = new int[side_tile_count, side_tile_count];
+		for (int i = 0; i < side_tile_count*side_tile_count; ++i) {
+			result[(int)i/side_tile_count, i%side_tile_count] = GameController.gameController.spriteMapper.getEmpty ();
+		}
+		return result;
+	}
+
 	// sets a scenery type for every tile
-	private SceneryType[,] setSceneryMap() {
+	private int[,] setSceneryMap() {
 		
 		reserved_sc_objs = new Stack<GameObject> ();
-		SceneryType[,] result = new SceneryType[side_tile_count, side_tile_count];
+		int[,] result = initSceneryMap ();
 		int scenery_instances = Mathf.FloorToInt(side_tile_count * side_tile_count * scenery_density);
-		
+
 		for (int i = 0; i < scenery_instances; ++i) {
 			
 			int rand_index_x = UnityEngine.Random.Range(0, side_tile_count);
 			int rand_index_y = UnityEngine.Random.Range(0, side_tile_count);
 			
-			if(isSuitableForScenery(rand_index_x, rand_index_y) && (result[rand_index_y, rand_index_x] == SceneryType.empty)){ // && noHouses(rand_index_y, rand_index_x)) {
-				result[rand_index_y, rand_index_x] = getRandomSceneryType();
+			if(isSuitableForScenery(rand_index_x, rand_index_y) && (result[rand_index_y, rand_index_x] == GameController.gameController.spriteMapper.getEmpty ())){ // && noHouses(rand_index_y, rand_index_x)) {
+				int sprite_id = GameController.gameController.spriteMapper.getRandomVegetation();
+				result[rand_index_y, rand_index_x] = sprite_id;
 			}
 			
 		}
 		return result;
 		
 	}
+
+	private PathType[,] setPathMap() {
+
+		reserved_path_objs = new Stack<GameObject> ();
+		PathType[,] result = new PathType[side_tile_count, side_tile_count];
+		return result;
+
+	}
+	
 	
 	// deseable: que se bajen un poco mas de profundidad. 
 	// que no caminen los bichitos sobre ellos. 
-	private SceneryType[,] setSceneryMapRural() { 
+	private int[,] setSceneryMapRural() { 
 		
 		reserved_sc_objs = new Stack<GameObject> ();
-		SceneryType[,] result = new SceneryType[side_tile_count, side_tile_count];
+		int[,] result = initSceneryMap ();
 		// lugar dentro de todo el chunk (tile especifico para posicionar la zona rural)
-		result[14,11] = SceneryType.zonarural;
-		result[6,9] = SceneryType.zonaruralsingranjas;
-		result[11,9] = SceneryType.casa1;
-		result[13,12] = SceneryType.casa1;
+		result[15,10] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.zona_rural_2);
+		result[6,9] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.zonaruralsingranjas);
+		result[3,4] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.molino);
+		result[12,9] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.casa_1);
 		
-		result[2,18] = SceneryType.casa1;
-		result[4,16] = SceneryType.casa1;
-		result[6,15] = SceneryType.casa1;
-		result[8,17] = SceneryType.casa1;
-		result[14,20] = SceneryType.casa1;
-		result[12,23] = SceneryType.casa1;
-		//result[14,14] = SceneryType.casa1;
+		result [6, 14] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.granjita_1); //zonaruralsingranjas;
+		result[15,12] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.molino);
+		result[2,15] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.molino);
+		result[13,19] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.granjita_1);
+		result[15,22] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.casa_1);
+		result[10,18] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.casa_1);
+		result[2,22] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.zonaruralsingranjas);
 		return result;
 	}
 	
-	private SceneryType[,] setSceneryMapCity() { 
+	private int[,] setSceneryMapCity() { 
 		
 		reserved_sc_objs = new Stack<GameObject> ();
-		SceneryType[,] result = new SceneryType[side_tile_count, side_tile_count];
+		int[,] result = initSceneryMap();
 		// lugar dentro de todo el chunk (tile especifico para posicionar la zona rural)
-		result[11,11] = SceneryType.zonaciudad;
-		result[11,18] = SceneryType.mercado;
-		result [7,9] = SceneryType.police;
-		result[6,13] = SceneryType.stores;
-		result[3,12] = SceneryType.fuente;
-		result[8,18] = SceneryType.vereda;
-		result[16,16] = SceneryType.residencial;
-		result[17,13] = SceneryType.vereda;
-		result[11,13] = SceneryType.residencial;
+		result[11,11] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.alcatraz);
+		result[1,11] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.zonaciudad);
+		result [3,20] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.zonaciudad3);
+		result[18,15] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.bigHouse1);
+		result[18,18] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.vereda);
+		result[13,15] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.treePink);
+		result[15,20] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.molino);
+		result[11,22] = GameController.gameController.spriteMapper.getSpriteIdByName(GameController.gameController.spriteMapper.molino);
 		return result;
-	}
-	
-	
-	public bool noHouses(int rand_index_y, int rand_index_x){
-		bool result = true; 
-		
-		// rango 3 tiles x 3 tiles por ej
-		// iniciando desde tile 6-12
-		for (int i = 0; i < 10; i++ ) {
-			for (int j = 0; j <= 20; j++) {
-				if (rand_index_y == i && rand_index_x == j) {
-					result = false;
-				}
-			}
-		}
-		return result;
-	}
-
-	public string getTagFromSceneryType(SceneryType type) {
-		string tag = "Untagged";
-
-		if((int)type >= (int)SceneryType.tree1 && (int)type <= (int)SceneryType.tree5) {
-			tag = "SceneryTree";
-		} else if((int)type >= (int)SceneryType.bush1 && (int)type <= (int)SceneryType.bush5) {
-			tag = "SceneryBush";
-		}  
-
-		return tag;
-	}
-
-	// gets a random vegetation scenery type 
-	private SceneryType getRandomSceneryType() {
-		
-		if (UnityEngine.Random.Range (0, 10) == 7) {
-			//tree
-			
-			if (UnityEngine.Random.Range (0, 20) == 8) {
-				return (SceneryType) UnityEngine.Random.Range(1, 3);
-			}
-			
-			if (UnityEngine.Random.Range (0, 18) == 3) {
-				return SceneryType.tree5;
-			}
-			
-			return (SceneryType) UnityEngine.Random.Range(3, 5);
-			
-		}
-		
-		if (UnityEngine.Random.Range (0, 100) == 45) {
-			//return SceneryType.bush5;
-		}
-		
-		if (UnityEngine.Random.Range (0, 2) == 1) {
-			return SceneryType.empty;
-		}
-		
-		//bush
-		return (SceneryType) UnityEngine.Random.Range (6, 10);
-		
-		
 	}
 
 	// checks if a tile is suitable for scenery placement
-	private bool isSuitableForScenery(int lmap_index_x, int lmap_index_y) {
+	public bool isSuitableForScenery(int lmap_index_x, int lmap_index_y) {
 		
 		if(tileIsFlat(lmap_index_x, lmap_index_y) && !tileHeightIsLowerThanMinVert(lmap_index_x, lmap_index_y) && level_map[lmap_index_y, lmap_index_x] >= surface_level) {
 			return true;

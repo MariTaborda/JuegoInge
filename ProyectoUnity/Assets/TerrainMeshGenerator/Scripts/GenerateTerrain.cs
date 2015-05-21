@@ -39,7 +39,7 @@ public class GenerateTerrain : MonoBehaviour {
 	private TChunk[,] TerrainChunks;
 
 	private Stack<GameObject> Scenery_Obj_Pool;
-	private int scenery_stack_size = 5000;
+	private int scenery_stack_size = 8000;
 
 	private Stack<GameObject> Path_Obj_Pool;
 	private int path_stack_size = 1000;
@@ -167,7 +167,7 @@ public class GenerateTerrain : MonoBehaviour {
 		
 	}
 
-	public SceneryType[,] getChunkSceneryMap(int chunk_index_x, int chunk_index_y) {
+	public int[,] getChunkSceneryMap(int chunk_index_x, int chunk_index_y) {
 
 		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
 		return chunk.generator.getSceneryMap ();
@@ -181,6 +181,7 @@ public class GenerateTerrain : MonoBehaviour {
 		
 	}
 
+	// load scenery and path objects in visible_chunks. This is done every frame.
 	private void updateLoadedSceneryChunks(ref List<TChunk> visible_chunks) {
 
 		List<Vector2> saved_indexes = loaded_chunks.getSavedIndexes ();

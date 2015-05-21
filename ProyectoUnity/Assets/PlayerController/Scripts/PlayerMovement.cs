@@ -12,8 +12,6 @@ public class PlayerMovement : MonoBehaviour {
 	private float destinationDistance;
 	private float nearDistance;
 
-	[HideInInspector]
-	public bool isMoving = false;
 
 	[HideInInspector]
 	public bool reachedDestination;
@@ -22,13 +20,28 @@ public class PlayerMovement : MonoBehaviour {
 	public bool movementInterrupted;
 
 	private PlayerController playerController;
-	
+	private tk2dSpriteAnimator animator;
+	private Vector3 last_position;
+	private bool last_position_changed = false;
+	private bool isMoving = false;
+	private bool last_is_moving = false;
+
 	void Update () {
 
 		destinationPosition = new Vector3 (destinationPosition.x, transform.position.y, destinationPosition.z);
 		destinationDistance = Vector3.Distance(destinationPosition, transform.position);
 
+
+		if (last_position != transform.position) {
+			last_position_changed = true;
+		} 
+		else {
+			last_position_changed = false;
+		}
+
 		moveTowardsDestination ();
+
+		last_position = transform.position;
 
 		Debug.DrawRay (transform.position, (destinationPosition - transform.position), Color.red);
 
@@ -41,7 +54,9 @@ public class PlayerMovement : MonoBehaviour {
 		moveSpeed = speed;
 		oldDestinationPosition = Vector3.zero;
 		destinationPosition = transform.position;
+		last_position = transform.position;
 		playerController = GameController.gameController.playerController;
+		animator = transform.Find ("AnimatedSprite").gameObject.GetComponent<tk2dSpriteAnimator>();
 		//playerController = GameObject.Find("Player Controller").GetComponent<PlayerController>();
 	}
 
@@ -60,6 +75,7 @@ public class PlayerMovement : MonoBehaviour {
 			if ( oldDestinationPosition == Vector3.zero) {
 				// Se llego al destino
 				destinationPosition = transform.position;
+				last_is_moving = isMoving;
 				isMoving = false;
 				reachedDestination = true;
 			} else {
@@ -70,7 +86,8 @@ public class PlayerMovement : MonoBehaviour {
 		} else {
 			// Movimiento en linea recta hasta el punto al que se quiere ir
 			transform.position = Vector3.MoveTowards(transform.position, destinationPosition, moveSpeed * Time.deltaTime);
-			
+
+			last_is_moving = isMoving;
 			isMoving = true;
 			
 		}
@@ -104,6 +121,7 @@ public class PlayerMovement : MonoBehaviour {
 			if ( Physics.Raycast (transform.position, new Vector3(0,-1,0), out hit, 1f )) {
 				if(hit.transform.gameObject.name == "WaterSurfaceChunk(Clone)") {
 					oldDestinationPosition = Vector3.zero;
+					last_is_moving = isMoving;
 					isMoving = false;
 					movementInterrupted = true;
 					destinationPosition = transform.position;
