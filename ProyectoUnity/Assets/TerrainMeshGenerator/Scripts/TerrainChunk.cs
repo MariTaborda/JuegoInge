@@ -20,7 +20,10 @@ public enum SceneryType { empty, tree1, tree2, tree3, tree4, tree5, bush1, bush2
 
 public enum PathType { empty, path1, bridge };
 
-public enum FlagType { empty, checkpoint, arrowE, arrowNW, arrowNE, arrowW, arrowSW, arrowSE }; 
+//public enum FlagType { empty, checkpoint, arrowE, arrowNW, arrowNE, arrowW, arrowSW, arrowSE }; 
+
+
+public enum FlagType { empty, checkpoint, trash1 }; 
 
 public enum TileType { empty, high_zone, medium_zone, low_zone, beach, dirt, rocky, urban_area, rural_area };
 
@@ -1779,7 +1782,16 @@ public class TerrainChunk {
 		for (int i=1; i<24; i++) {
 			for(int j=0; j<8; ++j){
 				int k = UnityEngine.Random.Range(1,24);
-				result [i, k] = GameController.gameController.spriteMapper.getSpriteIdByName (setSprite(k));
+				if(isSuitableForScenery(k, i)) {
+					result [i, k] = GameController.gameController.spriteMapper.getSpriteIdByName (setSprite(k));		
+				}
+			}
+		}
+
+		// Despeja un poco para que se vea la bandera
+		for (int i = 1; i < 3; ++i) {
+			for (int j = 7; j < 10; ++j) {
+				result [i,j] = GameController.gameController.spriteMapper.getEmpty();
 			}
 		}
 		
@@ -1803,7 +1815,7 @@ public class TerrainChunk {
 	private String setSprite(int k){
 		String sprite = "";
 		if (k % 2 == 0) {
-			sprite = GameController.gameController.spriteMapper.medium_tree_1;	
+			sprite = GameController.gameController.spriteMapper.medium_tree_2;	
 		} else if (k % 3 == 0) {
 			sprite = GameController.gameController.spriteMapper.tropical_tree_5;
 		} else if (k % 5 == 0) {

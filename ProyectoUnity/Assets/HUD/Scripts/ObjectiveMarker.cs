@@ -3,18 +3,13 @@ using System.Collections;
 
 public class ObjectiveMarker : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
 
 		Vector3 target = GameController.gameController.getObjectivePosition ();
 		Vector3 screenPos = GameController.gameController.mainCamera.WorldToScreenPoint(target);
 		
-		if (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height) {
+		if (!GameController.gameController.getObjectiveState() || (screenPos.z > 0 && screenPos.x > 0 && screenPos.x < Screen.width && screenPos.y > 0 && screenPos.y < Screen.height)) {
 			// objective is inside screen boundaries
 			transform.position = new Vector3(-999, -999, -999);
 		} 

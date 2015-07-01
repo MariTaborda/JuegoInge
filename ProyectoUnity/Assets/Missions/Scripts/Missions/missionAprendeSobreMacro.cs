@@ -2,18 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MissionExplorer : Mission {
+public class MissionAprenderSobreMacro: Mission {
 	
 	// mission specific attributes
-	public int ecologicPoints;
+	public bool Macro;
 	
-	public MissionExplorer() {
+	public MissionAprenderSobreMacro() {
 		init ();
 	}
 	
 	public override void init() {
 		base.init ();
-		id = 4;		// must be different from any other mission id
+		id = 31;		// must be different from any other mission id
 		setTitle ();
 		setDescriptionText ();
 		setHintsText ();
@@ -23,30 +23,30 @@ public class MissionExplorer : Mission {
 	
 	// change mission title here
 	void setTitle() {
-		title = "Tala controlada";
+		title = "Aprende algo nuevo";
 	}
 	
 	// change mission description section text here
 	void setDescriptionText() {
-		description = "Seleciona el personaje del explorador, y haz click en el arbol que acabas de sembrar para cortarlo.";
+		description = "Tienes idea de que es un Macroinvertebrado? No, bueno intenta descubrirlo";
 	}
 	
 	// change mission hints here
 	void setHintsText() {
 		hints = new List<string> ();
-		hints.Add ("Para cortar el arbol haz click en la opcion que dice: 'Cortar Arbol' o 'Cortar Arbusto'.");
-		hints.Add ("Solo el explorador es capaz de cortar arboles porque es el unico que tiene un hacha.");
+		hints.Add ("Recuerda que el cientifico puede realizar dos aciones");
+		hints.Add ("Explora todo lo que se puede hacer en los menus de cada accion");
 	}
 	
-	// change mission completion section text here
+	// change mission completion text section here
 	void setCompletionText() {
-		completion_text = "Por cada arbol que cortas pierdes Eco Puntos, pero a veces no hay otra opcion mas que cortarlo. Lo importante es cortarlos con moderacion y recordar sembrar nuevos arboles!";
+		completion_text = "¡Genial! Aprender es poder, ahora tienes un poco de conocimiento sobre lo que es un macroinvertebrado!!!!";
 	}
 	
 	// change mission rewards section text here
 	void setRewardsText() {
 		rewards = new List<string> ();
-		rewards.Add ("Un camino despejado");
+		rewards.Add ("50 Eco puntos");
 	}
 	
 	/*
@@ -57,7 +57,7 @@ public class MissionExplorer : Mission {
  	*/
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
-		if (GameController.gameController.missionController.missionCompleted (3)) {		// if mission with id 1 is completed
+		if (GameController.gameController.missionController.missionCompleted (30)) {		// if mission with id 1 is completed
 			return true;
 		}
 		return false;
@@ -70,27 +70,23 @@ public class MissionExplorer : Mission {
 		false - completion conditions are not met.
  	*/
 	public override bool evaluateConditions() {
-		int newPoints = GameController.gameController.playerController.GetComponent<PlayerPoints> ().getEcologyPoints ();
-		if (newPoints < ecologicPoints) {
+		
+		if (Macro) {		// flag is set in ActionWaterPH
 			return true;
-		} else if (newPoints > ecologicPoints){
-			ecologicPoints = newPoints;
 		}
 		return false;
 	}
 	
 	//Write your method for redeeming mission rewards here.
 	public override void redeemRewards() {
-		// Add rewards to player. (items, eco points, etc.)
-		//PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (5);
+		PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (50);
 	}
 	
 	//This will happen on mission start.
 	public override void startMission() {
 		base.startMission ();	// required
 		
-		// initialize flag for completion evaluation
-		ecologicPoints = GameController.gameController.playerController.GetComponent<PlayerPoints> ().getEcologyPoints ();
+		Macro = false;
 	}
 	
 	//This will happen on mission completion.

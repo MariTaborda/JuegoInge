@@ -59,16 +59,15 @@ public class GameController : MonoBehaviour {
 		TagHelper.AddTag ("SceneryTree");
 		TagHelper.AddTag ("SceneryRock");
 		TagHelper.AddTag ("SceneryBush");
-
+		TagHelper.AddTag ("creds");
+		TagHelper.AddTag ("Card");
+		TagHelper.AddTag ("CardPanel");
 		initGameController ();
 		initSpriteMapper ();
 		initTerrainGenerator ();
 		initMissionController ();
 		initPlayerController ();
 
-		//Objective marker is set on scientists initial position for testing purposes. Delete later.
-		setObjective (playerController.scientist.transform.position);
-	
 	}
 
 	public Vector3 getObjectivePosition() {
@@ -93,6 +92,10 @@ public class GameController : MonoBehaviour {
 	public void unsetObjective() {
 		objective_is_active = false;
 		objective_position = Vector3.zero;
+	}
+
+	public bool getObjectiveState() {
+		return objective_is_active;
 	}
 
 	public void addWaypoint(Vector3 position) {

@@ -41,7 +41,6 @@ public class ActionMineRock : PlayerAction {
 			PlayerItems items = pc.getCurrentPlayerItems ();
 			items.addItem (new Rock (), 3);
 			pc.UpdateBackpackUI();
-			performAction(player, null);		// repite la accion para crear varios caminos seguidamente
 		}
 		
 	}

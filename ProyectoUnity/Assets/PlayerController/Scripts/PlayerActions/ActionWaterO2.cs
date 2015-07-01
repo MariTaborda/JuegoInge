@@ -15,6 +15,22 @@ public class ActionWaterO2 : MonoBehaviour {
 		txt= GameObject.Find ("AnalisisO2");
 		txt.GetComponent<ChangeText>().Change3(choice);
 		pnl5.transform.position = new Vector3(Screen.width/2,((Screen.height-155)/2)+155, 0);
+
+		MissionManager mm = GameController.gameController.missionController;
+		Mission actionPH;
+		if (mm != null) {	// if mission manager was retrieved succesfully
+			actionPH = mm.getMissionById (36); // get mission with id = 2
+			if (actionPH != null && actionPH.started) {	// if mission exists and has been started
+				((MissionRecolectarO2)actionPH).O2analisis = true;	// set flag for mission
+			}
+		}
+		
+		if (mm != null) {	// if mission manager was retrieved succesfully
+			actionPH = mm.getMissionById (39); // get mission with id = 2
+			if (actionPH != null && actionPH.started) {	// if mission exists and has been started
+				((MissionRecolectarO22)actionPH).O2analisis2 = true;	// set flag for mission
+			}
+		}
 		
 	}
 	

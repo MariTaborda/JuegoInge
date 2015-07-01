@@ -19,7 +19,7 @@ public class MissionCaptureMacro : Mission {
 	
 	public override void init() {
 		base.init ();
-		id = 31;		// must be different from any other mission id
+		id = 32;		// must be different from any other mission id
 		setTitle ();
 		setDescriptionText ();
 		setHintsText ();
@@ -67,7 +67,7 @@ public class MissionCaptureMacro : Mission {
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
 		// deberia cambiarse por el id de la mision de arboles cuando este lista 
-		if (GameController.gameController.missionController.missionCompleted (30)) {		// if mission with id 2 is completed
+		if (GameController.gameController.missionController.missionCompleted (31)) {		// if mission with id 2 is completed
 			return true;
 		}
 		return false;

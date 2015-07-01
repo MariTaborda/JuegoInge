@@ -62,8 +62,6 @@ public class MissionManager {
 		missions = new List<Mission> ();
 
 		// add new missions like so
-
-
 		missions.Add (
 			holder.AddComponent<MissionStart> ()
 		);
@@ -89,9 +87,13 @@ public class MissionManager {
 		);
 
 		missions.Add (
-			holder.AddComponent<MissionChopTree> ()
+			holder.AddComponent<MissionStartEnd> () // id 6
 		);
 
+		missions.Add (
+			holder.AddComponent<MissionChopTree> ()
+		);
+		
 		missions.Add (
 			holder.AddComponent<MissionPlantTree> ()
 		);
@@ -101,12 +103,32 @@ public class MissionManager {
 		);
 
 		missions.Add (
-			holder.AddComponent<MissionCaptureMacro> () // id 31
+			holder.AddComponent<MissionAprenderSobreMacro> () // id 31
+			);
+
+		missions.Add (
+			holder.AddComponent<MissionCaptureMacro> () // id 32
 
 		);
 
 		missions.Add (
-			holder.AddComponent<MissionBuildBridgeBack> () // id 55
+			holder.AddComponent<MissionRecolectarPH> () // id 35
+			);
+		
+		missions.Add (
+			holder.AddComponent<MissionRecolectarO2> () // id 36
+			);
+
+		missions.Add (
+			holder.AddComponent<MissionBuildBridgeBack> () // id 37
+		);
+
+		missions.Add (
+			holder.AddComponent<MissionRecolectarPH2> () // id 38
+			);
+		
+		missions.Add (
+			holder.AddComponent<MissionRecolectarO22> () // id 39
 			);
 
 

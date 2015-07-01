@@ -2,18 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MissionExplorer : Mission {
+public class MissionStartEnd : Mission {
 	
 	// mission specific attributes
-	public int ecologicPoints;
+
 	
-	public MissionExplorer() {
+	public MissionStartEnd() {
 		init ();
 	}
 	
 	public override void init() {
 		base.init ();
-		id = 4;		// must be different from any other mission id
+		id = 6;		// must be different from any other mission id
 		setTitle ();
 		setDescriptionText ();
 		setHintsText ();
@@ -23,30 +23,30 @@ public class MissionExplorer : Mission {
 	
 	// change mission title here
 	void setTitle() {
-		title = "Tala controlada";
+		title = "Un mundo por explorar";
 	}
 	
 	// change mission description section text here
 	void setDescriptionText() {
-		description = "Seleciona el personaje del explorador, y haz click en el arbol que acabas de sembrar para cortarlo.";
+		description = "Hay todo un mundo por explorar, por eso ahora tienes que llevar a todo el equipo hasta la siguiente bandera. Sigue la flecha roja que esta arriba en la pantalla.";
 	}
 	
 	// change mission hints here
 	void setHintsText() {
 		hints = new List<string> ();
-		hints.Add ("Para cortar el arbol haz click en la opcion que dice: 'Cortar Arbol' o 'Cortar Arbusto'.");
-		hints.Add ("Solo el explorador es capaz de cortar arboles porque es el unico que tiene un hacha.");
+		hints.Add ("Recuerda que el cientifico camina muy lento, haz caminos!");
+		hints.Add ("Para hacer los caminos es posible que necesites cortar arboles y arbustos!");
 	}
 	
 	// change mission completion section text here
 	void setCompletionText() {
-		completion_text = "Por cada arbol que cortas pierdes Eco Puntos, pero a veces no hay otra opcion mas que cortarlo. Lo importante es cortarlos con moderacion y recordar sembrar nuevos arboles!";
+		completion_text = "Lo haz logrado! Ahora estas listo para empezar tu verdadera mision! A salvar el ambiente!";
 	}
 	
 	// change mission rewards section text here
 	void setRewardsText() {
 		rewards = new List<string> ();
-		rewards.Add ("Un camino despejado");
+		rewards.Add ("10 Eco Puntos");
 	}
 	
 	/*
@@ -57,7 +57,7 @@ public class MissionExplorer : Mission {
  	*/
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
-		if (GameController.gameController.missionController.missionCompleted (3)) {		// if mission with id 1 is completed
+		if (GameController.gameController.missionController.missionCompleted (5)) {		// if mission with id 1 is completed
 			return true;
 		}
 		return false;
@@ -70,11 +70,10 @@ public class MissionExplorer : Mission {
 		false - completion conditions are not met.
  	*/
 	public override bool evaluateConditions() {
-		int newPoints = GameController.gameController.playerController.GetComponent<PlayerPoints> ().getEcologyPoints ();
-		if (newPoints < ecologicPoints) {
+		Vector3 scientist_pos = GameController.gameController.playerController.scientist.transform.position;
+		Vector3 flag_pos = new Vector3 (51.5f, 1f, -125.1f);
+		if (Vector3.Distance(scientist_pos, flag_pos) < 5f) {
 			return true;
-		} else if (newPoints > ecologicPoints){
-			ecologicPoints = newPoints;
 		}
 		return false;
 	}
@@ -82,7 +81,7 @@ public class MissionExplorer : Mission {
 	//Write your method for redeeming mission rewards here.
 	public override void redeemRewards() {
 		// Add rewards to player. (items, eco points, etc.)
-		//PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (5);
+		PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (10);
 	}
 	
 	//This will happen on mission start.
@@ -90,12 +89,13 @@ public class MissionExplorer : Mission {
 		base.startMission ();	// required
 		
 		// initialize flag for completion evaluation
-		ecologicPoints = GameController.gameController.playerController.GetComponent<PlayerPoints> ().getEcologyPoints ();
+		GameController.gameController.setObjective (new Vector3(51.5f,1f,-125.1f));
 	}
 	
 	//This will happen on mission completion.
 	public override void completeMission() {
 		base.completeMission ();	// required
+		GameController.gameController.unsetObjective ();
 	}
 	
 }

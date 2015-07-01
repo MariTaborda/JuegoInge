@@ -29,6 +29,16 @@ public class ActionStartMacroGame : MonoBehaviour {
 		//txt= GameObject.Find ("Analisis");
 		//txt.GetComponent<ChangeText> ().Change();
 		pnl2.transform.position = new Vector3(Screen.width/2,((Screen.height-155)/2)+155, 0);
+
+		MissionManager mm = GameController.gameController.missionController;
+		Mission actionMacro;
+		if (mm != null) {	// if mission manager was retrieved succesfully
+			actionMacro = mm.getMissionById (31); // get mission with id = 2
+			if (actionMacro != null && actionMacro.started) {	// if mission exists and has been started
+				((MissionAprenderSobreMacro)actionMacro).Macro = true;	// set flag for mission
+			}
+		}
+
 		
 	}
 

@@ -49,7 +49,7 @@ public class MissionBuildBridge : Mission {
 	
 	// change mission completion text section here
 	void setCompletionText() {
-		completion_text = "¡Lo has logrado! Ahora a lo que vinimos!!";
+		completion_text = "¡Lo has logrado! Ahora a lo que vinimos!";
 	}
 	
 	// change mission rewards section text here
@@ -67,7 +67,7 @@ public class MissionBuildBridge : Mission {
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
 		// deberia cambiarse por el id de la mision de arboles cuando este lista 
-		if (GameController.gameController.missionController.missionCompleted (29)) {		// if mission with id 2 is completed
+		if (GameController.gameController.missionController.missionCompleted (29)) {		// if mission with id 6 is completed
 			return true;
 		}
 		return false;

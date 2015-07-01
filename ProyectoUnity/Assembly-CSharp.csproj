@@ -97,6 +97,7 @@
      <Compile Include="Assets\MiniJuegoMI\Scripts\MiniJuego_PinzaController.cs" />
      <Compile Include="Assets\Missions\Scripts\Mission.cs" />
      <Compile Include="Assets\Missions\Scripts\MissionManager.cs" />
+     <Compile Include="Assets\Missions\Scripts\Missions\missionAprendeSobreMacro.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionBuildBridge.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionBuildBridgeBack.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionBuilder.cs" />
@@ -105,9 +106,14 @@
      <Compile Include="Assets\Missions\Scripts\Missions\missionExplorer.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionMoving.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionPlantTrees.cs" />
+     <Compile Include="Assets\Missions\Scripts\Missions\missionRecolectarO2.cs" />
+     <Compile Include="Assets\Missions\Scripts\Missions\missionRecolectarO22.cs" />
+     <Compile Include="Assets\Missions\Scripts\Missions\missionRecolectarPH.cs" />
+     <Compile Include="Assets\Missions\Scripts\Missions\missionRecolectarPH2.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionRoads.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionSelectCharacter.cs" />
      <Compile Include="Assets\Missions\Scripts\Missions\missionStart.cs" />
+     <Compile Include="Assets\Missions\Scripts\Missions\missionStartEnd.cs" />
      <Compile Include="Assets\PlayerController\Scripts\Player.cs" />
      <Compile Include="Assets\PlayerController\Scripts\PlayerAction.cs" />
      <Compile Include="Assets\PlayerController\Scripts\PlayerActions\ActionChopTree.cs" />

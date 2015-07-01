@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour {
 
 		Player_Controller = gameObject;
 		
-		builder   = Instantiate (builderPrefab,   new Vector3(66.3f, 1f, -146.5f), Quaternion.identity) as GameObject;
-		scientist = Instantiate (scientistPrefab, new Vector3(66.0f, 1f, -146.7f), Quaternion.identity) as GameObject;
-		explorer  = Instantiate (explorerPrefab,  new Vector3(66.0f, 1f, -146.7f), Quaternion.identity) as GameObject;
+		builder   = Instantiate (builderPrefab,   new Vector3(79.3f, 1f, -86.5f), Quaternion.identity) as GameObject;
+		scientist = Instantiate (scientistPrefab, new Vector3(79.0f, 1f, -87.7f), Quaternion.identity) as GameObject;
+		explorer  = Instantiate (explorerPrefab,  new Vector3(78.0f, 1f, -86.7f), Quaternion.identity) as GameObject;
 
 		characters = new GameObject[]{builder, scientist, explorer};
 		characterImages = new Sprite[]{builderImage, scientistImage, explorerImage};

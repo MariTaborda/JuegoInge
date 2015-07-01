@@ -1471,9 +1471,7 @@ GameObject:
   - 20: {fileID: 147292497}
   - 92: {fileID: 147292499}
   - 124: {fileID: 147292500}
-  - 81: {fileID: 147292498}
   - 114: {fileID: 147292501}
-  - 114: {fileID: 147292502}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1525,13 +1523,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
---- !u!81 &147292498
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 147292495}
-  m_Enabled: 1
 --- !u!92 &147292499
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1564,19 +1555,6 @@ MonoBehaviour:
   target: {fileID: 0}
   cam_offsets: {x: 0, y: 0, z: 0}
   actionsMenu: {fileID: 1746277190}
---- !u!114 &147292502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 147292495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9587209f3074f146bef5981f1f38212, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  music: {fileID: 124819833}
-  gameObjects: []
 --- !u!1 &160928884
 GameObject:
   m_ObjectHideFlags: 0
@@ -4617,7 +4595,7 @@ MonoBehaviour:
   HUDObject: {fileID: 1618824438}
   loadedMissionsHolder: {fileID: 1300507524}
   SceneryObject_Prefab: {fileID: 159322, guid: f89e8f08925c044ebb5c5bbf1d4dc897, type: 2}
-  missionsActive: 0
+  missionsActive: 1
   level: 0
   zone: 1
   coast_heightMap: /Resources/Heightmaps/coast_heightmap_big.jpg
@@ -6799,7 +6777,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 147292502}
+      - m_Target: {fileID: 1687338762}
         m_MethodName: ShowLab
         m_Mode: 1
         m_Arguments:
@@ -8616,7 +8594,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 147292502}
+      - m_Target: {fileID: 1687338762}
         m_MethodName: ShowMenu
         m_Mode: 1
         m_Arguments:
@@ -9937,6 +9915,55 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
+--- !u!1 &1687338761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1687338763}
+  - 114: {fileID: 1687338762}
+  - 81: {fileID: 1687338764}
+  m_Layer: 0
+  m_Name: MainMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1687338762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1687338761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9587209f3074f146bef5981f1f38212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  music: {fileID: 124819833}
+  gameObjects: []
+--- !u!4 &1687338763
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1687338761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+--- !u!81 &1687338764
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1687338761}
+  m_Enabled: 1
 --- !u!1 &1700837013
 GameObject:
   m_ObjectHideFlags: 0

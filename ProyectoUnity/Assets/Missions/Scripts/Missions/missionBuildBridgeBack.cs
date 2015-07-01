@@ -19,7 +19,7 @@ public class MissionBuildBridgeBack : Mission {
 	
 	public override void init() {
 		base.init ();
-		id = 55;		// must be different from any other mission id
+		id = 37;		// must be different from any other mission id
 		setTitle ();
 		setDescriptionText ();
 		setHintsText ();
@@ -67,7 +67,7 @@ public class MissionBuildBridgeBack : Mission {
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
 		// deberia cambiarse por el id de la mision de arboles cuando este lista 
-		if (GameController.gameController.missionController.missionCompleted (5)) {		// if mission with id 2 is completed
+		if (GameController.gameController.missionController.missionCompleted (36)) {		// if mission with id 36 is completed
 			return true;
 		}
 		return false;
@@ -112,17 +112,17 @@ public class MissionBuildBridgeBack : Mission {
 			tileIndexX = indz;
 			tileIndexY = indx;
 
-			if ((new_builder_pos.x < 45 && new_builder_pos.x > 48) && 
+			if ((new_builder_pos.x < 48 && new_builder_pos.x > 45) && 
 			    (new_builder_pos.y < 2 && new_builder_pos.y > 0) &&
-			    (new_builder_pos.z < -196 && new_builder_pos.z > -199) ) {
+			    (new_builder_pos.z < -199 && new_builder_pos.z > -196) ) {
 
-				if ((new_explorer_pos.x < 45 && new_explorer_pos.x > 48) && 
+				if ((new_explorer_pos.x < 48 && new_explorer_pos.x > 45) && 
 				    (new_explorer_pos.y < 2 && new_explorer_pos.y > 0) &&
-				    (new_explorer_pos.z < -196 && new_explorer_pos.z > -199) ) {
+				    (new_explorer_pos.z < -199 && new_explorer_pos.z > -196) ) {
 
-					if ((new_scientist_pos.x < 45 && new_scientist_pos.x > 48) && 
+					if ((new_scientist_pos.x < 48 && new_scientist_pos.x > 45) && 
 					    (new_scientist_pos.y < 2 && new_scientist_pos.y > 0) &&
-					    (new_scientist_pos.z < -196 && new_scientist_pos.z > -199) ) {
+					    (new_scientist_pos.z < -199 && new_scientist_pos.z > -196) ) {
 							Debug.Log("soy la bandera fin de analisis PH");
 							return true; 
 						}

@@ -64,7 +64,7 @@ MonoBehaviour:
   atlasWidth: 2048
   atlasHeight: 4096
   forceSquareAtlas: 0
-  atlasWastage: 50.3677368
+  atlasWastage: 45.197464
   allowMultipleAtlases: 0
   removeDuplicates: 1
   textureParams:
@@ -72,7 +72,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 4e9fda27906404238b5f613500838784, type: 3}
+    texture: {fileID: 2800000, guid: 5d32bb5cec1226e4681cdb4141cad632, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 4beaa3392e402431892fa96f584596f6, type: 3}
+    texture: {fileID: 2800000, guid: 221c45b4b3e61d84088f54d0b171eba4, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 45631940df70d4a7e91cc4fd6cd69118, type: 3}
+    texture: {fileID: 2800000, guid: 8c8739c31a66db34db29acc5927b45c5, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: fa22eb722baa443e491ad24599e33d17, type: 3}
+    texture: {fileID: 2800000, guid: ea023e763eafbdd4d8d923d17514734e, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 848dfc7fdc6bc4ce08827bc45d753abd, type: 3}
+    texture: {fileID: 2800000, guid: bf53d2262644de9459a9058190f0e086, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 53ec1d78c64604fe4871f6af3e42b291, type: 3}
+    texture: {fileID: 2800000, guid: 732e8d59817276b498e7e5cb7aa1b02a, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -318,7 +318,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: a7bde730115a84f13bc4e51eddd12ac8, type: 3}
+    texture: {fileID: 2800000, guid: 96364c80c0190584ba531fe10da3490a, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 22aa782cafcf740a2b2a175a23bac684, type: 3}
+    texture: {fileID: 2800000, guid: e2ff96ca6593ef64fbe78e88c7b5d273, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 274fb00eee6d54929ad46753f4047ed9, type: 3}
+    texture: {fileID: 2800000, guid: a103d9ce5a55e0e44afa8d851d6ddf57, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 795485173aaa34ce19ec96c5967aff1f, type: 3}
+    texture: {fileID: 2800000, guid: 8bc96bc8e793aae4a8a785465ba4cff4, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: de51c99461752f44abd211ea24d800ff, type: 3}
+    texture: {fileID: 2800000, guid: 9a80e7eba79fcc44581be3f14fbdbbb2, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -523,7 +523,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 102d8aff34304db40b7e8a7e4439d5e8, type: 3}
+    texture: {fileID: 2800000, guid: 62203479d09023e4387bd2dc440e853e, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 56a91013a7bda904598cefd3e31532c7, type: 3}
+    texture: {fileID: 2800000, guid: 881974c4c2b77144584f169e18ce78f7, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -605,7 +605,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: b1725abc9def46841865c10bf046463e, type: 3}
+    texture: {fileID: 2800000, guid: 14bea6a09667d2b41afa0eb6b3c1b3e0, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 78fee984cc1587a43820cfd2a4da416d, type: 3}
+    texture: {fileID: 2800000, guid: faaede90634598d41942896f24c304d0, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -687,7 +687,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: dc839eff25057524b8bf8d1e2779abfe, type: 3}
+    texture: {fileID: 2800000, guid: 03e42ec069cb2ee4b9b36d9ef5480fa9, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 33c0cb270bef4114bbcc910397551215, type: 3}
+    texture: {fileID: 2800000, guid: c7a5dbde403726c4d8b0d4f852d83610, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 0b14b0363ec13ed4b93235709c69d170, type: 3}
+    texture: {fileID: 2800000, guid: ad692b248d0c0504ba7430aa71e3c0a6, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -810,7 +810,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 8b1141aacfef2ec499c82f2e867e62cb, type: 3}
+    texture: {fileID: 2800000, guid: 1eb56824fed2c9d4f903cd0c1a2fb977, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -851,7 +851,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: df37a6a7fd4de7d42af99a40e3597d26, type: 3}
+    texture: {fileID: 2800000, guid: f2b314208acb18241a802ede708343c0, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -892,7 +892,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: b14c41f6b5b60b842914bd06c704df61, type: 3}
+    texture: {fileID: 2800000, guid: ba52a857fd456ce44acf9311996ab9a8, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -933,7 +933,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 24e461762f709814bba3aaf2bc848c84, type: 3}
+    texture: {fileID: 2800000, guid: f41f052e180fb124fb54c08bc4e80f71, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -974,7 +974,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: eb7ed11229bc81642be543e85040f5b0, type: 3}
+    texture: {fileID: 2800000, guid: fa4e005d31d920a40a766f3d72c04bf0, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1015,7 +1015,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: aa19df23b1e3f0045a15fe8ea2a259ca, type: 3}
+    texture: {fileID: 2800000, guid: 3b1367f91467ba240add460f1f7e548f, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1056,7 +1056,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 5c2aaa734d6268148b2be40eee51f6a7, type: 3}
+    texture: {fileID: 2800000, guid: 9dbc112b913ae4840909b0e86b849fc4, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1097,7 +1097,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: acb4c075c1fc017418d2f54f0ee9f25e, type: 3}
+    texture: {fileID: 2800000, guid: 6b35731b0482b2b4a89301767d08984b, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1138,7 +1138,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: e191ce0a8b632d64b9e821bf32b17392, type: 3}
+    texture: {fileID: 2800000, guid: 54e5c46ec0e2d0b46a98643817b8e434, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1179,7 +1179,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 02e31bb609ecbcd4386753ad8af9f6b2, type: 3}
+    texture: {fileID: 2800000, guid: 87b118aef8edcd54c9565bab45124ee4, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1220,7 +1220,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: c2d6b117d0c46794b9761fde25ae9592, type: 3}
+    texture: {fileID: 2800000, guid: 815fbd2b5f31fbb4daaefa3a14fba8d1, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1261,7 +1261,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 277f79818f133384194bc576ed91b203, type: 3}
+    texture: {fileID: 2800000, guid: 734edde8a96f3e34c9536420e18886de, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1302,7 +1302,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: e817607309ba2fb45b68f10dc66b5c7e, type: 3}
+    texture: {fileID: 2800000, guid: 87bdb21e8f27e43468a1fab0fed62479, type: 3}
     materialId: 0
     anchor: 7
     anchorX: 0
@@ -1343,7 +1343,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 15411e71edd51a74794b9937a3b632d0, type: 3}
+    texture: {fileID: 2800000, guid: 50e17c9f6d2fb444cabfc020edb2d110, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 154
@@ -1384,7 +1384,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: f298da9b839e6fd4f803622d4670856c, type: 3}
+    texture: {fileID: 2800000, guid: 01c0e3084913b9f47b4d1fb1bc0ee1a2, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 154
@@ -1425,7 +1425,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 481e156499b6a4b46a4ad6a09392ee5a, type: 3}
+    texture: {fileID: 2800000, guid: 0089bd5fabe07c34981566ff5490c9d5, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 154
@@ -1466,7 +1466,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: b32afb00218e04c45b920343aa5d63f4, type: 3}
+    texture: {fileID: 2800000, guid: 32d244de8fbbd564ca707a589545f2e0, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 154
@@ -1507,7 +1507,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 2d95760527e84514098779670b20684d, type: 3}
+    texture: {fileID: 2800000, guid: 908b18339339cc4469d4fbf679642222, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 154
@@ -1548,7 +1548,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 54673b016b465b24f8b9c3e11cd29d50, type: 3}
+    texture: {fileID: 2800000, guid: 2a377a473fb5740428b549557318bacc, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 154
@@ -1589,7 +1589,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 266819eae86e4fa47821f079df56d360, type: 3}
+    texture: {fileID: 2800000, guid: 56e3a56d7ce18fe4384a05b17e836783, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 137
@@ -1630,7 +1630,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 656a6e22b582b1f43a14d37dc3d60b89, type: 3}
+    texture: {fileID: 2800000, guid: ea399c8edbb53584ebf0f530d676ff76, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 137
@@ -1671,7 +1671,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 6f1542675a4214147a6df2e65f619343, type: 3}
+    texture: {fileID: 2800000, guid: 8ee300944c724c847878d8cde2574ebe, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 137
@@ -1712,7 +1712,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: 794d182c390c3b04f8803c11af5a3d82, type: 3}
+    texture: {fileID: 2800000, guid: c91a75f60cff2a04db4d238a97112298, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 137
@@ -1753,7 +1753,7 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: a77ca913bdc306a41956d5392ab89876, type: 3}
+    texture: {fileID: 2800000, guid: 3769aa610d383ae44aebdc4c93135ba3, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 137
@@ -1794,11 +1794,257 @@ MonoBehaviour:
     disableTrimming: 0
     additive: 0
     scale: {x: 1, y: 1, z: 1}
-    texture: {fileID: 2800000, guid: cee75f6a5a8fb474c8bd6b58224a4552, type: 3}
+    texture: {fileID: 2800000, guid: f8873da6eb9bf6d4f9f00715c01fae67, type: 3}
     materialId: 0
     anchor: 9
     anchorX: 137
     anchorY: 286
+    overrideMesh: {fileID: 0}
+    doubleSidedSprite: 0
+    customSpriteGeometry: 0
+    geometryIslands: []
+    dice: 0
+    diceUnitX: 64
+    diceUnitY: 64
+    diceFilter: 0
+    pad: 0
+    extraPadding: 0
+    source: 0
+    fromSpriteSheet: 0
+    hasSpriteSheetId: 0
+    spriteSheetId: 0
+    spriteSheetX: 0
+    spriteSheetY: 0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    regionId: 0
+    colliderType: 0
+    colliderData: []
+    boxColliderMin: {x: 0, y: 0}
+    boxColliderMax: {x: 0, y: 0}
+    polyColliderIslands: []
+    polyColliderCap: 1
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    colliderColor: 0
+    attachPoints: []
+  - name: rock1
+    disableTrimming: 0
+    additive: 0
+    scale: {x: 1, y: 1, z: 1}
+    texture: {fileID: 2800000, guid: b08840a0111ad16479f535c7f10e434f, type: 3}
+    materialId: 0
+    anchor: 7
+    anchorX: 0
+    anchorY: 0
+    overrideMesh: {fileID: 0}
+    doubleSidedSprite: 0
+    customSpriteGeometry: 0
+    geometryIslands: []
+    dice: 0
+    diceUnitX: 64
+    diceUnitY: 64
+    diceFilter: 0
+    pad: 0
+    extraPadding: 0
+    source: 0
+    fromSpriteSheet: 0
+    hasSpriteSheetId: 0
+    spriteSheetId: 0
+    spriteSheetX: 0
+    spriteSheetY: 0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    regionId: 0
+    colliderType: 0
+    colliderData: []
+    boxColliderMin: {x: 0, y: 0}
+    boxColliderMax: {x: 0, y: 0}
+    polyColliderIslands: []
+    polyColliderCap: 1
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    colliderColor: 0
+    attachPoints: []
+  - name: ttree2
+    disableTrimming: 0
+    additive: 0
+    scale: {x: 1, y: 1, z: 1}
+    texture: {fileID: 2800000, guid: 280661bbe1722214a999966cae0c83ba, type: 3}
+    materialId: 0
+    anchor: 7
+    anchorX: 0
+    anchorY: 0
+    overrideMesh: {fileID: 0}
+    doubleSidedSprite: 0
+    customSpriteGeometry: 0
+    geometryIslands: []
+    dice: 0
+    diceUnitX: 64
+    diceUnitY: 64
+    diceFilter: 0
+    pad: 0
+    extraPadding: 0
+    source: 0
+    fromSpriteSheet: 0
+    hasSpriteSheetId: 0
+    spriteSheetId: 0
+    spriteSheetX: 0
+    spriteSheetY: 0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    regionId: 0
+    colliderType: 0
+    colliderData: []
+    boxColliderMin: {x: 0, y: 0}
+    boxColliderMax: {x: 0, y: 0}
+    polyColliderIslands: []
+    polyColliderCap: 1
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    colliderColor: 0
+    attachPoints: []
+  - name: ttree3
+    disableTrimming: 0
+    additive: 0
+    scale: {x: 1, y: 1, z: 1}
+    texture: {fileID: 2800000, guid: 737a69aa35648574b9c7efc177ffb080, type: 3}
+    materialId: 0
+    anchor: 7
+    anchorX: 0
+    anchorY: 0
+    overrideMesh: {fileID: 0}
+    doubleSidedSprite: 0
+    customSpriteGeometry: 0
+    geometryIslands: []
+    dice: 0
+    diceUnitX: 64
+    diceUnitY: 64
+    diceFilter: 0
+    pad: 0
+    extraPadding: 0
+    source: 0
+    fromSpriteSheet: 0
+    hasSpriteSheetId: 0
+    spriteSheetId: 0
+    spriteSheetX: 0
+    spriteSheetY: 0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    regionId: 0
+    colliderType: 0
+    colliderData: []
+    boxColliderMin: {x: 0, y: 0}
+    boxColliderMax: {x: 0, y: 0}
+    polyColliderIslands: []
+    polyColliderCap: 1
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    colliderColor: 0
+    attachPoints: []
+  - name: ttree4
+    disableTrimming: 0
+    additive: 0
+    scale: {x: 1, y: 1, z: 1}
+    texture: {fileID: 2800000, guid: 9453668d37a5f9b40b18b8ad2bcce118, type: 3}
+    materialId: 0
+    anchor: 7
+    anchorX: 0
+    anchorY: 0
+    overrideMesh: {fileID: 0}
+    doubleSidedSprite: 0
+    customSpriteGeometry: 0
+    geometryIslands: []
+    dice: 0
+    diceUnitX: 64
+    diceUnitY: 64
+    diceFilter: 0
+    pad: 0
+    extraPadding: 0
+    source: 0
+    fromSpriteSheet: 0
+    hasSpriteSheetId: 0
+    spriteSheetId: 0
+    spriteSheetX: 0
+    spriteSheetY: 0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    regionId: 0
+    colliderType: 0
+    colliderData: []
+    boxColliderMin: {x: 0, y: 0}
+    boxColliderMax: {x: 0, y: 0}
+    polyColliderIslands: []
+    polyColliderCap: 1
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    colliderColor: 0
+    attachPoints: []
+  - name: rock2
+    disableTrimming: 0
+    additive: 0
+    scale: {x: 1, y: 1, z: 1}
+    texture: {fileID: 2800000, guid: 89536cdf62ef25d4baf6484c54ec94da, type: 3}
+    materialId: 0
+    anchor: 7
+    anchorX: 0
+    anchorY: 0
+    overrideMesh: {fileID: 0}
+    doubleSidedSprite: 0
+    customSpriteGeometry: 0
+    geometryIslands: []
+    dice: 0
+    diceUnitX: 64
+    diceUnitY: 64
+    diceFilter: 0
+    pad: 0
+    extraPadding: 0
+    source: 0
+    fromSpriteSheet: 0
+    hasSpriteSheetId: 0
+    spriteSheetId: 0
+    spriteSheetX: 0
+    spriteSheetY: 0
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    regionId: 0
+    colliderType: 0
+    colliderData: []
+    boxColliderMin: {x: 0, y: 0}
+    boxColliderMax: {x: 0, y: 0}
+    polyColliderIslands: []
+    polyColliderCap: 1
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    colliderColor: 0
+    attachPoints: []
+  - name: rock3
+    disableTrimming: 0
+    additive: 0
+    scale: {x: 1, y: 1, z: 1}
+    texture: {fileID: 2800000, guid: 5f9684ecae491c344876c7ed4d17067a, type: 3}
+    materialId: 0
+    anchor: 7
+    anchorX: 0
+    anchorY: 0
     overrideMesh: {fileID: 0}
     doubleSidedSprite: 0
     customSpriteGeometry: 0

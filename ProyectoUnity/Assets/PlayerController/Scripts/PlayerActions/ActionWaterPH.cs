@@ -15,6 +15,23 @@ public class ActionWaterPH : MonoBehaviour {
 		txt.GetComponent<ChangeText> ().Change(zona,txt);
 		txt2.GetComponent<ChangeText> ().Change2(zona,txt2);
 		pnl2.transform.position = new Vector3(Screen.width/2,((Screen.height-155)/2)+155, 0);
+
+		// Mission condition handling 
+		MissionManager mm = GameController.gameController.missionController;
+		Mission actionPH;
+		if (mm != null) {	// if mission manager was retrieved succesfully
+			actionPH = mm.getMissionById (35); // get mission with id = 2
+			if (actionPH != null && actionPH.started) {	// if mission exists and has been started
+				((MissionRecolectarPH)actionPH).PHanalisis = true;	// set flag for mission
+			}
+		}
+
+		if (mm != null) {	// if mission manager was retrieved succesfully
+			actionPH = mm.getMissionById (38); // get mission with id = 2
+			if (actionPH != null && actionPH.started) {	// if mission exists and has been started
+				((MissionRecolectarPH2)actionPH).PHanalisis2 = true;	// set flag for mission
+			}
+		}
 				
 	}
 
