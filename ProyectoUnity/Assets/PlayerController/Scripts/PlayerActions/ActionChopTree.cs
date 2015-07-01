@@ -3,39 +3,18 @@ using System.Collections;
 
 public class ActionChopTree : PlayerAction {
 
-	GameObject player;
-	GameObject target;
-	bool error;
-	float near_distance = 0.8f;
-
-	bool reached_target;
-	bool destroyed_target;
-	bool action_interrupted;
-
-	public string name = "Chop Tree";
-	public string target_tag = "SceneryTree";
-	public string inv_item = "Hacha";
+	PlayerPoints points = PlayerController.Player_Controller.GetComponent<PlayerPoints>();
 
 	public void Start() {
-	}
-
-	public override string getName() {
-		return name;
-	}
-
-	public override string getTargetTag() {
-		return target_tag;
-	}
-
-	public override string getInvItem() {
-		return inv_item;
+		action_name = "Cortar Arbol";
+		target_tag = "SceneryTree";
+		inv_item = "Hacha";
 	}
 
 	public override void performAction(GameObject player, GameObject target) {
 	
 		this.player = player;
 		this.target = target;
-		error = false;
 
 		if(base.checkInventory (inv_item)) {
 		
@@ -53,24 +32,7 @@ public class ActionChopTree : PlayerAction {
 
 	}
 
-	IEnumerator ApproachPosition (GameObject player, Vector3 target_position) {
-
-		PlayerMovement pm = player.GetComponent<PlayerMovement> ();
-		pm.setNewDestination (target_position, near_distance);
-
-		// espere mientras la condicion sea verdadera
-		while(!pm.reachedDestination && !pm.movementInterrupted) {
-			yield return null;
-		}
-
-		if (pm.movementInterrupted) {
-			action_interrupted = true;
-		} else {
-			reached_target = true;
-		}
-	}
-
-	IEnumerator DestroyTarget (GameObject player, GameObject target) {
+	public override IEnumerator DestroyTarget (GameObject player, GameObject target) {
 
 		// espere mientras la condicion sea verdadera
 		while(!reached_target && !action_interrupted) {
@@ -90,9 +52,19 @@ public class ActionChopTree : PlayerAction {
 			case 3:
 				anim.Play("palmera");
 				break;
+			default:
+				GenerateTerrain.TerrainGenerator.destroySceneryObject (target);
+				destroyed_target = true;
+				break;
 			}
 
 			anim.AnimationCompleted = AnimationChopTreeCompletedDelegate;
+			
+			points.reduceEcologyPoints(5);
+
+			if (MissionChopTree.singleton != null && MissionChopTree.singleton.started) {
+				MissionChopTree.singleton.onDestroyTree();
+			}
 
 		}
 
@@ -102,6 +74,5 @@ public class ActionChopTree : PlayerAction {
 		GenerateTerrain.TerrainGenerator.destroySceneryObject (target);
 		destroyed_target = true;
 	}
-
 
 }

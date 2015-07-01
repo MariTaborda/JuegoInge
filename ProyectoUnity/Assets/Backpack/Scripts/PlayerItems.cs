@@ -18,7 +18,7 @@ public class PlayerItems : MonoBehaviour {
 		quantities = new List<int> ();
 	}
 
-	public void addItem(BackpackItem item, int amount = 1){
+	public void addItem(BackpackItem item, int amount){
 		bool inBackpack = false;
 
 		if (item.stackable) {
@@ -47,7 +47,7 @@ public class PlayerItems : MonoBehaviour {
 	}
 
 	// Devuelve falso si no fue posible reducir la cantidad de item porque no esta en la mochila o no hay suficiente
-	public bool reduceItem(BackpackItem item, int amount = 1) {
+	public bool reduceItem(BackpackItem item, int amount) {
 		bool canReduce = false;
 		
 		for (int i = 0; i < items.Count; ++i) {
@@ -73,6 +73,7 @@ public class PlayerItems : MonoBehaviour {
 		for (int i = 0; i < items.Count; ++i) {
 			if (items[i].name == item_name) {
 				return true;
+				break;
 			}
 		}
 		return false;
@@ -84,6 +85,7 @@ public class PlayerItems : MonoBehaviour {
 		for (int i = 0; i < items.Count; ++i) {
 			if (items[i].name == item.name) {
 				result = true;
+				break;
 			}
 		}
 		
@@ -102,8 +104,17 @@ public class PlayerItems : MonoBehaviour {
 		return quantities [position];
 	}
 
-	void Update() {
-		//Debug.Log ("Cantidad de Items: " + items.Count);
+	public int getItemAmount(BackpackItem item){
+		int result = 0;
+		
+		for (int i = 0; i < items.Count; ++i) {
+			if (items[i].name == item.name) {
+				result = quantities [i];
+				break;
+			}
+		}
+
+		return result;
 	}
 
 }

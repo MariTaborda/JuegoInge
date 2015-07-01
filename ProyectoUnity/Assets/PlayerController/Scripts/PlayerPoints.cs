@@ -3,17 +3,15 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerPoints : MonoBehaviour {
-	
-	[HideInInspector]
-	public int ecologicPoints;
 
 	public Slider pointsSlider;
 	public GameObject ecologicPointsUI;
-
-	// Use this for initialization
+	
+	private int ecologicPoints;
+	
 	void Start () {
 		ecologicPoints = 0;
-		updatePointsUI ();
+		updatePointsUI();
 	}
 	
 	public void addEcologyPoints(int points) {
@@ -34,12 +32,16 @@ public class PlayerPoints : MonoBehaviour {
 	
 	void updatePointsUI() {
 		pointsSlider.value = ecologicPoints;
-		ecologicPointsUI.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (ecologicPoints, 0);
-		ecologicPointsUI.GetComponent<Text> ().text = ecologicPoints.ToString();
+		ecologicPointsUI.GetComponent<RectTransform>().anchoredPosition = new Vector2 (ecologicPoints, 0);
+		ecologicPointsUI.GetComponent<Text>().text = ecologicPoints.ToString();
 		if (ecologicPoints < 0) {
-			ecologicPointsUI.GetComponent<Text> ().color = Color.red;
+			ecologicPointsUI.GetComponent<Text>().color = Color.red;
 		} else {
-			ecologicPointsUI.GetComponent<Text> ().color = Color.black;
+			ecologicPointsUI.GetComponent<Text>().color = Color.black;
 		}
+	}
+
+	public int getEcologyPoints () {
+		return ecologicPoints;
 	}
 }

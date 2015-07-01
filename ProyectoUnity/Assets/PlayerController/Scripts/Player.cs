@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 	
-	List<PlayerAction> actions;
+	protected List<PlayerAction> actions;
 
 	public virtual void init() {
 		actions = new List<PlayerAction> ();
 	}
 
-	public List<PlayerAction> getActions() {
+	public virtual List<PlayerAction> getActions() {
 		return actions;
 	}
 
-	public void addAction(PlayerAction action) {
+	public virtual void addAction(PlayerAction action) {
 		actions.Add (action);
 	}
 

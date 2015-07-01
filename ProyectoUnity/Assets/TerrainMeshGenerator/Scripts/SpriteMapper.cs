@@ -19,6 +19,9 @@ public class SpriteMapper {
 	public string medium_tree_2 = "tree5";
 	public string tropical_tree_1 = "tree1_2";
 	public string tropical_tree_2 = "tree2_2";
+	public string tropical_tree_3 = "ttree2";
+	public string tropical_tree_4 = "ttree3";
+	public string tropical_tree_5 = "ttree4";
 
 	// bushes
 	public string bush_1 = "bush1";
@@ -28,8 +31,9 @@ public class SpriteMapper {
 	public string bush_5 = "bush-z";
 
 	// rocks
-	public string rock_1 = "piedra1";
-	public string rock_2 = "piedra2";
+	public string rock_1 = "rock1";
+	public string rock_2 = "rock2";
+	public string rock_3 = "rock3";
 
 	// structures
 	public string casa_1 = "casa1";
@@ -65,6 +69,9 @@ public class SpriteMapper {
 		trees.Add (getSpriteIdByName(medium_tree_2));
 		trees.Add (getSpriteIdByName(tropical_tree_1));
 		trees.Add (getSpriteIdByName(tropical_tree_2));
+		//trees.Add (getSpriteIdByName(tropical_tree_3));
+		trees.Add (getSpriteIdByName(tropical_tree_4));
+		trees.Add (getSpriteIdByName(tropical_tree_5));
 
 		// add bushes
 		bushes.Add (getSpriteIdByName(bush_1));
@@ -76,6 +83,7 @@ public class SpriteMapper {
 		// add rocks
 		rocks.Add (getSpriteIdByName(rock_1));
 		rocks.Add (getSpriteIdByName(rock_2));
+		rocks.Add (getSpriteIdByName(rock_3));
 
 		// add structures
 		// (pending)
@@ -101,6 +109,21 @@ public class SpriteMapper {
 		return trees [index];
 	}
 
+	public int getRandomShortTreeId() {
+		int index = (int) UnityEngine.Random.Range (0, 3);
+		return trees [index];
+	}
+
+	public int getRandomBeachTreeId() {
+		int index = (int) UnityEngine.Random.Range (1, 4);
+		return trees [index];
+	}
+
+	public int getRandomTallTreeId() {
+		int index = (int) UnityEngine.Random.Range (3, trees.Count);
+		return trees [index];
+	}
+
 	public int getRandomBushId() {
 		int index = (int) UnityEngine.Random.Range (0, bushes.Count - 1);
 		/*if ((int)UnityEngine.Random.Range (0, 100) < 99) {
@@ -123,6 +146,60 @@ public class SpriteMapper {
 		} else {					// rock
 			return getRandomRockId();
 		} 
+
+	}
+
+	public int getRandomVegetation(TileType ttype) {
+
+		if(ttype == TileType.empty) {
+			return -1;
+		}
+
+		if(ttype == TileType.high_zone) {
+			int type = UnityEngine.Random.Range (0, 100);
+			if (type < 13) {			// tall tree
+				return getRandomTallTreeId();
+			} else if (type < 20) {		// short tree
+				return getRandomShortTreeId();
+			} else if (type < 96) {		// bush
+				return getRandomBushId();
+			} else {					// rock
+				return getRandomRockId();
+			} 
+		}
+
+		if(ttype == TileType.medium_zone) {
+			int type = UnityEngine.Random.Range (0, 100);
+			if (type < 17) {			// tree
+				return getRandomShortTreeId();
+			} else if (type < 94) {		// bush
+				return getRandomBushId();
+			} else {					// rock
+				return getRandomRockId();
+			} 
+		}
+
+		if(ttype == TileType.low_zone) {
+			int type = UnityEngine.Random.Range (0, 100);
+			if (type < 17) {			// tree
+				return getRandomBeachTreeId();
+			} else if (type < 94) {		// bush
+				return getRandomBushId();
+			} else {					// rock
+				return getRandomRockId();
+			} 
+		}
+
+		if(ttype == TileType.rocky) {
+			int type = UnityEngine.Random.Range (0, 100);
+			if (type < 98) {			// rock
+				return getRandomRockId();
+			} else {		// bush
+				return getRandomBushId();
+			}
+		}
+
+		return -1;
 
 	}
 

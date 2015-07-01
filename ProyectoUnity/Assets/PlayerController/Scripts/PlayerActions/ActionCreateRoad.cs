@@ -3,12 +3,8 @@ using System.Collections;
 
 public class ActionCreateRoad : PlayerAction {
 	
-	public Texture2D cursorTexture;
-	
-	GameObject player;
-	GameObject target;
-	bool error;
-	float near_distance = 0.9f;
+	public Texture2D workingCursorTexture;
+	public Texture2D loadingCursorTexture;
 	
 	Vector3 position;
 	int chunkIndexX;
@@ -18,24 +14,18 @@ public class ActionCreateRoad : PlayerAction {
 	
 	bool position_selected;
 	bool invalid_position;
-	bool reached_target;
 	bool created_road;
-	bool action_interrupted;
-	/*
-	public string invent_item = "Planton";
-	
-	public override string getInvItem() {
-		return invent_item;
+
+	public void Start() {
+		inv_item = "Piedra";
 	}
-	*/
-	public void performAction(GameObject player) {
+
+	public override void performAction(GameObject player, GameObject target) {
 		
 		this.player = player;
 		this.target = target;
-		error = false;
-		
-		//if(base.checkInventory (invent_item)) {
-		if(true) {
+
+		if(base.checkInventory (inv_item)) {
 			
 			position_selected = false;
 			invalid_position = false;
@@ -46,10 +36,11 @@ public class ActionCreateRoad : PlayerAction {
 			StartCoroutine( SelectPosition() );
 			StartCoroutine( ApproachPosition(player) );
 			StartCoroutine( CreateTarget(player) );
+			StartCoroutine( FinishAction() );
 			
 		}
 		else {
-			//Debug.Log("Player is missing item: "+invent_item);
+			Debug.Log("Player is missing item: " + inv_item);
 		}
 		
 	}
@@ -59,7 +50,7 @@ public class ActionCreateRoad : PlayerAction {
 		PlayerController pc = PlayerController.Player_Controller.GetComponent<PlayerController>();
 		
 		pc.gettingMousePositionOnWorld = true;
-		Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+		Cursor.SetCursor(workingCursorTexture, Vector2.zero, CursorMode.Auto);
 		
 		while(pc.chunkIndexX == null) {
 			yield return null;
@@ -94,7 +85,9 @@ public class ActionCreateRoad : PlayerAction {
 			action_interrupted = true;
 			
 		} else {
-			
+
+			Cursor.SetCursor(loadingCursorTexture, Vector2.zero, CursorMode.Auto);
+
 			PlayerMovement pm = player.GetComponent<PlayerMovement> ();
 			pm.setNewDestination (position, near_distance);
 			
@@ -107,6 +100,9 @@ public class ActionCreateRoad : PlayerAction {
 			} else {
 				reached_target = true;
 			}
+
+			Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
 		}
 	}
 	
@@ -125,12 +121,23 @@ public class ActionCreateRoad : PlayerAction {
 			pathTypes[tileIndexX,tileIndexY] = PathType.path1;
 			
 			GenerateTerrain.TerrainGenerator.UpdateChunk(chunkIndexX,chunkIndexY);
-			/*
-			PlayerItems items = pc.getCurrentPlayerItems ();
-			bool result = items.reduceItem (new Sapling ());
-			pc.UpdateBackpackUI();
-			*/
+
 			created_road = true;
+		}
+		
+	}
+
+	IEnumerator FinishAction () {
+		while(!created_road && !action_interrupted) {
+			yield return null;
+		}
+		
+		if (created_road) {
+			PlayerController pc = PlayerController.Player_Controller.GetComponent<PlayerController>();
+			PlayerItems items = pc.getCurrentPlayerItems ();
+			items.reduceItem (new Rock (), 1);
+			pc.UpdateBackpackUI();
+			performAction(player, null);		// repite la accion para crear varios caminos seguidamente
 		}
 		
 	}

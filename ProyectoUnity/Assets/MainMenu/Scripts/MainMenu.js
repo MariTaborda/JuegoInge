@@ -65,6 +65,10 @@ function ShowMenu () {
 }
 
 
+function ShowLab () {
+ 	Application.LoadLevel("laboratory");
+}
+
 
 
 

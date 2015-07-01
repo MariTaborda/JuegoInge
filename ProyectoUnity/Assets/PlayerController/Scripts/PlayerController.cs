@@ -6,12 +6,16 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 
+	public const int BUILDER = 0;
+	public const int SCIENTIST = 1;
+	public const int EXPLORER = 2;
+
 	public static GameObject Player_Controller;
 
 	public GameObject builderPrefab;
 	public GameObject scientistPrefab;
 	public GameObject explorerPrefab;
-
+	
 	public Sprite builderImage;
 	public Sprite scientistImage;
 	public Sprite explorerImage;
@@ -19,23 +23,21 @@ public class PlayerController : MonoBehaviour {
 	public GameObject currentCharacterButton;
 	public GameObject character2Button;
 	public GameObject character3Button;
+	
+	private GameObject[] characters;
+	private Sprite[] characterImages;
+	private int current;
 
-	private GameObject builder;
-	private GameObject scientist;
-	private GameObject explorer;
-
+	public GameObject builder;
+	public GameObject scientist;
+	public GameObject explorer;
+	
 	private Player cbuilder;
 	private Player cexplorer;
 	private Player cscientist;
 
-	[HideInInspector]
-	public GameObject currentCharacter;
-
-	private GameObject character2;
-	private GameObject character3;
-
 	public UpdateBackpackContents updateBackpack;
-	public SetActionsMiniMenu setActions;			// CAMBIOS
+	public SetActionsMiniMenu setActions;
 
 	[HideInInspector]
 	public bool gettingMousePositionOnWorld = false;
@@ -51,26 +53,61 @@ public class PlayerController : MonoBehaviour {
 	[HideInInspector]
 	public int? tileIndexY  = null;
 
+	// object initialization
+	public void init() {
+
+		Player_Controller = gameObject;
+		
+		builder   = Instantiate (builderPrefab,   new Vector3(66.3f, 1f, -146.5f), Quaternion.identity) as GameObject;
+		scientist = Instantiate (scientistPrefab, new Vector3(66.0f, 1f, -146.7f), Quaternion.identity) as GameObject;
+		explorer  = Instantiate (explorerPrefab,  new Vector3(66.0f, 1f, -146.7f), Quaternion.identity) as GameObject;
+
+		characters = new GameObject[]{builder, scientist, explorer};
+		characterImages = new Sprite[]{builderImage, scientistImage, explorerImage};
+		current = BUILDER;
+
+		builder.transform.Find("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
+		explorer.transform.Find("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
+		scientist.transform.Find("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
+
+		builder.GetComponent<PlayerMovement> ().init(builder);
+		scientist.GetComponent<PlayerMovement> ().init(scientist);
+		explorer.GetComponent<PlayerMovement> ().init(explorer);
+
+		cbuilder = builder.GetComponent<Builder> ();
+		cexplorer = explorer.GetComponent<Explorer> ();
+		cscientist = scientist.GetComponent<Scientist> ();
+
+		cbuilder.init ();
+		cexplorer.init ();
+		cscientist.init ();
+
+		setItems ();
+		setPlayerActions ();
+
+		changeCurrentCharacter(current);
+	}
+
+	public GameObject currentCharacter() {
+		return characters [current];
+	}
+	
+	public int currentCharacterIndex() {
+		return current;
+	}
+	
 	void Update () {
 		if ( Input.GetKeyDown( KeyCode.Tab ) ) {
-			// se cambia el personaje con Tab
-			if (currentCharacter == builder) {
-				changeCurrentCharacter(explorer);
-			} else if (currentCharacter == scientist) {
-				changeCurrentCharacter(builder);
-			} else {
-				changeCurrentCharacter(scientist);
-			}
+			int next = (current + 1) % 3;
+			changeCurrentCharacter(next);
 		}
-
+		
 		// handle left mouse button clicks
-		if(Input.GetMouseButtonDown (0)) {
+		if(Input.GetMouseButtonDown(0)) {
 			if (!EventSystem.current.IsPointerOverGameObject ()) {
 				// did not click on a UI element or scenery object
-
-				if (gettingMousePositionOnWorld) {			// CAMBIOS
-
-					// TILE INDEXES
+				//if(true) {
+				if (gettingMousePositionOnWorld) {
 					Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition );
 					RaycastHit hit;
 					if(Physics.Raycast(ray, out hit)) {
@@ -82,67 +119,19 @@ public class PlayerController : MonoBehaviour {
 						chunkIndexY = chunk.index_y;
 						tileIndexX = indz;
 						tileIndexY = indx;
-						//Debug.Log("Chunk indexes: ("+chunk.index_x+", "+chunk.index_y+"), "+"Tile indexes: ("+indx+", "+indz+")");
+						//Debug.Log ("chunkX: "+chunkIndexX+". chunkY: "+chunkIndexY+". tileX: "+tileIndexX+". tileY: "+tileIndexY + ". position: " + pointInWorld);
 					}
-					// END OF TILE INDEXES
-
 				} else {
-
-					currentCharacter.GetComponent<PlayerMovement> ().checkNewDestination ();
+					currentCharacter().GetComponent<PlayerMovement> ().checkNewDestination ();
 					changeCharacterOnMouseDown ();
-
 				}
-
 			} 
 		}
-		
-	}
-
-	// object initialization
-	public void init() {
-		Player_Controller = gameObject;
-		
-		builder   = Instantiate (builderPrefab,   new Vector3(145f, 0.72f, -106.5f), Quaternion.identity) as GameObject;
-		scientist = Instantiate (scientistPrefab, new Vector3(13.46f, 2.1f, -5.19f), Quaternion.identity) as GameObject;
-		explorer  = Instantiate (explorerPrefab,  new Vector3(13.88f, 2.1f, -5.56f), Quaternion.identity) as GameObject;
-		
-		currentCharacter = builder;
-		character2 = explorer;
-		character3 = scientist;
-		
-		Camera.main.GetComponent<MoveCamera> ().target = currentCharacter;
-		Camera.main.GetComponent<MoveCamera> ().following = true;
-
-		setItems ();	
-
-		updateCurrentCharacterUI();					
-		UpdateBackpackUI ();
-		setActions.UpdateUI ();
-
-		builder.transform.Find ("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
-		explorer.transform.Find ("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
-		scientist.transform.Find ("AnimatedSprite").gameObject.GetComponent<CameraFace>().m_Camera = GameController.gameController.mainCamera;
-
-		builder.GetComponent<PlayerMovement> ().init ();
-		scientist.GetComponent<PlayerMovement> ().init ();
-		explorer.GetComponent<PlayerMovement> ().init ();
-
-		cbuilder = builder.GetComponent<Builder> ();
-		cbuilder.init ();
-		cexplorer = explorer.GetComponent<Explorer> ();
-		cexplorer.init ();
-		cscientist = scientist.GetComponent<Scientist> ();
-		cscientist.init ();
-
-		setPlayerActions ();
-
 	}
 
 	void setPlayerActions() {
 
 		//builder actions
-		//ActionChopTree act = GameController.gameController.playerActionsHolder.AddComponent<ActionChopTree> ();
-		//cbuilder.addAction (act);
 
 		//explorer actions
 		ActionChopTree act = GameController.gameController.playerActionsHolder.AddComponent<ActionChopTree> ();
@@ -155,8 +144,6 @@ public class PlayerController : MonoBehaviour {
 		cexplorer.addAction (amr);
 
 		//scientist actions
-
-
 	}
 
 	void deactivateActionsMenu() {
@@ -175,104 +162,66 @@ public class PlayerController : MonoBehaviour {
 			if ( hit.transform.gameObject.tag == "Player" ) {
 				// se selecciono un personaje con el mouse
 				if ( hit.transform.gameObject == builder ) {
-					changeCurrentCharacter(builder);
+					changeCurrentCharacter(BUILDER);
 				} else if (hit.transform.gameObject == scientist) {
-					changeCurrentCharacter(scientist);
+					changeCurrentCharacter(SCIENTIST);
 				} else if (hit.transform.gameObject == explorer) {
-					changeCurrentCharacter(explorer);
+					changeCurrentCharacter(EXPLORER);
 				}			
 			}
 
 		}
 	}
-
-	void changeCurrentCharacter(GameObject newCurrentCharacter) {
-		if (newCurrentCharacter == character2) {
-			character2 = currentCharacter;
-			currentCharacter = newCurrentCharacter;
-		} else if (newCurrentCharacter == character3) {
-			character3 = currentCharacter;
-			currentCharacter = newCurrentCharacter;
-		}
-
-		updateCurrentCharacterUI ();					// CAMBIO
+	
+	public void changeCurrentCharacter(int newIndex) {
+		current = newIndex;
+		updateCurrentCharacterUI ();
 		UpdateBackpackUI ();
 		setActions.UpdateUI ();
-
-		Camera.main.GetComponent<MoveCamera> ().target = currentCharacter;
+		Camera.main.GetComponent<MoveCamera> ().target = currentCharacter();
 		Camera.main.GetComponent<MoveCamera> ().following = true;
-
 		deactivateActionsMenu ();
+
+
+		// Mission condition handling 
+		MissionManager mm = GameController.gameController.missionController;
+		Mission changingCharacters;
+		if (mm != null) {	// if mission manager was retrieved succesfully
+			changingCharacters = mm.getMissionById (2); // get mission with id = 2
+			if (changingCharacters != null && changingCharacters.started) {	// if mission exists and has been started
+				((MissionSelectCharacter)changingCharacters).changedCharacters = true;	// set flag for mission
+			}
+		}
 
 	}
 
 	void updateCurrentCharacterUI() {
-		if (currentCharacter == builder) {
-			currentCharacterButton.GetComponent<Image> ().sprite = builderImage;
-			if (character2 == scientist) {
-				character2Button.GetComponent<Image> ().sprite = scientistImage;
-				character3Button.GetComponent<Image> ().sprite = explorerImage;
-			} else {
-				character2Button.GetComponent<Image> ().sprite = explorerImage;
-				character3Button.GetComponent<Image> ().sprite = scientistImage;
-			}
-		} else if (currentCharacter == scientist) {
-			currentCharacterButton.GetComponent<Image> ().sprite = scientistImage;
-			if (character2 == builder) {
-				character2Button.GetComponent<Image> ().sprite = builderImage;
-				character3Button.GetComponent<Image> ().sprite = explorerImage;
-			} else {
-				character2Button.GetComponent<Image> ().sprite = explorerImage;
-				character3Button.GetComponent<Image> ().sprite = builderImage;
-			}
-		} else {
-			currentCharacterButton.GetComponent<Image> ().sprite = explorerImage;
-			if (character2 == builder) {
-				character2Button.GetComponent<Image> ().sprite = builderImage;
-				character3Button.GetComponent<Image> ().sprite = scientistImage;
-			} else {
-				character2Button.GetComponent<Image> ().sprite = scientistImage;
-				character3Button.GetComponent<Image> ().sprite = builderImage;
-			}
-		}
+		currentCharacterButton.GetComponent<Image> ().sprite = characterImages[current];
+		character2Button.GetComponent<Image> ().sprite = characterImages[(current + 1) % 3];
+		character3Button.GetComponent<Image> ().sprite = characterImages[(current + 2) % 3];
+	}
+	
+	public void onClickCharacter2Button() {
+		changeCurrentCharacter ((current + 1) % 3);
 	}
 
-	public void setCurrentCharacter2(){
-		changeCurrentCharacter (character2);
+	public void onClickCharacter3Button() {
+		changeCurrentCharacter ((current + 2) % 3);
 	}
-
-	public void setCurrentCharacter3(){
-		changeCurrentCharacter (character3);
-	}
-
+	
 	public void triggerActionFromMenu(PlayerAction selected_action) {
 	
 		if (currentPlayerHasAction (selected_action)) {
-			selected_action.performAction (currentCharacter, ShowMenu.clickedObject.transform.parent.gameObject);
+			selected_action.performAction (currentCharacter(), ShowMenu.clickedObject.transform.parent.gameObject);
 		} 
 		else {
 			Debug.LogError("Active character cannot perform that action.");
 		}
 
 		ActionsMenu.activator.deactivatePanel ();
-
-		/*SceneryType[,] sc_map = GenerateTerrain.TerrainGenerator.getChunkSceneryMap (0, 0);
-		
-		string output = "";
-		for (int i = 0; i < 24; ++i) {
-			output = output + "(";
-			for (int j = 0; j < 24; ++j) {
-				output = output + (int) sc_map[i, j] + " ";
-			}
-			output = output + ")\n";
-		}
-		
-		DebugPanel.print (output);*/
-
 	}
 
 	public List<PlayerAction> getCurrentCharacterActionsOnObject (GameObject target) {
-	
 		List<PlayerAction> result = new List<PlayerAction> ();
 		List<PlayerAction> actions = getCurrentCharacterActions ();
 		for (int i = 0; i < actions.Count; ++i) {
@@ -280,29 +229,17 @@ public class PlayerController : MonoBehaviour {
 				result.Add(actions[i]);
 			}
 		}
-
 		return result;
-
 	}
 
 	public List<PlayerAction> getCurrentCharacterActions () {
-
-		if ( currentCharacter.GetComponent<PlayerIdentifier> ().identifier == "Builder" ) {
-			return cbuilder.getActions ();
-		} else if ( currentCharacter.GetComponent<PlayerIdentifier> ().identifier == "Scientist" ) {
-			return cscientist.getActions ();
-		} else if ( currentCharacter.GetComponent<PlayerIdentifier> ().identifier == "Explorer" ) {
-			return cexplorer.getActions ();
-		}	
-
-		return new List<PlayerAction> ();
-		
+		return currentCharacter().GetComponent<Player>().getActions();
 	}
 
-	bool currentPlayerHasAction(PlayerAction action) {
+	public bool currentPlayerHasAction(PlayerAction action) {
 		List<PlayerAction> playerActions = getCurrentCharacterActions ();
 		for (int i = 0; i < playerActions.Count; ++i) {
-			if(playerActions[i].getName() == action.getName()) {
+			if(playerActions[i].getActionName() == action.getActionName()) {
 				return true;
 			}
 		}
@@ -310,54 +247,49 @@ public class PlayerController : MonoBehaviour {
 	}
 	
 	public PlayerItems getCurrentPlayerItems() {
-		return currentCharacter.GetComponent<PlayerItems> ();
+		return currentCharacter().GetComponent<PlayerItems>();
 	}
 	
 	private void setItems () {
 		PlayerItems builderItems = builder.GetComponent<PlayerItems> ();
-		builderItems.addItem (new Shovel());
-		builderItems.addItem (new Hammer());
+		//builderItems.addItem (new Shovel(), 1);
+		builderItems.addItem (new Hammer(), 1);
 		builderItems.addItem (new Nails(),15);
-		builderItems.addItem (new Wood(),10);
+		builderItems.addItem (new Wood(),40);
 		builderItems.addItem (new Sapling(),8);
 		
 		PlayerItems scientistItems = scientist.GetComponent<PlayerItems> ();
 		scientistItems.addItem (new Container(),2);
-		scientistItems.addItem (new MagnifGlass());
+		scientistItems.addItem (new MagnifGlass(), 1);
 		scientistItems.addItem (new PHTest(),4);
 		
 		PlayerItems explorerItems = explorer.GetComponent<PlayerItems> ();
-		explorerItems.addItem (new Pickaxe());
-		explorerItems.addItem (new Machete());
-		explorerItems.addItem (new Axe());
+		explorerItems.addItem (new Pickaxe(), 1);
+		explorerItems.addItem (new Machete(), 1);
+		explorerItems.addItem (new Axe(), 1);
+		explorerItems.addItem (new Rock(), 40);
+	}
+
+	public void giveItemsToBuilder(BackpackItem item, int quantity) {
+		PlayerItems playerItems = builder.GetComponent<PlayerItems> ();
+		playerItems.addItem (item, quantity);
+		UpdateBackpackUI ();
+	}
+
+	public void giveItemsToExplorer(BackpackItem item, int quantity) {
+		PlayerItems playerItems = explorer.GetComponent<PlayerItems> ();
+		playerItems.addItem (item, quantity);
+		UpdateBackpackUI ();
+	}
+
+	public void giveItemsToScientist(BackpackItem item, int quantity) {
+		PlayerItems playerItems = scientist.GetComponent<PlayerItems> ();
+		playerItems.addItem (item, quantity);
+		UpdateBackpackUI ();
 	}
 
 	public void UpdateBackpackUI() {			
 		updateBackpack.UpdateUI ();
-	}
-
-	public bool currentCharacterIsBuilder() {
-		if (currentCharacter == builder) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public bool currentCharacterIsScientist() {
-		if (currentCharacter == scientist) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public bool currentCharacterIsExplorer() {
-		if (currentCharacter == explorer) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public void clearMousePositionsOnWorld() {
@@ -367,4 +299,15 @@ public class PlayerController : MonoBehaviour {
 		tileIndexY  = null;
 	}
 
+	public bool currentCharacterIsBuilder() {
+		return current == BUILDER;
+	}
+
+	public bool currentCharacterIsScientist() {
+		return current == SCIENTIST;
+	}
+
+	public bool currentCharacterIsExplorer() {
+		return current == EXPLORER;
+	}
 }

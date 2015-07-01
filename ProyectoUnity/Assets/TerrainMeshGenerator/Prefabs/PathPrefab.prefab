@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11402392}
   - 65: {fileID: 6573102}
   - 114: {fileID: 11496896}
+  - 114: {fileID: 11498458}
   m_Layer: 8
   m_Name: PathPrefab
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120896}
-  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106709}
+  m_LocalRotation: {x: .70710659, y: 0, z: 0, w: -.707106948}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -42,7 +43,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: bb0d1de32b757dc478d77dc3703a5b5b, type: 2}
+  - {fileID: 2100000, guid: 6cdf6888ce8cf0e4f9b521012c9767d3, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -55,7 +56,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
 --- !u!33 &3311422
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -73,7 +74,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: .100000001}
+  m_Size: {x: .699999988, y: .699999988, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11402392
 MonoBehaviour:
@@ -101,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fac570381f34f647b768dc5a5aa1364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collection: {fileID: 11488226, guid: 80c1636424b7dcd4b82109910c0ac33d, type: 2}
+  collection: {fileID: 11463932, guid: 108aa5a38f8acd347814957d05e5c2b3, type: 2}
   _color: {r: 1, g: 1, b: 1, a: 1}
   _scale: {x: 1, y: 1, z: 1}
   _spriteId: 0
@@ -112,7 +113,23 @@ MonoBehaviour:
   meshCollider: {fileID: 0}
   meshColliderPositions: []
   meshColliderMesh: {fileID: 0}
-  renderLayer: 0
+  renderLayer: 1
+--- !u!114 &11498458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9b59ceb6c16e5f47afa3424a143021d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chunk_index_x: 0
+  chunk_index_y: 0
+  tile_index_x: 0
+  tile_index_y: 0
+  type: unassigned
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

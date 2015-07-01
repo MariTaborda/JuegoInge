@@ -5,11 +5,6 @@ public class ActionPlantSapling : PlayerAction {
 
 	public Texture2D cursorTexture;
 
-	GameObject player;
-	GameObject target;
-	bool error;
-	float near_distance = 0.9f;
-
 	Vector3 position;
 	int chunkIndexX;
 	int chunkIndexY;
@@ -18,37 +13,35 @@ public class ActionPlantSapling : PlayerAction {
 
 	bool position_selected;
 	bool invalid_position;
-	bool reached_target;
-	bool planted_target;
-	bool action_interrupted;
 
-	public string invent_item = "Planton";
-	
-	public override string getInvItem() {
-		return invent_item;
+	public void Start() {
+		near_distance = 0.9f;
+		inv_item = "Planton";
 	}
 
-	public void performAction(GameObject player) {
+	public override void performAction (GameObject player, GameObject target) {
+		performAction (player, 1);
+	}
+
+	public void performAction(GameObject player,int tree) {
 		
 		this.player = player;
 		this.target = target;
-		error = false;
 
-		if(base.checkInventory (invent_item)) {
+		if(base.checkInventory (inv_item)) {
 
 			position_selected = false;
 			invalid_position = false;
 			reached_target = false;
-			planted_target = false;
 			action_interrupted = false;
 
 			StartCoroutine( SelectPosition() );
 			StartCoroutine( ApproachPosition(player) );
-			StartCoroutine( PlantTarget(player) );
+			StartCoroutine( PlantTarget(player,tree) );
 			
 		}
 		else {
-			Debug.Log("Player is missing item: "+invent_item);
+			Debug.Log("Player is missing item: "+inv_item);
 		}
 		
 	}
@@ -82,25 +75,24 @@ public class ActionPlantSapling : PlayerAction {
 	}
 
 	IEnumerator ApproachPosition (GameObject player) {
-
+		
 		while(!position_selected) {
 			yield return null;
 		}
-
+		
 		if (invalid_position) {
-
+			
 			Debug.Log ("Invalid position for sapling.");
 			action_interrupted = true;
-
+			
 		} else {
-
 			PlayerMovement pm = player.GetComponent<PlayerMovement> ();
 			pm.setNewDestination (position, near_distance);
-
+			
 			while (!pm.reachedDestination && !pm.movementInterrupted) {
 				yield return null;
 			}
-		
+			
 			if (pm.movementInterrupted) {
 				action_interrupted = true;
 			} else {
@@ -109,10 +101,11 @@ public class ActionPlantSapling : PlayerAction {
 		}
 	}
 	
-	IEnumerator PlantTarget (GameObject player) {
+	IEnumerator PlantTarget (GameObject player,int tree) {
 
 		PlayerController pc = PlayerController.Player_Controller.GetComponent<PlayerController>();
-
+		PlayerPoints points =PlayerController.Player_Controller.GetComponent<PlayerPoints>();
+		
 		while(!reached_target && !action_interrupted) {
 			yield return null;
 		}
@@ -120,15 +113,19 @@ public class ActionPlantSapling : PlayerAction {
 		if (reached_target) {
 			int[,] sceneryTypes = GenerateTerrain.TerrainGenerator.getChunkSceneryMap(chunkIndexX,chunkIndexY);
 
-			sceneryTypes[tileIndexX,tileIndexY] = GameController.gameController.spriteMapper.getRandomTreeId();
+			sceneryTypes[tileIndexX,tileIndexY] = tree;
 
 			GenerateTerrain.TerrainGenerator.UpdateChunk(chunkIndexX,chunkIndexY);
 
 			PlayerItems items = pc.getCurrentPlayerItems ();
-			bool result = items.reduceItem (new Sapling ());
+			bool result = items.reduceItem (new Sapling (),1);
 			pc.UpdateBackpackUI();
 
-			planted_target = true;
+			points.addEcologyPoints(5);
+
+			if (MissionPlantTree.singleton != null && MissionPlantTree.singleton.started) {
+				MissionPlantTree.singleton.onPlantTree();
+			}
 		}
 		
 	}

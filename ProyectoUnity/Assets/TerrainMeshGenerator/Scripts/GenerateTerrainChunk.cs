@@ -25,6 +25,8 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	private int terrain_chunks_x;
 	private int terrain_chunks_y;
 	private LevelMap[,] WorldLevelMaps;
+	private TileTypeMap[,] WorldTileTypeMaps;
+	private WaterFlowDirectionMap[,] WorldWFDMaps;
 
 	private MeshFilter mesh_filter;
 	private MeshCollider mesh_collider;
@@ -32,10 +34,14 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	private Mesh ws_mesh;
 	private MeshRenderer ws_mesh_renderer;
 
+	private Mesh pollution_mesh;
+	private MeshRenderer pollution_mesh_renderer;
+	private int pollution_propagation_rate = 60;
+	private int p_counter = 0;
 
 
-	private Vector2[] ws_uv_offset = new Vector2[8];
-	private Vector2[] ws_uv_animRate = new Vector2[8];
+	private Vector2[] ws_uv_offset = new Vector2[9];
+	private Vector2[] ws_uv_animRate = new Vector2[9];
 
 
 	public TerrainChunk tc;
@@ -44,7 +50,7 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	public bool isValid = true;
 
 	// generates all terrain chunk data
-	public void generate(int index_x, int index_y, float tile_size, float slope_height, int side_tile_count, Vector3 chunk_origin, Vector3 chunk_center, ref LevelMap[,] WorldLevelMaps, int terrain_chunks_x, int terrain_chunks_y, int textures_x, int textures_y, ref List<int[]> neighbor_level_maps, MeshFilter m_filter) {
+	public void generate(int index_x, int index_y, float tile_size, float slope_height, int side_tile_count, Vector3 chunk_origin, Vector3 chunk_center, ref LevelMap[,] WorldLevelMaps, TileTypeMap[,] WorldTileTypeMaps, WaterFlowDirectionMap[,] WorldWFDMaps, int terrain_chunks_x, int terrain_chunks_y, int textures_x, int textures_y, ref List<int[]> neighbor_level_maps, MeshFilter m_filter) {
 
 		this.index_x = index_x;
 		this.index_y = index_y;
@@ -58,6 +64,8 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		this.textures_x = textures_x;
 		this.textures_y = textures_y;
 		this.WorldLevelMaps = WorldLevelMaps;
+		this.WorldTileTypeMaps = WorldTileTypeMaps;
+		this.WorldWFDMaps = WorldWFDMaps;
 		int zona = 0;
 		gameObject.transform.position = origin;
 
@@ -67,15 +75,24 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		if (index_x == 0 && index_y == 14) {  // 1 9
 			// zona rural = 1
 			zona = 1; 
-			tc = new TerrainChunk (origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
 		} else if (index_x == 11 && index_y == 0) { //2 15
 			// zona ciudad = 2
 			zona = 2;
-			tc = new TerrainChunk (origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+		} else if (index_x == 3 && index_y == 8) {
+			// zona arboles = 3
+			zona = 3;
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+		} else if (index_x == 4 && index_y == 9) {
+			// zona arboles end = 4
+			zona = 4;
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
 		} else {
 			// default no zone 0 
-			tc = new TerrainChunk (origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
 		}
+
 		mesh = tc.getMesh ();
 		bounds = mesh.bounds;
 		mesh_filter.mesh = mesh;
@@ -103,6 +120,11 @@ public class GenerateTerrainChunk : MonoBehaviour {
 
 	public PathType[,] getPathMap() {
 		return tc.getPathMap ();
+	}
+
+	// flag
+	public FlagType[,] getFlagMap() {
+		return tc.getFlagMap ();
 	}
 
 	// generate water surface mesh
@@ -134,13 +156,21 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		ws_uv_offset[(int) WaterFlowDirection.NW] = Vector2.zero;
 
 		ws_uv_animRate[(int) WaterFlowDirection.N] = new Vector2( 0f, 1.0f );
-		ws_uv_animRate[(int) WaterFlowDirection.NE] = new Vector2( 1.0f, 1.0f );
-		ws_uv_animRate[(int) WaterFlowDirection.E] = new Vector2( 1.0f, 0f );
-		ws_uv_animRate[(int) WaterFlowDirection.SE] = new Vector2( 1.0f, -1.0f );
+		ws_uv_animRate[(int) WaterFlowDirection.NE] = new Vector2( -1.0f, 1.0f );
+		ws_uv_animRate[(int) WaterFlowDirection.E] = new Vector2( -1.0f, 0f );
+		ws_uv_animRate[(int) WaterFlowDirection.SE] = new Vector2( -1.0f, -1.0f );
 		ws_uv_animRate[(int) WaterFlowDirection.S] = new Vector2( 0f, -1.0f );
-		ws_uv_animRate[(int) WaterFlowDirection.SW] = new Vector2( -1.0f, -1.0f );
-		ws_uv_animRate[(int) WaterFlowDirection.W] = new Vector2( -1.0f, 0f );
-		ws_uv_animRate[(int) WaterFlowDirection.NW] = new Vector2( -1.0f, 1.0f );
+		ws_uv_animRate[(int) WaterFlowDirection.SW] = new Vector2( 1.0f, -1.0f );
+		ws_uv_animRate[(int) WaterFlowDirection.W] = new Vector2( 1.0f, 0f );
+		ws_uv_animRate[(int) WaterFlowDirection.NW] = new Vector2( 1.0f, 1.0f );
+
+	}
+
+	public void generatePollution (GameObject pollution_go) {
+
+		pollution_mesh = tc.getPollutionMesh ();
+		pollution_go.GetComponent<MeshFilter> ().mesh = pollution_mesh;
+		pollution_mesh_renderer = pollution_go.GetComponent<MeshRenderer> ();
 
 	}
 
@@ -164,14 +194,63 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		tc.unloadPaths (ref path_obj_pool);
 	}
 
+
+	// flag
+	// 
+	public void loadFlags(ref Stack<GameObject> flag_obj_pool) {
+		tc.renderFlags (index_x, index_y, ref flag_obj_pool);
+	}
+	
+	// flag
+	public void unloadFlags(ref Stack<GameObject> flag_obj_pool) {
+		tc.unloadFlags (ref flag_obj_pool);
+	}
+
+
+
+
+	public void loadWHotspots(ref Stack<GameObject> whotspot_obj_pool) {
+		tc.renderWHotspots (index_x, index_y, ref whotspot_obj_pool);
+	}
+
+	public void unloadWHotspots(ref Stack<GameObject> whotspot_obj_pool) {
+		tc.unloadWHotspots (ref whotspot_obj_pool);
+	}
+
 	// destroy a scenery object on this chunk
 	public void destroySceneryObject(GameObject obj, ref Stack<GameObject> scenery_obj_pool) {
 		tc.unloadSceneryObject (obj, ref scenery_obj_pool);
 		tc.destroySceneryObject (obj);
 	}
 
+	// destroy a scenery object on this chunk
+	public void destroyPathObject(int lmap_index_x, int lmap_index_y) {
+		tc.getPathMap () [lmap_index_x, lmap_index_y] = PathType.empty;
+	}
+
+	// returns true if the tile contains a path object
+	public bool tileContainsPath(int lmap_index_x, int lmap_index_y) {
+		return tc.getPathMap () [lmap_index_x, lmap_index_y] != PathType.empty;
+	}
+
+
+	// flag
+	public void destroyFlagObject(int lmap_index_x, int lmap_index_y) {
+		tc.getFlagMap () [lmap_index_x, lmap_index_y] = FlagType.empty;
+	}
+	
+	// flag
+	public bool tileContainsFlag(int lmap_index_x, int lmap_index_y) {
+		return tc.getFlagMap () [lmap_index_x, lmap_index_y] != FlagType.empty;
+	}
+
+	// returns true if the tile contains a water hotspot object
+	public bool tileContainsWHotspot(int lmap_index_x, int lmap_index_y) {
+		return tc.getWHotspotMap () [lmap_index_x, lmap_index_y] != 0;
+	}
+
 	private void calcUvOffsets() {
-		for (int i = 0; i < 8; ++i) {
+		for (int i = 0; i < 9; ++i) {
 			ws_uv_offset [i] += ( ws_uv_animRate [i] * Time.deltaTime );
 		}
 	}
@@ -187,12 +266,24 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		return freeSpace && tc.isSuitableForScenery (lmap_index_y, lmap_index_x);
 	}
 
+	public bool tileIsSuitableForBridge(int lmap_index_x, int lmap_index_y) {
+		bool freeSpace = tc.getPathMap () [lmap_index_x, lmap_index_y] == PathType.empty;
+		return freeSpace && tc.isSuitableForBridge (lmap_index_y, lmap_index_x);
+	}
+
 	void LateUpdate() {
 
 		if (isValid) {
+
+			if(p_counter > pollution_propagation_rate) {
+				p_counter = 0;
+				tc.spreadPollution();
+			}
+			p_counter++;
+
 			//texture displace
 			calcUvOffsets ();
-			
+
 			// displace material textures every frame to simulate water flow
 			displaceMat (ref ws_mesh_renderer, (int)WaterFlowDirection.N, ws_uv_offset [(int)WaterFlowDirection.N]);
 			displaceMat (ref ws_mesh_renderer, (int)WaterFlowDirection.NE, ws_uv_offset [(int)WaterFlowDirection.NE]);
@@ -202,6 +293,7 @@ public class GenerateTerrainChunk : MonoBehaviour {
 			displaceMat (ref ws_mesh_renderer, (int)WaterFlowDirection.SW, ws_uv_offset [(int)WaterFlowDirection.SW]);
 			displaceMat (ref ws_mesh_renderer, (int)WaterFlowDirection.W, ws_uv_offset [(int)WaterFlowDirection.W]);
 			displaceMat (ref ws_mesh_renderer, (int)WaterFlowDirection.NW, ws_uv_offset [(int)WaterFlowDirection.NW]);
+		
 		}
 
 	}

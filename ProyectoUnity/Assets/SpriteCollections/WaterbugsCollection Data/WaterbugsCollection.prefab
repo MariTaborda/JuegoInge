@@ -1,0 +1,457 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &125588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 422618}
+  - 114: {fileID: 11414382}
+  m_Layer: 0
+  m_Name: WaterbugsCollection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &422618
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11414382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d546f34a90531a14eaba82a43b05b86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  materialIdsValid: 1
+  needMaterialInstance: 0
+  spriteDefinitions:
+  - name: waterbugs/0
+    boundsData:
+    - {x: .0349999964, y: -.0150000006, z: 0}
+    - {x: .329999983, y: .349999994, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.129999995, y: -.189999998, z: 0}
+    - {x: .199999988, y: -.189999998, z: 0}
+    - {x: -.129999995, y: .159999996, z: 0}
+    - {x: .199999988, y: .159999996, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .671882808, y: .546878934}
+    - {x: .671882808, y: .675777316}
+    - {x: .945304692, y: .546878934}
+    - {x: .945304692, y: .675777316}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 0
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/1
+    boundsData:
+    - {x: -.0249999911, y: -.0150000006, z: 0}
+    - {x: .48999998, y: .389999986, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.269999981, y: -.209999993, z: 0}
+    - {x: .219999999, y: -.209999993, z: 0}
+    - {x: -.269999981, y: .179999992, z: 0}
+    - {x: .219999999, y: .179999992, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .0156328119, y: .203128904}
+    - {x: .0156328119, y: .394527346}
+    - {x: .320304692, y: .203128904}
+    - {x: .320304692, y: .394527346}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 64
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/2
+    boundsData:
+    - {x: 0, y: -.00999999791, z: 0}
+    - {x: .459999979, y: .439999998, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.229999989, y: -.229999989, z: 0}
+    - {x: .229999989, y: -.229999989, z: 0}
+    - {x: -.229999989, y: .209999993, z: 0}
+    - {x: .229999989, y: .209999993, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .414070308, y: .199222654}
+    - {x: .773429692, y: .199222654}
+    - {x: .414070308, y: .371089846}
+    - {x: .773429692, y: .371089846}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 128
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 0
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/3
+    boundsData:
+    - {x: -.0350000039, y: .049999997, z: 0}
+    - {x: .370000005, y: .379999995, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.219999999, y: -.140000001, z: 0}
+    - {x: .149999991, y: -.140000001, z: 0}
+    - {x: -.219999999, y: .239999995, z: 0}
+    - {x: .149999991, y: .239999995, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .343757808, y: .546878934}
+    - {x: .343757808, y: .691402316}
+    - {x: .640617192, y: .546878934}
+    - {x: .640617192, y: .691402316}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 192
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/4
+    boundsData:
+    - {x: -.0450000018, y: .0700000003, z: 0}
+    - {x: .349999994, y: .360000014, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.219999999, y: -.109999999, z: 0}
+    - {x: .129999995, y: -.109999999, z: 0}
+    - {x: -.219999999, y: .25, z: 0}
+    - {x: .129999995, y: .25, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .0156328119, y: .585941434}
+    - {x: .0156328119, y: .722652316}
+    - {x: .296867192, y: .585941434}
+    - {x: .296867192, y: .722652316}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 256
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/5
+    boundsData:
+    - {x: -.0300000012, y: .0450000018, z: 0}
+    - {x: .379999995, y: .409999996, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.219999999, y: -.159999996, z: 0}
+    - {x: .159999996, y: -.159999996, z: 0}
+    - {x: -.219999999, y: .25, z: 0}
+    - {x: .159999996, y: .25, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .0156328119, y: .410160154}
+    - {x: .312492192, y: .410160154}
+    - {x: .0156328119, y: .570308566}
+    - {x: .312492192, y: .570308566}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 320
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 0
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/6
+    boundsData:
+    - {x: -.00500000268, y: 0, z: 0}
+    - {x: .469999969, y: .459999979, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.239999995, y: -.229999989, z: 0}
+    - {x: .229999989, y: -.229999989, z: 0}
+    - {x: -.239999995, y: .229999989, z: 0}
+    - {x: .229999989, y: .229999989, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .0156328119, y: .00781640597}
+    - {x: .382804692, y: .00781640597}
+    - {x: .0156328119, y: .187496096}
+    - {x: .382804692, y: .187496096}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 384
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 0
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/7
+    boundsData:
+    - {x: -.025000006, y: .0150000006, z: 0}
+    - {x: .449999988, y: .469999999, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.25, y: -.219999999, z: 0}
+    - {x: .199999988, y: -.219999999, z: 0}
+    - {x: -.25, y: .25, z: 0}
+    - {x: .199999988, y: .25, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .414070308, y: .00781640597}
+    - {x: .414070308, y: .183589846}
+    - {x: .781242192, y: .00781640597}
+    - {x: .781242192, y: .183589846}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 448
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: waterbugs/8
+    boundsData:
+    - {x: -.0149999931, y: .0249999911, z: 0}
+    - {x: .370000005, y: .48999998, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 0, z: 0}
+    - {x: .639999986, y: .639999986, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.199999988, y: -.219999999, z: 0}
+    - {x: .170000002, y: -.219999999, z: 0}
+    - {x: -.199999988, y: .269999981, z: 0}
+    - {x: .170000002, y: .269999981, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .351570308, y: .386722654}
+    - {x: .351570308, y: .531246066}
+    - {x: .734367192, y: .386722654}
+    - {x: .734367192, y: .531246066}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+    materialId: 0
+    sourceTextureGUID: 8693368d0c06e2444b92b775d673017e
+    extractRegion: 1
+    regionX: 512
+    regionY: 0
+    regionW: 64
+    regionH: 64
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  premultipliedAlpha: 0
+  material: {fileID: 0}
+  materials:
+  - {fileID: 2100000, guid: 492ec94f60235484a9ab8d094e1dd87f, type: 2}
+  textures:
+  - {fileID: 2800000, guid: 18b39cefa77cd3043aaa24413291e60c, type: 3}
+  pngTextures: []
+  materialPngTextureId: 00000000
+  textureFilterMode: 1
+  textureMipMaps: 0
+  allowMultipleAtlases: 0
+  spriteCollectionGUID: d3cff0a8b4c792146ba220fc1ea4abff
+  spriteCollectionName: WaterbugsCollection
+  assetName: 
+  loadable: 0
+  invOrthoSize: 2
+  halfTargetHeight: 50
+  buildKey: 744278730
+  dataGuid: 74e5b0d993aee7149a1f955e2d2c7ddf
+  managedSpriteCollection: 0
+  hasPlatformData: 0
+  spriteCollectionPlatforms: []
+  spriteCollectionPlatformGUIDs: []
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 125588}
+  m_IsPrefabParent: 1

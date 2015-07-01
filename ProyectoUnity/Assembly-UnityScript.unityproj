@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Laboratory\Scripts\actionsLab.js" />
      <Compile Include="Assets\MainMenu\Scripts\MainMenu.js" />
      <Compile Include="Assets\MainMenu\Scripts\PruebaMenu.js" />
      <None Include="Assets\TK2DROOT\tk2d\Shaders\LitSolidVertexColor.shader" />

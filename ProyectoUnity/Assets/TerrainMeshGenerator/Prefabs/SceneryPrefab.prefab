@@ -30,9 +30,9 @@ GameObject:
   - 33: {fileID: 3302392}
   - 114: {fileID: 11466222}
   - 114: {fileID: 11413312}
-  - 114: {fileID: 11462988}
   - 114: {fileID: 11417882}
   - 114: {fileID: 11493204}
+  - 114: {fileID: 11444866}
   m_Layer: 0
   m_Name: SceneryPrefab
   m_TagString: Untagged
@@ -88,7 +88,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
 --- !u!33 &3302392
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed09b332063a5b84baaa7e1d7ee5ff15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11462988
+--- !u!114 &11444866
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -153,13 +153,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 159322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78483c03316190f4f9a36ae11a366dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: a9b59ceb6c16e5f47afa3424a143021d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chunk_index_x: 0
   chunk_index_y: 0
-  scenery_index_x: 0
-  scenery_index_y: 0
+  tile_index_x: 0
+  tile_index_y: 0
+  type: unassigned
 --- !u!114 &11463816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -172,6 +173,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 0}
+  panel2: {fileID: 0}
+  panel3: {fileID: 0}
+  panel4: {fileID: 0}
+  cont: 0
+  cont1: 0
+  cont2: 0
   canvasRT: {fileID: 0}
 --- !u!114 &11466222
 MonoBehaviour:
@@ -195,7 +202,7 @@ MonoBehaviour:
   meshCollider: {fileID: 0}
   meshColliderPositions: []
   meshColliderMesh: {fileID: 0}
-  renderLayer: 0
+  renderLayer: 2
 --- !u!114 &11493204
 MonoBehaviour:
   m_ObjectHideFlags: 1

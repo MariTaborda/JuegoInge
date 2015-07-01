@@ -40,6 +40,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
+  - {fileID: 2100000, guid: 2b29f7a28da9fb24f817393d8d04c5df, type: 2}
   - {fileID: 2100000, guid: 364645d1cc8fb6849a33a7adf8e499ab, type: 2}
   - {fileID: 2100000, guid: fdf05c4cd942843a8aee00d62cae833f, type: 2}
   - {fileID: 2100000, guid: bcc84db53a25eda419b2d836bcefb32d, type: 2}

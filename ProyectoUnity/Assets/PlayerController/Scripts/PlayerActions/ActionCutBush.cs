@@ -3,37 +3,19 @@ using System.Collections;
 
 public class ActionCutBush : PlayerAction {
 	
-	GameObject player;
-	GameObject target;
-	bool error;
-	float near_distance = 0.8f;
-	
-	bool reached_target;
-	bool destroyed_target;
-	bool action_interrupted;
-	
-	public string name = "Cut Bush";
-	public string target_tag = "SceneryBush";
-	public string inv_item = "Machete";
-	
-	public override string getName() {
-		return name;
+	PlayerPoints points =PlayerController.Player_Controller.GetComponent<PlayerPoints>();
+
+	public void Start() {
+		action_name = "Cortar Arbusto";
+		target_tag = "SceneryBush";
+		inv_item = "Machete";
 	}
-	
-	public override string getTargetTag() {
-		return target_tag;
-	}
-	
-	public override string getInvItem() {
-		return inv_item;
-	}
-	
+
 	public override void performAction(GameObject player, GameObject target) {
 		
 		this.player = player;
 		this.target = target;
-		error = false;
-		
+
 		if(base.checkInventory (inv_item)) {
 			
 			reached_target = false;
@@ -50,24 +32,7 @@ public class ActionCutBush : PlayerAction {
 		
 	}
 	
-	IEnumerator ApproachPosition (GameObject player, Vector3 target_position) {
-		
-		PlayerMovement pm = player.GetComponent<PlayerMovement> ();
-		pm.setNewDestination (target_position, near_distance);
-		
-		// espere mientras la condicion sea verdadera
-		while(!pm.reachedDestination && !pm.movementInterrupted) {
-			yield return null;
-		}
-		
-		if (pm.movementInterrupted) {
-			action_interrupted = true;
-		} else {
-			reached_target = true;
-		}
-	}
-	
-	IEnumerator DestroyTarget (GameObject player, GameObject target) {
+	public override IEnumerator DestroyTarget (GameObject player, GameObject target) {
 		
 		// espere mientras la condicion sea verdadera
 		while(!reached_target && !action_interrupted) {
@@ -77,6 +42,7 @@ public class ActionCutBush : PlayerAction {
 		if (reached_target) {
 			GenerateTerrain.TerrainGenerator.destroySceneryObject (target);
 			destroyed_target = true;
+			points.reduceEcologyPoints(5);
 		}
 		
 	}
