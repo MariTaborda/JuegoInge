@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed;
 	private float moveSpeed;
 	
-	private Vector3 destinationPosition;
+	public Vector3 destinationPosition;
 	private Vector3 oldDestinationPosition;
 	private float destinationDistance;
 	private float nearDistance;

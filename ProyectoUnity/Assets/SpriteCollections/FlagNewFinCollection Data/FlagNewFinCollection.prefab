@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &159020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 492960}
+  - 114: {fileID: 11444864}
+  m_Layer: 0
+  m_Name: FlagNewFinCollection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &492960
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159020}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11444864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d546f34a90531a14eaba82a43b05b86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 3
+  materialIdsValid: 1
+  needMaterialInstance: 0
+  spriteDefinitions:
+  - name: newflag
+    boundsData:
+    - {x: 0, y: .959999979, z: 0}
+    - {x: 1.27999997, y: 1.91999996, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: .959999979, z: 0}
+    - {x: 1.27999997, y: 1.91999996, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -.639999986, y: 0, z: 0}
+    - {x: .639999986, y: 0, z: 0}
+    - {x: -.639999986, y: 1.91999996, z: 0}
+    - {x: .639999986, y: 1.91999996, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .00781640597, y: .537111342}
+    - {x: .507808566, y: .537111342}
+    - {x: .00781640597, y: .912107408}
+    - {x: .507808566, y: .912107408}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: c2a8fe8a491129942983933b62f7b508, type: 2}
+    materialId: 0
+    sourceTextureGUID: 37531a2bb15670f4082119928dc25060
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    flipped: 0
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  - name: trashPeq
+    boundsData:
+    - {x: -.00500005484, y: 1.1049999, z: 0}
+    - {x: 2.69000006, y: 2.02999997, z: 0}
+    untrimmedBoundsData:
+    - {x: 0, y: 1.14999998, z: 0}
+    - {x: 3, y: 2.29999995, z: 0}
+    texelSize: {x: .00999999978, y: .00999999978}
+    positions:
+    - {x: -1.35000002, y: .0899999961, z: 0}
+    - {x: 1.33999991, y: .0899999961, z: 0}
+    - {x: -1.35000002, y: 2.11999989, z: 0}
+    - {x: 1.33999991, y: 2.11999989, z: 0}
+    normals: []
+    tangents: []
+    uvs:
+    - {x: .00781640597, y: .00390820298}
+    - {x: .00781640597, y: .529294908}
+    - {x: .800777316, y: .00390820298}
+    - {x: .800777316, y: .529294908}
+    indices: 000000000300000001000000020000000300000000000000
+    material: {fileID: 2100000, guid: c2a8fe8a491129942983933b62f7b508, type: 2}
+    materialId: 0
+    sourceTextureGUID: 16d6a0d3782ee604185995bb32673e81
+    extractRegion: 0
+    regionX: 0
+    regionY: 0
+    regionW: 0
+    regionH: 0
+    flipped: 1
+    complexGeometry: 0
+    physicsEngine: 0
+    colliderType: 0
+    customColliders: []
+    colliderVertices: []
+    colliderIndicesFwd: 
+    colliderIndicesBack: 
+    colliderConvex: 0
+    colliderSmoothSphereCollisions: 0
+    polygonCollider2D: []
+    edgeCollider2D: []
+    attachPoints: []
+  premultipliedAlpha: 0
+  material: {fileID: 0}
+  materials:
+  - {fileID: 2100000, guid: c2a8fe8a491129942983933b62f7b508, type: 2}
+  textures:
+  - {fileID: 2800000, guid: 1eaac70bb4c14cd4d89888a233395b0b, type: 3}
+  pngTextures: []
+  materialPngTextureId: 00000000
+  textureFilterMode: 1
+  textureMipMaps: 0
+  allowMultipleAtlases: 0
+  spriteCollectionGUID: a6555ee0f02ce864ea4a952e971fed7e
+  spriteCollectionName: FlagNewFinCollection
+  assetName: 
+  loadable: 0
+  invOrthoSize: 2
+  halfTargetHeight: 50
+  buildKey: 1600652412
+  dataGuid: df7336f9560c0cc458a45a8557dc06ff
+  managedSpriteCollection: 0
+  hasPlatformData: 0
+  spriteCollectionPlatforms: []
+  spriteCollectionPlatformGUIDs: []
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 159020}
+  m_IsPrefabParent: 1

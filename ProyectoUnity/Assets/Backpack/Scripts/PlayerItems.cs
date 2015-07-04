@@ -18,6 +18,12 @@ public class PlayerItems : MonoBehaviour {
 		quantities = new List<int> ();
 	}
 
+	public void reset() {
+		items = new List<BackpackItem>();
+		quantities = new List<int> ();
+		Count = 0;
+	}
+
 	public void addItem(BackpackItem item, int amount){
 		bool inBackpack = false;
 

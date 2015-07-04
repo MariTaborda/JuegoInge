@@ -34,19 +34,19 @@ public class MissionRecolectarPH : Mission {
 	// change mission hints here
 	void setHintsText() {
 		hints = new List<string> ();
-		hints.Add ("Recuerda que puedes realizar anlisis con el icono de la probeta en el menu del cientifico.");
+		hints.Add ("Recuerda que puedes realizar analisis con el tubo de ensayo en el menu del cientifico.");
 		hints.Add ("No te confundas de analisis, recuerda que el analisis de O2 y el de PH son diferentes");
 	}
 	
 	// change mission completion text section here
 	void setCompletionText() {
-		completion_text = "¡Lo has logrado! Haz ayudado al cientifico, recurda como lo hiciste para aplicarlo durante el juego";
+		completion_text = "¡Lo has logrado! Haz ayudado al cientifico, recuerda como lo hiciste para aplicarlo durante el juego";
 	}
 	
 	// change mission rewards section text here
 	void setRewardsText() {
 		rewards = new List<string> ();
-		rewards.Add ("50 Eco puntos");
+		rewards.Add ("5 Eco puntos");
 		}
 	
 	/*
@@ -57,7 +57,7 @@ public class MissionRecolectarPH : Mission {
  	*/
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
-		if (GameController.gameController.missionController.missionCompleted (32)) {		// if mission with id 1 is completed
+		if (GameController.gameController.missionController.missionCompleted (34)) {		// if mission with id 1 is completed
 			return true;
 		}
 		return false;
@@ -79,7 +79,7 @@ public class MissionRecolectarPH : Mission {
 	
 	//Write your method for redeeming mission rewards here.
 	public override void redeemRewards() {
-		PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (50);
+		PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (5);
 	}
 	
 	//This will happen on mission start.

@@ -50,7 +50,7 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	public bool isValid = true;
 
 	// generates all terrain chunk data
-	public void generate(int index_x, int index_y, float tile_size, float slope_height, int side_tile_count, Vector3 chunk_origin, Vector3 chunk_center, ref LevelMap[,] WorldLevelMaps, TileTypeMap[,] WorldTileTypeMaps, WaterFlowDirectionMap[,] WorldWFDMaps, int terrain_chunks_x, int terrain_chunks_y, int textures_x, int textures_y, ref List<int[]> neighbor_level_maps, MeshFilter m_filter) {
+	public void generate(bool loadFromData, int index_x, int index_y, float tile_size, float slope_height, int side_tile_count, Vector3 chunk_origin, Vector3 chunk_center, ref LevelMap[,] WorldLevelMaps, TileTypeMap[,] WorldTileTypeMaps, WaterFlowDirectionMap[,] WorldWFDMaps, int terrain_chunks_x, int terrain_chunks_y, int textures_x, int textures_y, ref List<int[]> neighbor_level_maps, MeshFilter m_filter) {
 
 		this.index_x = index_x;
 		this.index_y = index_y;
@@ -75,22 +75,22 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		if (index_x == 0 && index_y == 14) {  // 1 9
 			// zona rural = 1
 			zona = 1; 
-			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona, loadFromData);
 		} else if (index_x == 11 && index_y == 0) { //2 15
 			// zona ciudad = 2
 			zona = 2;
-			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona, loadFromData);
 		} else if (index_x == 3 && index_y == 8) {
 			// zona arboles = 3
 			zona = 3;
-			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona, loadFromData);
 		} else if (index_x == 4 && index_y == 9) {
 			// zona arboles end = 4
 			zona = 4;
-			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona, loadFromData);
 		} else {
 			// default no zone 0 
-			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona, loadFromData);
 		}
 
 		mesh = tc.getMesh ();
@@ -125,6 +125,10 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	// flag
 	public FlagType[,] getFlagMap() {
 		return tc.getFlagMap ();
+	}
+
+	public void updatePackageData() {
+		tc.updateDataPackage ();
 	}
 
 	// generate water surface mesh

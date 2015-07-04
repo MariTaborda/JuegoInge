@@ -54,6 +54,16 @@ public class GameController : MonoBehaviour {
 
 	private List<Vector3> waypoints;
 
+	void Update() {
+		// LOAD/SAVE TESTING
+		if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S)) {
+			PersistentData.Data.saveData();
+		}
+		if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L)) {
+			PersistentData.Data.loadData();
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		TagHelper.AddTag ("SceneryTree");
@@ -62,11 +72,27 @@ public class GameController : MonoBehaviour {
 		TagHelper.AddTag ("creds");
 		TagHelper.AddTag ("Card");
 		TagHelper.AddTag ("CardPanel");
-		initGameController ();
-		initSpriteMapper ();
-		initTerrainGenerator ();
-		initMissionController ();
-		initPlayerController ();
+
+		if(PersistentData.Data.loadPersistentData) {
+			// load scene from persistent data
+			initGameController ();
+			initSpriteMapper ();
+			initTerrainGenerator (true);
+			initMissionController ();
+			initPlayerController ();
+		}
+		else {
+			// generate scene from scratch
+			initGameController ();
+			initSpriteMapper ();
+			initTerrainGenerator ();
+			initMissionController ();
+			initPlayerController ();
+
+
+			// subsequent generations will be loaded from persistent data
+			PersistentData.Data.loadPersistentData = true;
+		}
 
 	}
 
@@ -120,7 +146,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	// TerrainGenerator initialization
-	void initTerrainGenerator() {
+	void initTerrainGenerator(bool loadFromData = false) {
 		terrainGenerator = terrainObject.GetComponent<GenerateTerrain> ();
 
 		string heightmap;
@@ -150,7 +176,7 @@ public class GameController : MonoBehaviour {
 				break;
 		}
 
-		terrainGenerator.init (heightmap, ttypemap, flowmap);
+		terrainGenerator.init (heightmap, ttypemap, flowmap, loadFromData);
 	}
 
 	// SpriteMapper initialization

@@ -26,7 +26,7 @@ public class MissionChopTree : Mission {
 	
 	// change mission title here
 	void setTitle() {
-		title = "Has tu propio camino para llegar a la meta!";
+		title = "Atraviesa el bosque!";
 	}
 	
 	// change mission description section text here
@@ -44,7 +44,7 @@ public class MissionChopTree : Mission {
 	
 	// change mission completion section text here
 	void setCompletionText() {
-		completion_text = "¡Bien Hecho!";
+		completion_text = "¡Bien Hecho! Hemos conseguido llegar hasta aqui, pero.. creo que hemos hecho algo de daño en el proceso. Vamos a repararlo.";
 	}
 	
 	// change mission rewards section text here
@@ -61,7 +61,7 @@ public class MissionChopTree : Mission {
  	*/
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
-		if (GameController.gameController.missionController.missionCompleted (5)) {		
+		if (GameController.gameController.missionController.missionCompleted (6)) {		
 			return true;
 		}
 		return false;

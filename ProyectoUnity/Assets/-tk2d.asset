@@ -496,52 +496,37 @@ MonoBehaviour:
     loadable: 0
     assetName: 
     version: 3
-  - name: FlagNewCollection
-    spriteCollectionGUID: 99ebac0aba451cc40968fad640d2fd44
-    spriteCollectionDataGUID: 20bfc221f3feb43439d28bbf29d6baae
+  - name: FlagNewFinCollection
+    spriteCollectionGUID: a6555ee0f02ce864ea4a952e971fed7e
+    spriteCollectionDataGUID: df7336f9560c0cc458a45a8557dc06ff
     spriteNames:
     - newflag
-    - ArrowEste
-    - ArrowNorOeste
-    - ArrowNorte
-    - ArrowNorteEste
-    - ArrowOeste
-    - ArrowSurEste
-    - ArrowSurOeste
+    - trashPeq
     spriteTextureGUIDs:
     - 37531a2bb15670f4082119928dc25060
-    - d2f92bd73f7c8e54a8be68861915d1f3
-    - 5b29139403b918442be11ee22d3be7df
-    - 8366c7e56e228d74e99a89a2468a364f
-    - b87143a4751a4d043930d847091c9a8c
-    - 661ef4ac952bc3d468f4932aa360e224
-    - 113785dcd0c17024faf7be9f69108ca8
-    - a664c04f841e0174d9df4b4a642144c2
+    - 16d6a0d3782ee604185995bb32673e81
     spriteTextureTimeStamps:
-    - 1435223796.18305
-    - 1434623760
-    - 1434623632
-    - 1434623688
-    - 1434623584
-    - 1434623724
-    - 1434623608
-    - 1434623548
+    - 1435223796
+    - 1435752138
     managedSpriteCollection: 0
     loadable: 0
     assetName: 
     version: 3
-  - name: FlagNewLastCollection
-    spriteCollectionGUID: 7e8643fad26da1a46a80f1183eb016f4
-    spriteCollectionDataGUID: 867e8ffd79c315b48855820684c3c86a
+  - name: FlagMisionCollection
+    spriteCollectionGUID: 4966e1cb1de1803419cbe979656d90ca
+    spriteCollectionDataGUID: bf6164a1d86daa84fb33f0b2cbcf7ef4
     spriteNames:
     - newflag
-    - trash
+    - trashPeq
+    - botes
     spriteTextureGUIDs:
     - 37531a2bb15670f4082119928dc25060
-    - 8531bc9a665dea745a5a46a05b8d2ad3
+    - 16d6a0d3782ee604185995bb32673e81
+    - 859ffd0b9852d9948a65bef88555c5dd
     spriteTextureTimeStamps:
     - 1435223796
-    - 1435743518
+    - 1435752138
+    - 1435780032
     managedSpriteCollection: 0
     loadable: 0
     assetName: 

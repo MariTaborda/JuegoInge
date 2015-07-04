@@ -59,7 +59,7 @@ public class MissionBuilder : Mission {
  	*/
 	public override bool evaluateRequirements() {
 		// check if requirements for mission start are met
-		if (GameController.gameController.missionController.missionCompleted (2)) {		// if mission with id 1 is completed
+		if (GameController.gameController.missionController.missionCompleted (2)) {		// if mission with id 2 is completed
 			return true;
 		}
 		return false;

@@ -27,12 +27,12 @@ public class MissionPlantTree : Mission {
 	
 	// change mission title here
 	void setTitle() {
-		title = "Recupera puntos ecologicos plantando arboles!";
+		title = "Reforestemos!!!";
 	}
 	
 	// change mission description section text here
 	void setDescriptionText() {
-		description = "Siembra al menos 3 arboles para reforestar lo que se destuyo en la construccion del camino anterior.";
+		description = "Siembra al menos 3 arboles para reforestar lo que se destruyo en la construccion del camino anterior.";
 		description += "\n\nPara esta mision utiliza al constructor.";
 		description += "\n\n¡Recupera 5 puntos ecologicos por cada arbol sembrado!";
 	}

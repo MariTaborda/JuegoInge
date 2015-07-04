@@ -81,7 +81,7 @@ public class GenerateTerrain : MonoBehaviour {
 	}
 
 	// object initialization
-	public void init(string heightMap_path, string tileTypeMap_path, string waterFlowMap_path) {
+	public void init(string heightMap_path, string tileTypeMap_path, string waterFlowMap_path, bool loadFromData) {
 
 		TerrainGenerator = gameObject.GetComponent<GenerateTerrain> ();
 		SceneryObject_Ref = SceneryObject_Prefab;
@@ -120,6 +120,11 @@ public class GenerateTerrain : MonoBehaviour {
 		
 		
 		TerrainChunks = new TChunk[terrain_chunks_y, terrain_chunks_x];
+
+		if (!loadFromData) {
+			// initialize space for terrain chunk persistent data
+			PersistentData.Data.initTerrainChunkData (terrain_chunks_x, terrain_chunks_y);
+		} 
 		
 		for (int i = 0; i < terrain_chunks_y; ++i) {
 			
@@ -138,7 +143,7 @@ public class GenerateTerrain : MonoBehaviour {
 				GameObject new_terrain_chunk = (GameObject) Instantiate(TerrainChunk_Prefab);
 				new_terrain_chunk.transform.parent = transform;
 				GenerateTerrainChunk generator = new_terrain_chunk.GetComponent<GenerateTerrainChunk> ();
-				generator.generate (index_x, index_y, tile_size, slope_height, side_tile_count, chunk_origin, chunk_center, ref WorldLevelMaps, WorldTileTypeMaps, WorldWaterFlowDirectionMaps, terrain_chunks_x, terrain_chunks_y, terrain_textures_x, terrain_textures_y, ref neighbor_level_maps, new_terrain_chunk.GetComponent<MeshFilter> ());
+				generator.generate (loadFromData, index_x, index_y, tile_size, slope_height, side_tile_count, chunk_origin, chunk_center, ref WorldLevelMaps, WorldTileTypeMaps, WorldWaterFlowDirectionMaps, terrain_chunks_x, terrain_chunks_y, terrain_textures_x, terrain_textures_y, ref neighbor_level_maps, new_terrain_chunk.GetComponent<MeshFilter> ());
 				
 				GameObject new_ws_chunk = (GameObject) Instantiate(WaterSurfaceChunk_Prefab);
 				new_ws_chunk.GetComponent<MeshRenderer> ().sortingOrder = -1;
@@ -260,6 +265,7 @@ public class GenerateTerrain : MonoBehaviour {
 	// load scenery, path and water hotspot objects in visible_chunks. This is done every frame.
 	private void updateLoadedSceneryChunks(ref List<TChunk> visible_chunks) {
 
+		// get the indexes of all the loaded chunks in the hash table
 		List<Vector2> saved_indexes = loaded_chunks.getSavedIndexes ();
 
 		for (int i = 0; i < saved_indexes.Count; ++i) {
@@ -268,6 +274,14 @@ public class GenerateTerrain : MonoBehaviour {
 			for(int j = 0; j < visible_chunks.Count; ++j) {
 				if(visible_chunks[j].index_x == saved_indexes[i].x && visible_chunks[j].index_y == saved_indexes[i].y) {
 					isVisible = true;
+
+					// update chunk data package (in case it needs to be saved if player leaves scene)
+					visible_chunks[j].generator.updatePackageData();
+					// link data package to persistent data object
+					if(PersistentData.Data.SerializableData.TerrainChunks[visible_chunks[j].index_y, visible_chunks[j].index_x] != visible_chunks[j].generator.tc.dataPackage) {
+						PersistentData.Data.SerializableData.TerrainChunks[visible_chunks[j].index_y, visible_chunks[j].index_x] = visible_chunks[j].generator.tc.dataPackage;
+					}
+
 					break;
 				}
 			}

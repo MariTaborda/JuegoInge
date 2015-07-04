@@ -40,13 +40,13 @@ public class MissionRecolectarO2 : Mission {
 	
 	// change mission completion text section here
 	void setCompletionText() {
-		completion_text = "¡Lo has logrado! No fue tan dificil verdad?????";
+		completion_text = "¡Lo has logrado! No fue tan dificil verdad?";
 	}
 	
 	// change mission rewards section text here
 	void setRewardsText() {
 		rewards = new List<string> ();
-		rewards.Add ("50 Eco puntos");
+		rewards.Add ("5 Eco puntos");
 	}
 	
 	/*
@@ -79,7 +79,7 @@ public class MissionRecolectarO2 : Mission {
 	
 	//Write your method for redeeming mission rewards here.
 	public override void redeemRewards() {
-		PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (50);
+		PlayerController.Player_Controller.GetComponent<PlayerPoints> ().addEcologyPoints (5);
 	}
 	
 	//This will happen on mission start.

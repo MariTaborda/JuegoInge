@@ -30,6 +30,14 @@ public class Mission : MonoBehaviour {
 		callMissionCompletedUI ();
 	}
 
+	public virtual void startMissionSilently() {
+		started = true;
+	}
+	
+	public virtual void completeMissionSilently() {
+		completed = true;
+	}
+
 	public virtual bool evaluateRequirements() {
 		return true;
 	}

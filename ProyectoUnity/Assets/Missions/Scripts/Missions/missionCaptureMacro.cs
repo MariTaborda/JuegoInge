@@ -29,7 +29,7 @@ public class MissionCaptureMacro : Mission {
 	
 	// change mission title here
 	void setTitle() {
-		title = "A capturar bichitos!! digo... macroinvertebrados!";
+		title = "A capturar bichit..macros!";
 	}
 	
 	// change mission description section text here
@@ -80,10 +80,8 @@ public class MissionCaptureMacro : Mission {
 		false - completion conditions are not met.
  	*/
 	public override bool evaluateConditions() {
-		/*if (carga escena cientifico) {
-			return true; 
-		}*/
 
+		//Application.LoadLevel("laboratory");
 		return true;
 	}
 	

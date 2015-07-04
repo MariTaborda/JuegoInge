@@ -40,7 +40,7 @@ public class MissionStartEnd : Mission {
 	
 	// change mission completion section text here
 	void setCompletionText() {
-		completion_text = "Lo haz logrado! Ahora estas listo para empezar tu verdadera mision! A salvar el ambiente!";
+		completion_text = "Lo has logrado! Ahora estas listo para empezar tu verdadera mision! A salvar el ambiente!";
 	}
 	
 	// change mission rewards section text here

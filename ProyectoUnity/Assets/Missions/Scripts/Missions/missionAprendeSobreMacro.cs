@@ -28,7 +28,7 @@ public class MissionAprenderSobreMacro: Mission {
 	
 	// change mission description section text here
 	void setDescriptionText() {
-		description = "Tienes idea de que es un Macroinvertebrado? No, bueno intenta descubrirlo";
+		description = "Tienes idea de que es un Macroinvertebrado? No, bueno intenta descubrirlo. Primero selecciona el personaje cientifico, y en su panel, escoge el icono de color morado en forma de macroinvertebrado... macro que? ya veras lo que es. Dale clic al agua con la lupa y da clic en el boton del signo de pregunta. ";
 	}
 	
 	// change mission hints here

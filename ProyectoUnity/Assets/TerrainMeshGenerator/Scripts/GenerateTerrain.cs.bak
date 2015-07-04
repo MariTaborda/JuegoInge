@@ -9,23 +9,19 @@ public class GenerateTerrain : MonoBehaviour {
 	public float slope_factor = 0.5f;
 
 	public int side_tile_count = 24;
-
-	//public string heightmap_path = "/Resources/Heightmaps/mesa_heightmap_lowcontrast.jpg";
-	//public string heightmap_path = "/Resources/Heightmaps/mesa_heightmap_highcontrast.jpg";
-	//public string heightmap_path = "/Resources/Heightmaps/mesa_heightmap_heavyblur.jpg";
-	//public string heightmap_path = "/Resources/Heightmaps/mesa_heightmap_blur.jpg";
-	//public string heightmap_path = "/Resources/Heightmaps/mesa_heightmap.jpg";
-	public string heightmap_path = "/Resources/Heightmaps/mesa_heightmap_big.jpg";
-	public int textures_x = 3;
-	public int textures_y = 3;
-	public int texture_size_x = 384;
-	public int texture_size_y = 384;
+	
+	public int terrain_textures_x = 3;
+	public int terrain_textures_y = 12;
+	public int map_size_x = 384;
+	public int map_size_y = 384;
 
 	public int level_count = 16;
 	public float level_zero_grayscale = 0.24f; 
 	
 
 	private LevelMap[,] WorldLevelMaps;
+	private TileTypeMap[,] WorldTileTypeMaps;
+	private WaterFlowDirectionMap[,] WorldWaterFlowDirectionMaps;
 
 	private float slope_height;
 
@@ -39,7 +35,18 @@ public class GenerateTerrain : MonoBehaviour {
 	private TChunk[,] TerrainChunks;
 
 	private Stack<GameObject> Scenery_Obj_Pool;
-	private int scenery_stack_size = 5000;
+	private int scenery_stack_size = 8000;
+
+	private Stack<GameObject> Path_Obj_Pool;
+	private int path_stack_size = 1000;
+
+	private Stack<GameObject> Flag_Obj_Pool;
+	private int flag_stack_size = 1000;
+
+
+	private Stack<GameObject> WHotspot_Obj_Pool;
+	private int whotspot_stack_size = 1000;
+
 	private List<TChunk> loaded_chunks2;
 
 	private TC_HashTable loaded_chunks;
@@ -47,7 +54,11 @@ public class GenerateTerrain : MonoBehaviour {
 
 	public GameObject TerrainChunk_Prefab;
 	public GameObject WaterSurfaceChunk_Prefab;
+	public GameObject PollutionChunk_Prefab;
 	public GameObject SceneryObject_Prefab;
+	public GameObject PathObject_Prefab;
+	public GameObject FlagObject_Prefab;
+	public GameObject WaterHotspotObject_Prefab;
 
 	public GameObject SceneryHolder;
 
@@ -64,16 +75,13 @@ public class GenerateTerrain : MonoBehaviour {
 
 			last_cam_position = camera.transform.position;
 		
-			TChunk tchunk = getChunkFromPosition (last_cam_position);
-			List<TChunk> tchunks = getChunksAround(ref tchunk);
-			updateLoadedSceneryChunks(ref tchunks);
-		
+			UpdateLoadedChunks();
 		}
 
 	}
 
 	// object initialization
-	public void init() {
+	public void init(string heightMap_path, string tileTypeMap_path, string waterFlowMap_path) {
 
 		TerrainGenerator = gameObject.GetComponent<GenerateTerrain> ();
 		SceneryObject_Ref = SceneryObject_Prefab;
@@ -82,15 +90,30 @@ public class GenerateTerrain : MonoBehaviour {
 		chunk_size_x = side_tile_count * tile_size;
 		chunk_size_y = side_tile_count * tile_size;
 		origin = gameObject.transform.position;
-		
-		
+
 		MapLoader mloader = new MapLoader ();
-		mloader.openFile (texture_size_x, texture_size_y, heightmap_path);
+		mloader.openFile (map_size_x, map_size_y, heightMap_path);
 		List<int[,]> lmaps = mloader.getLevelMapList (level_count, level_zero_grayscale, side_tile_count, out terrain_chunks_x, out terrain_chunks_y);
-		
+
+		mloader = new MapLoader ();
+		mloader.openFile (map_size_x, map_size_y, tileTypeMap_path);
+		List<TileType[,]> ttmaps = mloader.getTileTypeMapList (side_tile_count);
+
+		mloader = new MapLoader ();
+		mloader.openFile (map_size_x, map_size_y, waterFlowMap_path);
+		List<WaterFlowDirection[,]> wfmaps = mloader.getWFDMapList (side_tile_count);
+
+
+
+
 		WorldLevelMaps = setWorldLevelMaps (ref lmaps, terrain_chunks_x, terrain_chunks_y);
-		
+		WorldTileTypeMaps = setWorldTileTypeMaps (ref ttmaps, terrain_chunks_x, terrain_chunks_y);
+		WorldWaterFlowDirectionMaps = setWorldWFDMaps (ref wfmaps, terrain_chunks_x, terrain_chunks_y);
+
 		initSceneryObjPool ();
+		initPathObjPool ();
+		initFlagObjPool ();
+		initWHotspotObjPool ();
 		loaded_chunks = new TC_HashTable(terrain_chunks_x * terrain_chunks_y, terrain_chunks_x, terrain_chunks_x, terrain_chunks_y);
 		
 		last_cam_position = Vector3.zero;
@@ -115,13 +138,18 @@ public class GenerateTerrain : MonoBehaviour {
 				GameObject new_terrain_chunk = (GameObject) Instantiate(TerrainChunk_Prefab);
 				new_terrain_chunk.transform.parent = transform;
 				GenerateTerrainChunk generator = new_terrain_chunk.GetComponent<GenerateTerrainChunk> ();
-				generator.generate (index_x, index_y, tile_size, slope_height, side_tile_count, chunk_origin, chunk_center, ref WorldLevelMaps, terrain_chunks_x, terrain_chunks_y, textures_x, textures_y, ref neighbor_level_maps, new_terrain_chunk.GetComponent<MeshFilter> ());
+				generator.generate (index_x, index_y, tile_size, slope_height, side_tile_count, chunk_origin, chunk_center, ref WorldLevelMaps, WorldTileTypeMaps, WorldWaterFlowDirectionMaps, terrain_chunks_x, terrain_chunks_y, terrain_textures_x, terrain_textures_y, ref neighbor_level_maps, new_terrain_chunk.GetComponent<MeshFilter> ());
 				
 				GameObject new_ws_chunk = (GameObject) Instantiate(WaterSurfaceChunk_Prefab);
+				new_ws_chunk.GetComponent<MeshRenderer> ().sortingOrder = -1;
 				new_ws_chunk.transform.parent = new_terrain_chunk.transform;
 				new_ws_chunk.transform.position = new_terrain_chunk.transform.position;
 				generator.generateWaterSurface (new_ws_chunk);
-				
+
+				GameObject new_pollution_chunk = (GameObject) Instantiate(PollutionChunk_Prefab);
+				new_pollution_chunk.transform.parent = new_terrain_chunk.transform;
+				new_pollution_chunk.transform.position = new_terrain_chunk.transform.position;
+				generator.generatePollution (new_pollution_chunk);
 				
 				TChunk terrain_chunk = new TChunk(index_x, index_y, chunk_origin, chunk_center, ref new_terrain_chunk, ref new_ws_chunk, ref generator);
 				TerrainChunks[index_y, index_x] = terrain_chunk;
@@ -130,6 +158,36 @@ public class GenerateTerrain : MonoBehaviour {
 			
 		}
 
+	}
+
+	public void setChunkPollution(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y, float acidity, float oxigenation, float turbidity) {
+
+		TChunk? chunk = getChunk (chunk_index_x, chunk_index_y);
+
+		if(chunk != null && tile_index_x >= 0 && tile_index_x < side_tile_count && tile_index_y >= 0 && tile_index_y < side_tile_count) {
+
+			TChunk tchunk = (TChunk) chunk;
+			tchunk.generator.tc.setChunkPollution (tile_index_x, tile_index_y, acidity, oxigenation, turbidity);
+
+		}
+
+	}
+
+	public void UpdateChunk(int chunkIndexX, int chunkIndexY) {
+		TChunk elem = loaded_chunks.getElem(chunkIndexX, chunkIndexY);
+		elem.generator.unloadScenery(ref Scenery_Obj_Pool);
+		elem.generator.unloadPaths(ref Path_Obj_Pool);
+		elem.generator.unloadFlags(ref Flag_Obj_Pool);
+		elem.generator.unloadWHotspots(ref WHotspot_Obj_Pool);
+		loaded_chunks.removeElem(ref elem);
+
+		UpdateLoadedChunks ();
+	}
+
+	public void UpdateLoadedChunks() {
+		TChunk tchunk = getChunkFromPosition (last_cam_position);
+		List<TChunk> tchunks = getChunksAround(ref tchunk);
+		updateLoadedSceneryChunks(ref tchunks);
 	}
 
 	public TChunk getChunkTileFromPosition(Vector3 position, out int tile_index_x, out int tile_index_z) {
@@ -142,20 +200,64 @@ public class GenerateTerrain : MonoBehaviour {
 	}
 
 	public void destroySceneryObject(GameObject obj) {
-		
-		SceneryObject sc_obj = obj.GetComponent<SceneryObject> ();
+		TileIndexedObject sc_obj = obj.GetComponent<TileIndexedObject> ();
 		TChunk chunk = loaded_chunks.getElem (sc_obj.chunk_index_x, sc_obj.chunk_index_y);
 		chunk.generator.destroySceneryObject (obj, ref Scenery_Obj_Pool);
 		
 	}
 
-	public SceneryType[,] getChunkSceneryMap(int chunk_index_x, int chunk_index_y) {
+	public void destroyPathObject(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		chunk.generator.destroyPathObject (tile_index_x, tile_index_y);
+		
+	}
+	
+	public bool tileContainsPath(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		return chunk.generator.tileContainsPath (tile_index_x, tile_index_y);
+		
+	}
+
+	// flag
+
+	public void destroyFlagObject(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		chunk.generator.destroyFlagObject (tile_index_x, tile_index_y);
+		
+	}
+	
+	public bool tileContainsFlag(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		return chunk.generator.tileContainsFlag (tile_index_x, tile_index_y);
+		
+	}
+
+	public int[,] getChunkSceneryMap(int chunk_index_x, int chunk_index_y) {
 
 		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
 		return chunk.generator.getSceneryMap ();
 
 	}
 
+	public PathType[,] getChunkPathMap(int chunk_index_x, int chunk_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		return chunk.generator.getPathMap ();
+		
+	}
+	// flag
+	public FlagType[,] getChunkFlagMap(int chunk_index_x, int chunk_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		return chunk.generator.getFlagMap ();
+		
+	}
+
+	// load scenery, path and water hotspot objects in visible_chunks. This is done every frame.
 	private void updateLoadedSceneryChunks(ref List<TChunk> visible_chunks) {
 
 		List<Vector2> saved_indexes = loaded_chunks.getSavedIndexes ();
@@ -174,6 +276,9 @@ public class GenerateTerrain : MonoBehaviour {
 				// remove chunk from table
 				TChunk elem = loaded_chunks.getElem((int)saved_indexes[i].x, (int)saved_indexes[i].y);
 				elem.generator.unloadScenery(ref Scenery_Obj_Pool);
+				elem.generator.unloadPaths(ref Path_Obj_Pool);
+				elem.generator.unloadFlags(ref Flag_Obj_Pool);
+				elem.generator.unloadWHotspots(ref WHotspot_Obj_Pool);
 				loaded_chunks.removeElem(ref elem);
 			}
 
@@ -185,6 +290,9 @@ public class GenerateTerrain : MonoBehaviour {
 				// add chunk to table
 				TChunk elem = visible_chunks[i];
 				elem.generator.loadScenery(ref Scenery_Obj_Pool);
+				elem.generator.loadPaths(ref Path_Obj_Pool);
+				elem.generator.loadFlags(ref Flag_Obj_Pool);
+				elem.generator.loadWHotspots(ref WHotspot_Obj_Pool);
 				loaded_chunks.addElem(ref elem);
 
 			} 
@@ -212,12 +320,22 @@ public class GenerateTerrain : MonoBehaviour {
 		int index_x = (int)(position.x / chunk_size);
 		int index_y = (int)Mathf.Abs(position.z / chunk_size);
 
-		if(index_x >= 0 && index_x < terrain_chunks_x && index_y < terrain_chunks_y) {
+		if(index_x >= 0 && index_x < terrain_chunks_x && index_y >= 0 && index_y < terrain_chunks_y) {
 			return TerrainChunks[index_y, index_x];
 		}
 
 		TChunk invalid = new TChunk ();
 		return invalid;
+
+	}
+
+	public TChunk? getChunk (int index_x, int index_y) {
+
+		if(index_x >= 0 && index_x < terrain_chunks_x && index_y >= 0 && index_y < terrain_chunks_y) {
+			return TerrainChunks[index_y, index_x];
+		}
+
+		return null;
 
 	}
 
@@ -277,13 +395,82 @@ public class GenerateTerrain : MonoBehaviour {
 
 			GameObject new_scenery_obj = (GameObject) Instantiate(SceneryObject_Prefab);
 			new_scenery_obj.transform.parent = SceneryHolder.transform;
-			new_scenery_obj.SetActive(false);
+			new_scenery_obj.GetComponent<TileIndexedObject> ().initType("scenery");
 			new_scenery_obj.GetComponent<CameraFace> ().m_Camera = camera;
+			new_scenery_obj.SetActive(false);
 
 			Scenery_Obj_Pool.Push(new_scenery_obj);
 
 		}
 
+	}
+
+
+	// sjakjlsajasklj
+	private void initPathObjPool() {
+		
+		Path_Obj_Pool = new Stack<GameObject> ();
+		
+		for (int i = 0; i < path_stack_size; ++i) {
+			
+			GameObject new_path_obj = (GameObject) Instantiate(PathObject_Prefab);
+			new_path_obj.transform.parent = SceneryHolder.transform;
+			new_path_obj.GetComponent<TileIndexedObject> ().initType("path");
+			new_path_obj.SetActive(false);
+			
+			Path_Obj_Pool.Push(new_path_obj);
+			
+		}
+		
+	}
+
+	private void initFlagObjPool() {
+		
+		Flag_Obj_Pool = new Stack<GameObject> ();
+		
+		for (int i = 0; i < flag_stack_size; ++i) {
+			
+			GameObject new_flag_obj = (GameObject) Instantiate(FlagObject_Prefab);
+			new_flag_obj.transform.parent = SceneryHolder.transform;
+			new_flag_obj.GetComponent<TileIndexedObject> ().initType("flag");
+			new_flag_obj.GetComponent<CameraFace> ().m_Camera = camera;
+			new_flag_obj.SetActive(false);
+			
+			Flag_Obj_Pool.Push(new_flag_obj);
+			
+		}
+		
+	}
+
+	private void initWHotspotObjPool() {
+		
+		WHotspot_Obj_Pool = new Stack<GameObject> ();
+		
+		for (int i = 0; i < whotspot_stack_size; ++i) {
+			
+			GameObject new_wh_obj = (GameObject) Instantiate(WaterHotspotObject_Prefab);
+			new_wh_obj.transform.parent = SceneryHolder.transform;
+			new_wh_obj.GetComponent<TileIndexedObject> ().initType("whotspot");
+			new_wh_obj.SetActive(false);
+			
+			WHotspot_Obj_Pool.Push(new_wh_obj);
+			
+		}
+		
+	}
+
+	public bool tileIsSuitableForScenery(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		return chunk.generator.tileIsSuitableForScenery (tile_index_x, tile_index_y);
+		
+	}
+
+	public bool tileIsSuitableForBridge(int chunk_index_x, int chunk_index_y, int tile_index_x, int tile_index_y) {
+		
+		TChunk chunk = loaded_chunks.getElem (chunk_index_x, chunk_index_y);
+		return chunk.generator.tileIsSuitableForBridge (tile_index_x, tile_index_y);
+		
 	}
 
 	private LevelMap[,] setWorldLevelMaps(ref List<int[,]> lmaps, int t_chunks_x, int t_chunks_y) {
@@ -301,6 +488,42 @@ public class GenerateTerrain : MonoBehaviour {
 		}
 		
 		return WorldLevelMaps;
+		
+	}
+
+	private TileTypeMap[,] setWorldTileTypeMaps(ref List<TileType[,]> wttmaps, int t_chunks_x, int t_chunks_y) {
+		
+		int counter = 0;
+		TileTypeMap[,] WorldTTypeMaps = new TileTypeMap[t_chunks_y, t_chunks_x];
+		for (int i = 0; i < t_chunks_y; ++i) {
+			for(int j = 0; j < t_chunks_x; ++j) {
+				TileType[,] ttmap = wttmaps[counter];
+				TileTypeMap map = new TileTypeMap();
+				map.setTTypeMap(j, i, ref ttmap);
+				WorldTTypeMaps[i, j] = map;
+				++counter;
+			}
+		}
+		
+		return WorldTTypeMaps;
+		
+	}
+
+	private WaterFlowDirectionMap[,] setWorldWFDMaps(ref List<WaterFlowDirection[,]> wfmaps, int t_chunks_x, int t_chunks_y) {
+		
+		int counter = 0;
+		WaterFlowDirectionMap[,] WorldWFDMaps = new WaterFlowDirectionMap[t_chunks_y, t_chunks_x];
+		for (int i = 0; i < t_chunks_y; ++i) {
+			for(int j = 0; j < t_chunks_x; ++j) {
+				WaterFlowDirection[,] wfmap = wfmaps[counter];
+				WaterFlowDirectionMap map = new WaterFlowDirectionMap();
+				map.setWFDMap(j, i, ref wfmap);
+				WorldWFDMaps[i, j] = map;
+				++counter;
+			}
+		}
+		
+		return WorldWFDMaps;
 		
 	}
 	
@@ -640,6 +863,38 @@ public struct LevelMap {
 	public int index_y;
 	public void setLevelMap(int ind_x, int ind_y, ref int[,] lmap) {
 		levels = lmap;
+		// chunk indexes in the world
+		index_x = ind_x;
+		index_y = ind_y;
+	}
+	public void invalidate() {
+		index_x = -1;
+		index_y = -1;
+	}
+};
+
+public struct TileTypeMap {
+	public TileType[,] ttypes;
+	public int index_x;
+	public int index_y;
+	public void setTTypeMap(int ind_x, int ind_y, ref TileType[,] ttpmap) {
+		ttypes = ttpmap;
+		// chunk indexes in the world
+		index_x = ind_x;
+		index_y = ind_y;
+	}
+	public void invalidate() {
+		index_x = -1;
+		index_y = -1;
+	}
+};
+
+public struct WaterFlowDirectionMap {
+	public WaterFlowDirection[,] wfdirs;
+	public int index_x;
+	public int index_y;
+	public void setWFDMap(int ind_x, int ind_y, ref WaterFlowDirection[,] wfdmap) {
+		wfdirs = wfdmap;
 		// chunk indexes in the world
 		index_x = ind_x;
 		index_y = ind_y;

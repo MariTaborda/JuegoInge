@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public enum LevelMapOrientation { N, NE, E, SE, S, SW, W, NW };
 
@@ -23,7 +25,7 @@ public enum PathType { empty, path1, bridge };
 //public enum FlagType { empty, checkpoint, arrowE, arrowNW, arrowNE, arrowW, arrowSW, arrowSE }; 
 
 
-public enum FlagType { empty, checkpoint, trash1 }; 
+public enum FlagType { empty, checkpoint, trash1, bote }; 
 
 public enum TileType { empty, high_zone, medium_zone, low_zone, beach, dirt, rocky, urban_area, rural_area };
 
@@ -63,98 +65,103 @@ public class TerrainChunk {
 
 	 */
 
-	private int chunk_index_x;
-	private int chunk_index_y;
-	private int world_chunks_x;
+	private int chunk_index_x;							// <persistent
+	private int chunk_index_y;							// <persistent
+	private int world_chunks_x;					
 	private int world_chunks_y;
-
-	private Vector3 origin;
+	
+	private Vector3 origin;				
 	private int total_tile_count;
 	private int side_tile_count;
 	private float tile_size;
 	private float slope_height;
 	private Vector3 light_direction = Vector3.left;
-
+	
 	// level map: associates a height level for every tile	
 	private int[,] level_map;
 	private List<int[]> neighbor_level_maps; 
-
+	
 	// tile type map: associates a TileType for every tile
 	private TileType[,] tile_type_map;
-
+	
 	// surface level: Y position of water surface
 	private float surface_level = -0.01f;
-
+	
 	// triangle division configuration: associates a division configuration for every tile
 	private TileDivisionConfiguration[,] tri_div_conf_map;
-
+	
 	// brightness map: associates a brigthness level for every triangle
 	private TileBrightness[,,] brightness_map;
-
+	
 	// number of individual textures in the terrain texture
 	private int num_textures_x;
 	private int num_textures_y;
 	private Vector2[,,] texture_coords; 
-
+	
 	// vars for generating terrain mesh
 	private Material[] materials;
 	private Vector3[] vertices;
 	private int[] triangles;
 	private Vector2[] uv;
-
+	
 	// associates a water flow direction for every tile
 	private WaterFlowDirection[,] flow_map;
-
+	
 	// vars for generating water surface mesh
 	private Material[] ws_materials;
 	private Vector3[] ws_vertices;
 	private int[] ws_triangles;
 	private Vector2[] ws_uv;
 	private Mesh water_surface_mesh;
-
+	
 	private Mesh mesh;
 	private MeshFilter mesh_filter;
 	private MeshRenderer mesh_renderer;
-
+	
 	// vars for generating pollution mesh
 	private Material[] pollution_materials;
-	private Vector3[] pollution_vertices;
+	private Vector3[] pollution_vertices;		
 	private int[] pollution_triangles;
 	private Vector2[] pollution_uv;
 	private Mesh pollution_mesh;
-
+	
 	// scenery map: associates a scenery value with every cell
-	private int[,] scenery_map;
-	private float scenery_density = 0.3f;
-
-	private PathType[,] path_map;
-	private FlagType[,] flag_map;
-
-	private int[,] whotspot_map;
-	private float whotspot_density = 0.1f;
-
+	private int[,] scenery_map;						// <persistent
+	private float scenery_density = 0.3f;			// <persistent
+	
+	private PathType[,] path_map;					// <persistent
+	private FlagType[,] flag_map;					// <persistent
+	
+	private int[,] whotspot_map;					// <persistent
+	private float whotspot_density = 0.1f;			// <persistent
+	
 	// stores scenery objects which are rendered and correspond to this terrain chunk 
 	private Stack<GameObject> reserved_sc_objs;
-
+	
 	private Stack<GameObject> reserved_path_objs;
 	private Stack<GameObject> reserved_flag_objs;  
-
-	private Stack<GameObject> reserved_wh_objs;
-
-	private float[,] acidity_map;
-	private float[,] oxigenation_map;
-	private float[,] turbidity_map;
-	private float[,] pollution_map;
-	private float pollution_propagation_rate = 10;
-	private bool isPolluted = false;
-	private bool pollutionChanged = false;
-	private List<Vector2> activePollutionTiles;
-
-	bool isValid = false;
 	
-	public TerrainChunk(int index_x, int index_y, int side_chunks_x, int side_chunks_y, Vector3 origin, int side_tile_count, float tile_size, float slope_height, ref int[,] level_map, TileType[,] tile_type_map, WaterFlowDirection[,] wfd_map, int num_textures_x, int num_textures_y,  ref List<int[]> neighbor_level_maps, MeshFilter mesh_filter, int zona) {
+	private Stack<GameObject> reserved_wh_objs;
+	
+	private float[,] acidity_map;					// <persistent
+	private float[,] oxigenation_map;				// <persistent
+	private float[,] turbidity_map;					// <persistent
+	private float[,] pollution_map;					// <persistent
+	private float pollution_propagation_rate = 10;	// <persistent
+	private bool isPolluted = false;				// <persistent
+	private bool pollutionChanged = false;			// <persistent
+	private List<Vector2> activePollutionTiles;		// <persistent
+	
+	bool isValid = false;							// <persistent
+	
+	public TerrainChunkDataPackage dataPackage;
+	public bool loadedFromData = false;
+
+	public TerrainChunk(int index_x, int index_y, int side_chunks_x, int side_chunks_y, Vector3 origin, int side_tile_count, float tile_size, float slope_height, ref int[,] level_map, TileType[,] tile_type_map, WaterFlowDirection[,] wfd_map, int num_textures_x, int num_textures_y,  ref List<int[]> neighbor_level_maps, MeshFilter mesh_filter, int zona, bool loadFromData) {
+		loadedFromData = loadFromData;
 		setAttributes (index_x, index_y, side_chunks_x, side_chunks_y, origin, side_tile_count, tile_size, slope_height, ref level_map, tile_type_map, wfd_map, num_textures_x, num_textures_y, ref neighbor_level_maps, mesh_filter, zona);
 		generateMesh ();
+		updateDataPackage ();
 	}
 	
 	public TerrainChunk() {
@@ -165,6 +172,7 @@ public class TerrainChunk {
 	public void setAttributes(int index_x, int index_y, int side_chunks_x, int side_chunks_y, Vector3 origin, int side_tile_count, float tile_size, float slope_height, ref int[,] level_map, TileType[,] tile_type_map, WaterFlowDirection[,] wfd_map, int textures_x, int textures_y,  ref List<int[]> neighbor_level_maps, MeshFilter mesh_filter, int zona) {
 		
 		if (level_map.Length == side_tile_count * side_tile_count) {
+
 			this.chunk_index_x = index_x;
 			this.chunk_index_y = index_y;
 			this.world_chunks_x = side_chunks_x;
@@ -183,21 +191,50 @@ public class TerrainChunk {
 			this.flow_map = wfd_map;
 			this.num_textures_x = textures_x;
 			this.num_textures_y = textures_y;
-			if (zona == 1) { 		// rural 
-				this.scenery_map = setSceneryMapRural();
-			} else if (zona == 2) { // city
-				this.scenery_map = setSceneryMapCity();
-			} else if (zona == 3) {				//  trees 
-				this.scenery_map = setSceneryMapTree();
-			} else if (zona == 4) {				//  trees end 
-				this.scenery_map = setSceneryMapTreeEnd();
-			} else {			// default
-				this.scenery_map = setSceneryMap();
+
+			reserved_sc_objs = new Stack<GameObject> ();
+			reserved_wh_objs = new Stack<GameObject> ();
+			reserved_path_objs = new Stack<GameObject> ();
+			reserved_flag_objs = new Stack<GameObject> (); 
+
+			if(loadedFromData && PersistentData.Data.SerializableData.TerrainChunks[chunk_index_y, chunk_index_x] != null) {
+				// data exists for this chunk, so load it
+				TerrainChunkDataPackage dataPackage = PersistentData.Data.SerializableData.TerrainChunks[chunk_index_y, chunk_index_x];
+
+				this.scenery_map = dataPackage.scenery_map;
+				this.path_map = dataPackage.path_map;
+				//this.flag_map = dataPackage.flag_map;
+				this.flag_map = setFlagMap();
+				this.whotspot_map = dataPackage.whotspot_map;
+				this.pollution_map = dataPackage.pollution_map;
+				this.acidity_map = dataPackage.acidity_map;
+				this.oxigenation_map = dataPackage.oxigenation_map;
+				this.turbidity_map = dataPackage.turbidity_map;
+				this.scenery_density = dataPackage.scenery_density;
+				this.whotspot_density = dataPackage.whotspot_density;
+				this.pollution_propagation_rate = dataPackage.pollution_propagation_rate;
+				this.isPolluted = dataPackage.isPolluted;
+				this.pollutionChanged = dataPackage.pollutionChanged;
+				this.activePollutionTiles = dataPackage.activePollutionTiles;
 			}
-			this.path_map = setPathMap();
-			this.flag_map = setFlagMap(); 
-			this.pollution_map = setPollutionMap();
-			this.whotspot_map = setWHotspotMap();
+			else {
+				if (zona == 1) { 		// rural 
+					this.scenery_map = setSceneryMapRural();
+				} else if (zona == 2) { // city
+					this.scenery_map = setSceneryMapCity();
+				} else if (zona == 3) {				//  trees 
+					this.scenery_map = setSceneryMapTree();
+				} else if (zona == 4) {				//  trees end 
+					this.scenery_map = setSceneryMapTreeEnd();
+				} else {			// default
+					this.scenery_map = setSceneryMap();
+				}
+				this.path_map = setPathMap();
+				this.flag_map = setFlagMap(); 
+				this.pollution_map = setPollutionMap();
+				this.whotspot_map = setWHotspotMap();
+			}
+
 			setTextureCoords();
 			isValid = true;
 		} 
@@ -209,6 +246,29 @@ public class TerrainChunk {
 			Debug.LogError (error);
 		}
 		
+	}
+
+	public void updateDataPackage() {
+		if (dataPackage == null) {
+			dataPackage = new TerrainChunkDataPackage ();
+		}
+		dataPackage.chunk_index_x = chunk_index_x;
+		dataPackage.chunk_index_y = chunk_index_y;
+		dataPackage.scenery_map = scenery_map;
+		dataPackage.scenery_density = scenery_density;
+		dataPackage.path_map = path_map;
+		dataPackage.flag_map = flag_map;
+		dataPackage.whotspot_map = whotspot_map;
+		dataPackage.whotspot_density = whotspot_density;
+		dataPackage.acidity_map = acidity_map;
+		dataPackage.oxigenation_map = oxigenation_map;
+		dataPackage.turbidity_map = turbidity_map;
+		dataPackage.pollution_map = pollution_map;
+		dataPackage.pollution_propagation_rate = pollution_propagation_rate;
+		dataPackage.isPolluted = isPolluted;
+		dataPackage.pollutionChanged = pollutionChanged;
+		dataPackage.activePollutionTiles = activePollutionTiles;
+		dataPackage.isValid = isValid;
 	}
 
 	// generates terrain and water surface meshes
@@ -992,10 +1052,12 @@ public class TerrainChunk {
 
 	// unloads/unrenders all water hotspots objects on this chunk.
 	public void unloadWHotspots(ref Stack<GameObject> wh_obj_pool) {
-		
-		while (reserved_wh_objs.Count > 0) {
-			GameObject obj = reserved_wh_objs.Pop();
-			unloadWHotspotObject(obj, ref wh_obj_pool);
+
+		if (reserved_wh_objs != null) {
+			while (reserved_wh_objs.Count > 0) {
+				GameObject obj = reserved_wh_objs.Pop ();
+				unloadWHotspotObject (obj, ref wh_obj_pool);
+			}
 		}
 		
 	}
@@ -1214,10 +1276,12 @@ public class TerrainChunk {
 
 	// unloads/unrenders all path objects on this chunk.
 	public void unloadPaths(ref Stack<GameObject> path_obj_pool) {
-		
-		while (reserved_path_objs.Count > 0) {
-			GameObject obj = reserved_path_objs.Pop();
-			unloadPathObject(obj, ref path_obj_pool);
+
+		if (reserved_path_objs != null) {
+			while (reserved_path_objs.Count > 0) {
+				GameObject obj = reserved_path_objs.Pop();
+				unloadPathObject(obj, ref path_obj_pool);
+			}
 		}
 		
 	}
@@ -1567,8 +1631,7 @@ public class TerrainChunk {
 
 	// sets a scenery type for every tile
 	private int[,] setSceneryMap() {
-		
-		reserved_sc_objs = new Stack<GameObject> ();
+
 		int[,] result = initSceneryMap ();
 		int scenery_instances = Mathf.FloorToInt(side_tile_count * side_tile_count * scenery_density);
 
@@ -1634,7 +1697,14 @@ public class TerrainChunk {
 		if (chunk_index_x == 0 && chunk_index_y == 14) {
 			result [2, 22] = FlagType.checkpoint;
 		}
-
+		// basura:
+		if (chunk_index_x == 5 && chunk_index_y == 12) {
+			result [9, 9] = FlagType.trash1;
+		}
+		// basura2:
+		if (chunk_index_x == 1 && chunk_index_y == 12) {
+			result [16, 17] = FlagType.bote;
+		}
 
 		return result;
 		
@@ -2308,5 +2378,28 @@ public class TerrainChunk {
 		// Cross the vectors to get a perpendicular vector, then normalize it.
 		return Vector3.Cross(side1, side2).normalized;
 	}
+	
+}
+
+// All data that needs to be saved for correct chunk regeneration must be referenced here
+[Serializable]
+public class TerrainChunkDataPackage {
+	public int chunk_index_x;							
+	public int chunk_index_y;			
+	public int[,] scenery_map;						
+	public float scenery_density;					
+	public PathType[,] path_map;					
+	public FlagType[,] flag_map;					
+	public int[,] whotspot_map;					
+	public float whotspot_density;					
+	public float[,] acidity_map;					
+	public float[,] oxigenation_map;				
+	public float[,] turbidity_map;					
+	public float[,] pollution_map;					
+	public float pollution_propagation_rate;		
+	public bool isPolluted;				
+	public bool pollutionChanged;			
+	public List<Vector2> activePollutionTiles;		
+	public bool isValid;
 	
 }

@@ -6,7 +6,7 @@ public class MoveCamera : MonoBehaviour {
 	public float speed;
 	public float camera_speed = 5f;
 	public float damping = 1f;
-	private float cameraHeight;
+	public float cameraHeight;
 
 	public bool following;
 	public GameObject target;

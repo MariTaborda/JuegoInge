@@ -29,12 +29,12 @@ public class MissionBuildBridgeBack : Mission {
 	
 	// change mission title here
 	void setTitle() {
-		title = "Es hora de regresar a nuestro lado del rio!";
+		title = "Es hora de regresar!!";
 	}
 	
 	// change mission description section text here
 	void setDescriptionText() {
-		description = "Ya sabes que hacer, ve con el constructor y su martillo para crear un puente!";
+		description = "Volvamos a nuestro lado del rio. Ya sabes que hacer, ve con el constructor y su martillo para crear un puente!";
 	}
 	
 	// change mission hints here
@@ -49,13 +49,13 @@ public class MissionBuildBridgeBack : Mission {
 	
 	// change mission completion text section here
 	void setCompletionText() {
-		completion_text = "¡Lo has logrado! Ahora a lo que vinimos!!";
+		completion_text = "¡Lo has logrado! Pongamos a prueba lo aprendido!!";
 	}
 	
 	// change mission rewards section text here
 	void setRewardsText() {
 		rewards = new List<string> ();
-		rewards.Add ("25 Eco puntos");
+
 	}
 	
 	/*
@@ -114,15 +114,15 @@ public class MissionBuildBridgeBack : Mission {
 
 			if ((new_builder_pos.x < 48 && new_builder_pos.x > 45) && 
 			    (new_builder_pos.y < 2 && new_builder_pos.y > 0) &&
-			    (new_builder_pos.z < -199 && new_builder_pos.z > -196) ) {
+			    (new_builder_pos.z < -195 && new_builder_pos.z > -199) ) {
 
 				if ((new_explorer_pos.x < 48 && new_explorer_pos.x > 45) && 
 				    (new_explorer_pos.y < 2 && new_explorer_pos.y > 0) &&
-				    (new_explorer_pos.z < -199 && new_explorer_pos.z > -196) ) {
+				    (new_explorer_pos.z < -195 && new_explorer_pos.z > -199) ) {
 
 					if ((new_scientist_pos.x < 48 && new_scientist_pos.x > 45) && 
 					    (new_scientist_pos.y < 2 && new_scientist_pos.y > 0) &&
-					    (new_scientist_pos.z < -199 && new_scientist_pos.z > -196) ) {
+					    (new_scientist_pos.z < -195 && new_scientist_pos.z > -199) ) {
 							Debug.Log("soy la bandera fin de analisis PH");
 							return true; 
 						}

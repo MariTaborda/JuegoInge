@@ -80,10 +80,19 @@ public class GenerateTerrainChunk : MonoBehaviour {
 			// zona ciudad = 2
 			zona = 2;
 			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+		} else if (index_x == 3 && index_y == 8) {
+			// zona arboles = 3
+			zona = 3;
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
+		} else if (index_x == 4 && index_y == 9) {
+			// zona arboles end = 4
+			zona = 4;
+			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
 		} else {
 			// default no zone 0 
 			tc = new TerrainChunk (index_x, index_y, terrain_chunks_x, terrain_chunks_y, origin, side_tile_count, tile_size, slope_height, ref WorldLevelMaps[index_y, index_x].levels, WorldTileTypeMaps[index_y, index_x].ttypes, WorldWFDMaps[index_y, index_x].wfdirs, textures_x, textures_y, ref neighbor_level_maps, mesh_filter, zona);
 		}
+
 		mesh = tc.getMesh ();
 		bounds = mesh.bounds;
 		mesh_filter.mesh = mesh;
@@ -111,6 +120,11 @@ public class GenerateTerrainChunk : MonoBehaviour {
 
 	public PathType[,] getPathMap() {
 		return tc.getPathMap ();
+	}
+
+	// flag
+	public FlagType[,] getFlagMap() {
+		return tc.getFlagMap ();
 	}
 
 	// generate water surface mesh
@@ -180,6 +194,29 @@ public class GenerateTerrainChunk : MonoBehaviour {
 		tc.unloadPaths (ref path_obj_pool);
 	}
 
+
+	// flag
+	// 
+	public void loadFlags(ref Stack<GameObject> flag_obj_pool) {
+		tc.renderFlags (index_x, index_y, ref flag_obj_pool);
+	}
+	
+	// flag
+	public void unloadFlags(ref Stack<GameObject> flag_obj_pool) {
+		tc.unloadFlags (ref flag_obj_pool);
+	}
+
+
+
+
+	public void loadWHotspots(ref Stack<GameObject> whotspot_obj_pool) {
+		tc.renderWHotspots (index_x, index_y, ref whotspot_obj_pool);
+	}
+
+	public void unloadWHotspots(ref Stack<GameObject> whotspot_obj_pool) {
+		tc.unloadWHotspots (ref whotspot_obj_pool);
+	}
+
 	// destroy a scenery object on this chunk
 	public void destroySceneryObject(GameObject obj, ref Stack<GameObject> scenery_obj_pool) {
 		tc.unloadSceneryObject (obj, ref scenery_obj_pool);
@@ -194,6 +231,22 @@ public class GenerateTerrainChunk : MonoBehaviour {
 	// returns true if the tile contains a path object
 	public bool tileContainsPath(int lmap_index_x, int lmap_index_y) {
 		return tc.getPathMap () [lmap_index_x, lmap_index_y] != PathType.empty;
+	}
+
+
+	// flag
+	public void destroyFlagObject(int lmap_index_x, int lmap_index_y) {
+		tc.getFlagMap () [lmap_index_x, lmap_index_y] = FlagType.empty;
+	}
+	
+	// flag
+	public bool tileContainsFlag(int lmap_index_x, int lmap_index_y) {
+		return tc.getFlagMap () [lmap_index_x, lmap_index_y] != FlagType.empty;
+	}
+
+	// returns true if the tile contains a water hotspot object
+	public bool tileContainsWHotspot(int lmap_index_x, int lmap_index_y) {
+		return tc.getWHotspotMap () [lmap_index_x, lmap_index_y] != 0;
 	}
 
 	private void calcUvOffsets() {
