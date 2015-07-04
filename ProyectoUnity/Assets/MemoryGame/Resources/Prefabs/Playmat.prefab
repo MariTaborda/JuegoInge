@@ -151,7 +151,7 @@ MonoBehaviour:
   Points: 0
   NumberOfCardsFlipped: 0
   state: 0
-  cardPrefab: {fileID: 118080, guid: a3ea7d51a8853934d80e4cb99f41f93c, type: 2}
+  cardPrefab: {fileID: 147140, guid: a3ea7d51a8853934d80e4cb99f41f93c, type: 2}
   layout:
     layoutNames:
     - Skeleton

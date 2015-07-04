@@ -17,7 +17,7 @@ public class GameSettings
 
 	public enum GameDifficulty {Easy, Medium, Hard}
 	public GameDifficulty difficulty= GameDifficulty.Easy;
-	private string[] easyDifficulty = {"1","2","3","4"};
+	private string[] easyDifficulty = {"1","2","3","4","5","8"};
 	private string[] mediumDifficulty= {"1","2","3","4","5","6","7"};
 	private string[] hardDifficulty= {"1","2","3","4","5","6","7","8","9"};
 
